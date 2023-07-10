@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Frame x:Name="Main"/>
+        <Image HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="810" Source="Images/Jeux-video.jpg" Stretch="UniformToFill"/>
+        <Button Content="Create an account" Foreground="White" Background="#FF0020" HorizontalAlignment="Center" Margin="0,362,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Register"/>
+        <Button Content="Login" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Center" Margin="0,299,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Login"/>
+        <Label Content="Login" HorizontalAlignment="Left" Margin="367,120,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="20" Background="{x:Null}"/>
+        <Label Content="Welcome to RentalGames" Foreground="Black" HorizontalAlignment="Center" Margin="0,49,0,0" VerticalAlignment="Top" FontSize="30" Width="350" Background="{x:Null}"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" Text="Enter Username" VerticalAlignment="Top" Width="120" FontSize="16"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Center" Margin="0,236,0,0" TextWrapping="Wrap" Text="Enter Password" VerticalAlignment="Top" Width="120" FontSize="16"/>
 
     </Grid>
 </Window>

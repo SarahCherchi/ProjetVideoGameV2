@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProjectVideoGameV2.View;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProjetVideoGameV2
 {
@@ -24,5 +12,23 @@ namespace ProjetVideoGameV2
         {
             InitializeComponent();
         }
+
+        
+
+        private void Button_Login(object sender, RoutedEventArgs e)
+        {
+            
+            Home_Page hp = new Home_Page();
+            this.Content = hp;
+               
+            
+        }
+
+        private void Button_Register(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+
 }
+

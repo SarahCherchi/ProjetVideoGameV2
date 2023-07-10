@@ -27,10 +27,28 @@ namespace ProjetVideoGameV2.Model.Dao
             return success;
         }
 
-        public override bool Delete(VideoGames obj)
+        public override bool Delete(int id)
         {
-            return false;
+            bool success = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("DELETE FROM dbo.VideoGame WHERE idVideoGame = @id", connection);
+                    cmd.Parameters.AddWithValue("id", id);
+                    connection.Open();
+                    int res = cmd.ExecuteNonQuery();
+                    success = res > 0;
+                }
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Une erreur sql s'est produite!");
+                return success;
+            }
+            return success;
         }
+
         public override bool Update(VideoGames obj)
         {
             bool success = false;

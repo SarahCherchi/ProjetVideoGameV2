@@ -18,7 +18,7 @@ namespace ProjectVideoGameV2.POCO
 
         public Player()
         {
-
+           
         }
 
         public Player(int idPlayer, int credit, string pseudo, DateTime registrationDate, DateTime dateOfBirth)
@@ -78,5 +78,12 @@ namespace ProjectVideoGameV2.POCO
             get { return copyList; }
             set{copyList = value; }
         }
+
+        /*public bool createPlayer()
+        {
+            return playerDAO.Create();
+        }*/
+
+
     }
 }

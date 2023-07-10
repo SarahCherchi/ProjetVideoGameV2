@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ProjetVideoGameV2.Model.Dao;
+using System.Collections.Generic;
 
 namespace ProjectVideoGameV2.POCO
 
@@ -30,7 +31,7 @@ namespace ProjectVideoGameV2.POCO
         public int IdVideoGames
         {
             get { return idVideoGames; }
-            set { idVideoGames = value; } 
+            set { idVideoGames = value; }
         }
 
         public string Name
@@ -61,6 +62,19 @@ namespace ProjectVideoGameV2.POCO
         {
             get { return copyList; }
             set { copyList = value; }
+        }
+
+
+        public static List<VideoGames> FindAll()
+        {
+            VideoGamesDAO vgDAO = new VideoGamesDAO();
+            return vgDAO.FindAll();
+        }
+
+        public bool CopyAvailable(int id)
+        {
+            VideoGamesDAO vgDAO = new VideoGamesDAO();
+            return vgDAO.CopyAvailable(id);
         }
     }
 }

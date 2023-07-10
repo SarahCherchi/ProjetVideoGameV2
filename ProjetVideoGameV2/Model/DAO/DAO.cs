@@ -13,7 +13,7 @@ namespace ProjetVideoGameV2.Model.DAO
         }
         public abstract bool Create(T obj);
         public abstract bool Delete(int id);
-        public abstract bool Update(int id);
+        public abstract bool Update(T obj);
         public abstract T Find(int id);
         public abstract List<T> FindAll();
 

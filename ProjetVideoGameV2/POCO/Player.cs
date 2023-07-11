@@ -85,6 +85,38 @@ namespace ProjetVideoGameV2.POCO
             return playerDAO.Create(player);
         }
 
+        public bool deletePlayer(int id)
+        {
+            return playerDAO.Delete(id);
+        }
 
+        public bool updatePlayer(Player player)
+        {
+            return playerDAO.Update(player);
+        }
+
+        public Player findPlayer(int id)
+        {
+            return playerDAO.Find(id);
+        }
+
+        public Player loginPlayer(Player player)
+        {
+            return playerDAO.Login(player);
+        }
+
+        public List<Player> findAllPlayer()
+        {
+            return playerDAO.FindAll();
+        }
+
+        public void addBirthday()
+        {
+            Player player = findPlayer(idPlayer);
+            if (player.DateOfBirth.Day == DateTime.Now.Day && player.DateOfBirth.Month == DateTime.Now.Month)
+            {
+                player.Credit += 2;
+            }
+        }
     }
 }

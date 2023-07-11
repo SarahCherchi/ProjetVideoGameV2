@@ -8,20 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <Label Content="Home" Foreground="Black" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" FontSize="30" Width="92" Background="{x:Null}"/>
-        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="721,16,0,0" VerticalAlignment="Top" Background="#FFFF0020" Click="Button_Search"/>
-        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,112,229,112" SelectionChanged="dgVideoGames_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
-                <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
-                <DataGridTextColumn Header="Available" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Renting" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Left" Margin="32,366,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Renting"/>
-        <Image HorizontalAlignment="Left" Height="17" Margin="651,17,0,0" VerticalAlignment="Top" Width="30" Source="/WPF/coin.png" RenderTransformOrigin="1.783,0.552"/>
-        <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
-        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="681,12,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Frame x:Name="Main"/>
+        <Button Content="Create an account" Foreground="White" Background="#FF0020" HorizontalAlignment="Center" Margin="0,362,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Register"/>
+        <Button Content="Login" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Center" Margin="0,299,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Login"/>
+        <Label Content="Login" HorizontalAlignment="Left" Margin="367,120,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="20" Background="{x:Null}"/>
+        <Label Content="Welcome to RentalGames" Foreground="Black" HorizontalAlignment="Center" Margin="0,49,0,0" VerticalAlignment="Top" FontSize="30" Width="350" Background="{x:Null}"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="397,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="145" FontSize="16"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="397,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" FontSize="16"/>
+        <Label Content="Enter username :" HorizontalAlignment="Left" Margin="258,0,0,0" VerticalAlignment="Center" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Enter password :" HorizontalAlignment="Left" Margin="258,250,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
     </Grid>
 </UserControl>

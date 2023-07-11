@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetVideoGameV2.Model.Dao;
+using System;
 using System.Collections.Generic;
 
 namespace ProjetVideoGameV2.POCO
@@ -14,6 +15,7 @@ namespace ProjetVideoGameV2.POCO
         private List<Booking> bookingsList;
         private List<Copy> copyList;
         private List<Loan> loanList;
+        private PlayerDAO playerDAO;
 
         public Player()
         {
@@ -78,10 +80,10 @@ namespace ProjetVideoGameV2.POCO
             set{copyList = value; }
         }
 
-        /*public bool createPlayer()
+        public bool createPlayer(Player player)
         {
-            return playerDAO.Create();
-        }*/
+            return playerDAO.Create(player);
+        }
 
 
     }

@@ -1,5 +1,5 @@
-﻿using ProjectVideoGameV2.POCO;
-using ProjetVideoGameV2.Model.Dao;
+﻿using ProjetVideoGameV2.Model.DAO;
+using ProjetVideoGameV2.POCO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ namespace ProjetVideoGameV2.Model.Dao
 {
     internal class PlayerDAO : DAO<Player>
     {
-        public PlayersDAO(){ }
+        public PlayerDAO(){ }
 
         public override bool Create(Player obj)
         {
@@ -56,7 +56,7 @@ namespace ProjetVideoGameV2.Model.Dao
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 SqlCommand cmd = new SqlCommand($"UPDATE dbo.Player SET dateOfBirth = '{obj.Pseudo}' WHERE idUser = @id", connection);
-                cmd.Parameters.AddWithValue("id", obj.idUser);
+                cmd.Parameters.AddWithValue("id", obj.IdUser);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();
                 success = res > 0;
@@ -83,16 +83,16 @@ namespace ProjetVideoGameV2.Model.Dao
                         {
                             player = new Player
                             {
-                                IdPlayer = reader.GetInt32("idUser");
-                                Pseudo = reader.GetString("pseudo");
-                                UserName = reader.GetString("username");
-                                Password = reader.GetString("password");
-                                Credit = reader.GetInt32("credit");
-                                RegistrationDate = reader.GetDateTime("registrationDate");
-                                DateOfBirth = reader.GetDateTime("dateOfBirth");
-                                BookingsList = new List<Booking>();
-                                CopyList = new List<Copy>();
-                                LoanList = new List<Loan>();
+                                IdPlayer = reader.GetInt32("idUser"),
+                                Pseudo = reader.GetString("pseudo"),
+                                UserName = reader.GetString("username"),
+                                Password = reader.GetString("password"),
+                                Credit = reader.GetInt32("credit"),
+                                RegistrationDate = reader.GetDateTime("registrationDate"),
+                                DateOfBirth = reader.GetDateTime("dateOfBirth"),
+                                BookingsList = new List<Booking>(),
+                                CopyList = new List<Copy>(),
+                                LoanList = new List<Loan>(),
                             };
                         }
                     }
@@ -112,7 +112,7 @@ namespace ProjetVideoGameV2.Model.Dao
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
 
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT * FROM dbo.[User] WHERE username = {obj.Username} AND password = {obj.Password}", connection);
+                    SqlCommand cmd = new SqlCommand($"SELECT * FROM dbo.[User] WHERE username = {obj.UserName} AND password = {obj.Password}", connection);
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

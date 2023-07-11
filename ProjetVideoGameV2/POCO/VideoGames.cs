@@ -1,7 +1,7 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
 using System.Collections.Generic;
 
-namespace ProjectVideoGameV2.POCO
+namespace ProjetVideoGameV2.POCO
 
 {
     internal class VideoGames

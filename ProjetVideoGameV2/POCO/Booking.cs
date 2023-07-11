@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectVideoGameV2.POCO
+namespace ProjetVideoGameV2.POCO
 {
     internal class Booking
     {

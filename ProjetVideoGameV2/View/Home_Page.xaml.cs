@@ -1,4 +1,4 @@
-﻿using ProjectVideoGameV2.POCO;
+﻿using ProjetVideoGameV2.POCO;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

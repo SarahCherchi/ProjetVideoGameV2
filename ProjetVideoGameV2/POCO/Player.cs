@@ -1,8 +1,7 @@
-﻿using ProjetVideoGameV2.POCO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace ProjectVideoGameV2.POCO
+namespace ProjetVideoGameV2.POCO
 
 {
     internal class Player : User

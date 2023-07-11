@@ -1,5 +1,5 @@
-﻿using ProjectVideoGameV2.POCO;
-using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.DAO;
+using ProjetVideoGameV2.POCO;
 using System;
 using System.Collections.Generic;
 using System.Data;

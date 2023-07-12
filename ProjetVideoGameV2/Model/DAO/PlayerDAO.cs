@@ -105,37 +105,51 @@ namespace ProjetVideoGameV2.Model.Dao
             return player;
         }
 
-        public Player Login(Player obj)
+        public Player Login(string username, string password)
         {
+
+            Player player = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
 
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT * FROM dbo.[User] WHERE username = {obj.UserName} AND password = {obj.Password}", connection);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.[User] WHERE username = @username AND password = @password", connection);
+                    cmd.Parameters.AddWithValue("username", username);
+                    cmd.Parameters.AddWithValue("password", password);
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            obj.RegistrationDate = reader.GetDateTime("registrationDate");
-                            obj.DateOfBirth = reader.GetDateTime("dateOfBirth");
-                            obj.Pseudo = reader.GetString("pseudo");
-                            obj.Credit = reader.GetInt32("credit");
-                            obj.Role = reader.GetBoolean("role");
+                            player = new Player();
+
+                            player.UserName = reader.GetString("username");
+                            player.Password = reader.GetString("password");
+                            player.RegistrationDate = reader.GetDateTime("registrationDate");
+                            player.DateOfBirth = reader.GetDateTime("dateOfBirth");
+                            player.Pseudo = reader.GetString("pseudo");
+                            player.Credit = reader.GetInt32("credit");
+                            player.Role = reader.GetBoolean("role");
 
                         }
                     }
                 }
             }
+
+
             catch (SqlException)
             {
                 throw new Exception("Une erreur sql s'est produite!");
             }
-            return obj;
-        }
 
-        public override List<Player> FindAll()
+            return player;
+
+
+        }
+    
+
+    public override List<Player> FindAll()
         {
             List<Player> players = new List<Player>();
 

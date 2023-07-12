@@ -10,7 +10,7 @@ namespace ProjectVideoGameV2.View
     public partial class Home_Page : UserControl
     {
 
-        public Home_Page()
+        public Home_Page(string pseudo, int credit)
         {
             InitializeComponent();
             List<VideoGames> vg = VideoGames.FindAll();

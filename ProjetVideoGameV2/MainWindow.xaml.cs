@@ -1,5 +1,8 @@
 ﻿using ProjectVideoGameV2.View;
+using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
+using ProjetVideoGameV2.View;
 using System.Windows;
 
 namespace ProjetVideoGameV2
@@ -23,14 +26,26 @@ namespace ProjetVideoGameV2
 
         private void Button_Login(object sender, RoutedEventArgs e)
         {
-            Player player = new Player();
-            player.UserName = Username.Text;
-            player.Password = Password.Text;
-            player = player.loginPlayer(player);
-            /*Home_Page hp = new Home_Page(player);
-            this.Content = hp;*/
+            AdminDAO adminDAO = new AdminDAO();
+            Administrator admin = new Administrator();
+            adminDAO.Login(Username.Text, Password.Text);
+            admin.Role = adminDAO.Login(Username.Text, Password.Text).Role;
+            Admin_Page ap = new Admin_Page();
+            this.Content = ap;
+            if (admin.Role != true)
+            {
+                PlayerDAO playerDAO = new PlayerDAO();
+                Player u = new Player();
+                u.Login(Username.Text, Password.Text);
+                u.Pseudo = playerDAO.Login(Username.Text, Password.Text).Pseudo;
+                u.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
+                u.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
+                u.Password = playerDAO.Login(Username.Text, Password.Text).Password;
+                Home_Page hp = new Home_Page(u.Pseudo, u.Credit);
+                this.Content = hp;
+            }
         }
-    }
 
+    }
 }
 

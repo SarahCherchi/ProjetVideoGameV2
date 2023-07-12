@@ -1,4 +1,6 @@
 ﻿
+using ProjetVideoGameV2.Model.Dao;
+
 namespace ProjetVideoGameV2.POCO
 {
     abstract internal class User
@@ -46,5 +48,13 @@ namespace ProjetVideoGameV2.POCO
             set { role = value; }
         }
 
+        public User Login(string username, string password)
+        {
+            PlayerDAO player = new PlayerDAO();
+            return player.Login(username, password);
+        }
+
     }
+
+    
 }

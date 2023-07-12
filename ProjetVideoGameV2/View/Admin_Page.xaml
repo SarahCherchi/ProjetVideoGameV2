@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ProjetVideoGameV2.View.Admin_Page"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjetVideoGameV2.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Label Content="Home Admin" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="30" Width="184" Background="{x:Null}"/>
+        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,65,229,159" SelectionChanged="dgVideoGames_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
+                <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="Credit" HorizontalAlignment="Left" Margin="32,359,0,0" TextWrapping="Wrap" Text="Enter the credit cost" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
+        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="32,316,0,0" TextWrapping="Wrap" Text="Enter the ID of the Video Games" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
+        <Button Content="Update" Foreground="White" HorizontalAlignment="Left" Margin="32,401,0,0" VerticalAlignment="Top" Height="25" Width="216" Click="Button_Search" Background="#FF2E65CF"/>
+
+    </Grid>
+</UserControl>

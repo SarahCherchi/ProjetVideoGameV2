@@ -100,9 +100,9 @@ namespace ProjetVideoGameV2.POCO
             return playerDAO.Find(id);
         }
 
-        public Player loginPlayer(Player player)
+        public Player loginPlayer(String username, String pw)
         {
-            return playerDAO.Login(player);
+            return playerDAO.Login(username, pw);
         }
 
         public List<Player> findAllPlayer()

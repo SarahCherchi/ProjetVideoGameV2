@@ -14,9 +14,15 @@ namespace ProjectVideoGameV2.View
         {
             InitializeComponent();
             List<VideoGames> vg = VideoGames.FindAll();
+
+            foreach (var game in vg)
+            {
+                bool copyAvailable = VideoGames.CopyAvailable(game.IdVideoGames);
+                game.Available = copyAvailable ? "Yes" : "No";
+            }
+
+
             dgVideoGames.ItemsSource = vg;
-
-
         }
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -13,6 +13,8 @@ namespace ProjetVideoGameV2.POCO
         private List<Booking> bookingList;
         private List<Copy> copyList;
 
+        public string Available { get; set; }
+
         public VideoGames()
         {
 
@@ -71,7 +73,7 @@ namespace ProjetVideoGameV2.POCO
             return vgDAO.FindAll();
         }
 
-        public bool CopyAvailable(int id)
+        public static bool CopyAvailable(int id)
         {
             VideoGamesDAO vgDAO = new VideoGamesDAO();
             return vgDAO.CopyAvailable(id);

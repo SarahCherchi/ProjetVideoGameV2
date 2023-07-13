@@ -185,14 +185,14 @@ namespace ProjetVideoGameV2.Model.Dao
         public bool CopyAvailable(int id)
         {
             bool success = false;
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Copy WHERE idVideoGame = @id", connection);
-                cmd.Parameters.AddWithValue("id", id);
-                connection.Open();
-                int res = cmd.ExecuteNonQuery();
-                success = res > 0;
-            }
+             using (SqlConnection connection = new SqlConnection(this.connectionString))
+    {
+        SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Copy WHERE idVideoGame = @id AND idLoan IS NULL", connection);
+        cmd.Parameters.AddWithValue("@id", id);
+        connection.Open();
+        int count = (int)cmd.ExecuteScalar();
+        success = count > 0;
+    }
             return success;
         }
 

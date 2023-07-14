@@ -20,8 +20,8 @@ namespace ProjetVideoGameV2
 
         private void Button_Register(object sender, RoutedEventArgs e)
         {
-            /*Register_Page rp = new Register_Page();
-            this.Content = rp;*/
+            Register_Page rp = new Register_Page();
+            this.Content = rp;
         }
 
         private void Button_Login(object sender, RoutedEventArgs e)
@@ -41,8 +41,8 @@ namespace ProjetVideoGameV2
                 player.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
                 player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
                 player.Password = playerDAO.Login(Username.Text, Password.Text).Password;
-                player.addBirthday;
-                Home_Page hp = new Home_Page(u.Pseudo, u.Credit);
+                //player.addBirthday();
+                Home_Page hp = new Home_Page();
                 this.Content = hp;
             }
         }

@@ -17,16 +17,19 @@ namespace ProjetVideoGameV2.Model.Dao
         {
             bool success = false;
             string formattedDateOfBirth = obj.DateOfBirth.ToString("yyyy-MM-dd");
+            string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.[User](username, password, credit, pseudo, registrationDate, dateOfBirth, role) VALUES('{obj.UserName}','{obj.Password}','{10}','{obj.Pseudo}','{DateOnly.FromDateTime(DateTime.Now)}','{formattedDateOfBirth}','{0}')", connection);
+                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.[User] (username, password, credit, pseudo, registrationDate, dateOfBirth, role) VALUES ('{obj.UserName}', '{obj.Password}', '10', '{obj.Pseudo}', '{formattedDateNow}', '{formattedDateOfBirth}', '0')", connection);
                 connection.Open();
-                int res = cmd.ExecuteNonQuery(); 
+                int res = cmd.ExecuteNonQuery();
                 success = res > 0;
             }
 
             return success;
         }
+
 
         public override bool Delete(int id)
         {

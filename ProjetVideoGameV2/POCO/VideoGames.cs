@@ -14,9 +14,9 @@ namespace ProjetVideoGameV2.POCO
         private bool isAvailable;
         private List<Booking> bookingList;
         private List<Copy> copyList;
-        private VideoGamesDAO videoGamesDAO;
+        private static VideoGamesDAO videoGamesDAO = new VideoGamesDAO(); 
 
-        public string Available { get; set; }
+        
 
         public VideoGames()
         {

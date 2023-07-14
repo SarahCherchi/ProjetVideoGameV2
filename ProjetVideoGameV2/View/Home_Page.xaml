@@ -15,7 +15,7 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
                 <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
-				<DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopyAvailable}" />
+				<DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopy}" />
                 <DataGridTextColumn Header="Available" Binding="{Binding IsAvailable}" />
             </DataGrid.Columns>
         </DataGrid>

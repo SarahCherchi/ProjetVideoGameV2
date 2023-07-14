@@ -15,7 +15,7 @@ namespace ProjetVideoGameV2.POCO
         private List<Booking> bookingsList;
         private List<Copy> copyList;
         private List<Loan> loanList;
-        private PlayerDAO playerDAO;
+        private static PlayerDAO playerDAO = new PlayerDAO();
 
         public Player()
         {
@@ -110,7 +110,7 @@ namespace ProjetVideoGameV2.POCO
             return playerDAO.FindAll();
         }
 
-        public static void addBirthday()
+        public void addBirthday()
         {
             Player player = findPlayer(idPlayer);
             if (player.DateOfBirth.Day == DateTime.Now.Day && player.DateOfBirth.Month == DateTime.Now.Month)

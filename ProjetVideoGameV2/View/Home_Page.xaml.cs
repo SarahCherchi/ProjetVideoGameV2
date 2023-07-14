@@ -14,6 +14,8 @@ namespace ProjectVideoGameV2.View
         public Home_Page()
         {
             InitializeComponent();
+            //Player player = new Player();
+            //player.addBirthday();
             List<VideoGames> vg = VideoGames.FindAll();
 
             foreach (var game in vg)

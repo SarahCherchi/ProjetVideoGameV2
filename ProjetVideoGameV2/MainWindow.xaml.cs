@@ -35,12 +35,13 @@ namespace ProjetVideoGameV2
             if (admin.Role != true)
             {
                 PlayerDAO playerDAO = new PlayerDAO();
-                Player u = new Player();
-                u.Login(Username.Text, Password.Text);
-                u.Pseudo = playerDAO.Login(Username.Text, Password.Text).Pseudo;
-                u.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
-                u.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
-                u.Password = playerDAO.Login(Username.Text, Password.Text).Password;
+                Player player = new Player();
+                player.Login(Username.Text, Password.Text);
+                player.Pseudo = playerDAO.Login(Username.Text, Password.Text).Pseudo;
+                player.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
+                player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
+                player.Password = playerDAO.Login(Username.Text, Password.Text).Password;
+                player.addBirthday;
                 Home_Page hp = new Home_Page(u.Pseudo, u.Credit);
                 this.Content = hp;
             }

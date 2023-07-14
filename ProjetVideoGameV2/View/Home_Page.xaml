@@ -15,7 +15,8 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
                 <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
-                <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
+				<DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopyAvailable}" />
+                <DataGridTextColumn Header="Available" Binding="{Binding IsAvailable}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Renting" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Left" Margin="32,366,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Renting"/>

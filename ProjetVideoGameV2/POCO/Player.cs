@@ -80,37 +80,37 @@ namespace ProjetVideoGameV2.POCO
             set{copyList = value; }
         }
 
-        public bool createPlayer(Player player)
+        public static bool createPlayer(Player player)
         {
             return playerDAO.Create(player);
         }
 
-        public bool deletePlayer(int id)
+        public static bool deletePlayer(int id)
         {
             return playerDAO.Delete(id);
         }
 
-        public bool updatePlayer(Player player)
+        public static bool updatePlayer(Player player)
         {
             return playerDAO.Update(player);
         }
 
-        public Player findPlayer(int id)
+        public static Player findPlayer(int id)
         {
             return playerDAO.Find(id);
         }
 
-        public Player loginPlayer(String username, String pw)
+        public static Player loginPlayer(String username, String pw)
         {
             return playerDAO.Login(username, pw);
         }
 
-        public List<Player> findAllPlayer()
+        public static List<Player> findAllPlayer()
         {
             return playerDAO.FindAll();
         }
 
-        public void addBirthday()
+        public static void addBirthday()
         {
             Player player = findPlayer(idPlayer);
             if (player.DateOfBirth.Day == DateTime.Now.Day && player.DateOfBirth.Month == DateTime.Now.Month)

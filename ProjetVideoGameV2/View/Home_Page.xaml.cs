@@ -1,4 +1,5 @@
-﻿using ProjetVideoGameV2.Model.Dao;
+﻿using ProjetVideoGameV2;
+using ProjetVideoGameV2.Model.Dao;
 using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
 using System;
@@ -58,6 +59,16 @@ namespace ProjectVideoGameV2.View
         {
             Test test = new Test();
             this.Content = test;
+        }
+
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
+
         }
     }
 }

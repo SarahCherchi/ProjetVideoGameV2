@@ -8,14 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label Content="Home" Foreground="Black" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" FontSize="30" Width="92" Background="{x:Null}"/>
-        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="721,16,0,0" VerticalAlignment="Top" Background="#FFFF0020" Click="Button_Search"/>
+        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="653,24,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search"/>
         <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,112,229,112" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
                 <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
-				<DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopy}" />
+                <DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopy}" />
                 <DataGridTextColumn Header="Available" Binding="{Binding IsAvailable}" />
                 <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
@@ -23,13 +23,14 @@
                             <Button Content="Book" Foreground="White" Background="LightSlateGray" Click="Button_Booking"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                        
+
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Renting" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Left" Margin="32,366,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Renting"/>
-        <Image HorizontalAlignment="Left" Height="17" Margin="651,17,0,0" VerticalAlignment="Top" Width="30" Source="/WPF/coin.png" RenderTransformOrigin="1.783,0.552"/>
+        <Image HorizontalAlignment="Left" Height="17" Margin="583,25,0,0" VerticalAlignment="Top" Width="30" Source="/WPF/coin.png" RenderTransformOrigin="1.783,0.552"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
-        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="681,12,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Button Content="Log out" HorizontalAlignment="Left" Margin="708,25,0,0" VerticalAlignment="Top" Background="#FFFF0020" Foreground="White" Click="Button_Logout"/>
     </Grid>
 </UserControl>

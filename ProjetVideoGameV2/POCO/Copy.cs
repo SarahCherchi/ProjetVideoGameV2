@@ -1,7 +1,7 @@
 ﻿
 namespace ProjetVideoGameV2.POCO
 {
-    internal class Copy
+    public class Copy
     {
         private int idCopy;
         private VideoGames videoGames;

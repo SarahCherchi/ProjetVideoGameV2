@@ -42,7 +42,7 @@ namespace ProjetVideoGameV2
                 player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
                 player.Password = playerDAO.Login(Username.Text, Password.Text).Password;
                 //player.addBirthday();
-                Home_Page hp = new Home_Page();
+                Home_Page hp = new Home_Page(player);
                 this.Content = hp;
             }
         }

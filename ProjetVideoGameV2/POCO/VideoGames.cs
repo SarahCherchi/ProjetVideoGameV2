@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ProjetVideoGameV2.POCO
 
 {
-    internal class VideoGames
+    public class VideoGames
     {
         private int idVideoGames;
         private string name;

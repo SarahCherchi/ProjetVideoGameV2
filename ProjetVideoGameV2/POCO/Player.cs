@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ProjetVideoGameV2.POCO
 
 {
-    internal class Player : User
+    public class Player : User
     {
         private int idPlayer;
         private int credit;

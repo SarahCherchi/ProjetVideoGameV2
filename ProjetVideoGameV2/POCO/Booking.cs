@@ -2,7 +2,7 @@
 
 namespace ProjetVideoGameV2.POCO
 {
-    internal class Booking
+    public class Booking
     {
         private int idBooking;
         private DateTime bookingDate;

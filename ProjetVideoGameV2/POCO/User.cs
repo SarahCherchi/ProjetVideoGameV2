@@ -3,7 +3,7 @@ using ProjetVideoGameV2.Model.Dao;
 
 namespace ProjetVideoGameV2.POCO
 {
-    abstract internal class User
+    abstract public class User
     {
         private int idUser;
         private string username;

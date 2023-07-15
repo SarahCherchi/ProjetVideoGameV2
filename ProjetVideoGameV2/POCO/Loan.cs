@@ -2,7 +2,7 @@
 
 namespace ProjetVideoGameV2.POCO
 {
-    internal class Loan
+    public class Loan
     {
         private int idLoan;
         private DateTime startDate;

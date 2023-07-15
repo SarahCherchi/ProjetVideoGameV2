@@ -1,5 +1,6 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
 using ProjetVideoGameV2.POCO;
+using ProjetVideoGameV2.View;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -51,6 +52,12 @@ namespace ProjectVideoGameV2.View
         private void Button_Renting(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Booking(object sender, RoutedEventArgs e)
+        {
+            Test test = new Test();
+            this.Content = test;
         }
     }
 }

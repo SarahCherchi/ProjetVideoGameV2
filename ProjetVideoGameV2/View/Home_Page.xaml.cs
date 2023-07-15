@@ -11,11 +11,13 @@ namespace ProjectVideoGameV2.View
     public partial class Home_Page : UserControl
     {
 
-        public Home_Page()
+        public Home_Page(Player player)
         {
             InitializeComponent();
             //Player player = new Player();
             //player.addBirthday();
+            lb_pseudo.Content = player.Pseudo;
+            lb_credit.Content = player.Credit;
             List<VideoGames> vg = VideoGames.FindAll();
 
             foreach (var game in vg)

@@ -33,7 +33,7 @@ namespace ProjetVideoGameV2.View
             p.Pseudo = Pseudo.Text;
             p.Credit = 10;
             Player.createPlayer(p);
-            Home_Page hp = new Home_Page();
+            Home_Page hp = new Home_Page(p);
             this.Content = hp;
         }
 

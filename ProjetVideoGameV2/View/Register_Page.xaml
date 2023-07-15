@@ -10,9 +10,13 @@
         <Button Content="Confirm" Foreground="White" Background="#FF2E65CF" HorizontalAlignment="Center" Margin="0,358,0,0" VerticalAlignment="Top" Height="41" Width="284" Click="Button_Confirm"/>
         <Label Content="Registration" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="20" Background="{x:Null}"/>
         <Label Content="Registration Form" Foreground="Black" HorizontalAlignment="Center" Margin="0,49,0,0" VerticalAlignment="Top" FontSize="30" Width="251" Background="{x:Null}"/>
-        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="342,168,0,0" TextWrapping="Wrap" Text="Enter Username" VerticalAlignment="Top" Width="120" FontSize="16"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="342,217,0,0" TextWrapping="Wrap" Text="Enter Password" VerticalAlignment="Top" Width="120" FontSize="16"/>
-        <DatePicker x:Name="Birthday" HorizontalAlignment="Left" Margin="342,262,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
-        <TextBox x:Name="Pseudo" HorizontalAlignment="Left" Margin="342,306,0,0" TextWrapping="Wrap" Text="Enter Pseudo" VerticalAlignment="Top" Width="120" FontSize="16"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="400,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="400,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <DatePicker x:Name="Birthday" HorizontalAlignment="Left" Margin="400,267,0,0" VerticalAlignment="Top" Width="142" Height="23"/>
+        <TextBox x:Name="Pseudo" HorizontalAlignment="Left" Margin="400,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <Label Content="Enter username:" HorizontalAlignment="Left" Margin="258,175,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Enter password:" HorizontalAlignment="Left" Margin="258,216,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Date of birthday:" HorizontalAlignment="Left" Margin="258,267,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Enter Pseudo:" HorizontalAlignment="Left" Margin="258,305,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
     </Grid>
 </UserControl>

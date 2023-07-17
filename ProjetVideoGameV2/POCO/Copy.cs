@@ -1,4 +1,9 @@
 ﻿
+using ProjetVideoGameV2.Model.Dao;
+using System.Collections.Generic;
+using System;
+using ProjetVideoGameV2.Model.DAO;
+
 namespace ProjetVideoGameV2.POCO
 {
     public class Copy
@@ -7,6 +12,7 @@ namespace ProjetVideoGameV2.POCO
         private VideoGames videoGames;
         private Player owner;
         private Loan loan;
+        private static CopyDAO copyDAO = new CopyDAO();
 
         public Copy()
         {
@@ -40,6 +46,31 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return loan; }
             set { loan = value; }
+        }
+
+        public static bool createCopy(Copy copy)
+        {
+            return copyDAO.Create(copy);
+        }
+
+        public static bool deleteCopy(int id)
+        {
+            return copyDAO.Delete(id);
+        }
+
+        public static bool updateCopy(Copy copy)
+        {
+            return copyDAO.Update(copy);
+        }
+
+        public static Copy findCopy(int id)
+        {
+            return copyDAO.Find(id);
+        }
+
+        public static List<Copy> findAllCopies()
+        {
+            return copyDAO.FindAll();
         }
     }
 }

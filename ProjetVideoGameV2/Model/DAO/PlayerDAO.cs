@@ -18,10 +18,10 @@ namespace ProjetVideoGameV2.Model.Dao
             bool success = false;
             string formattedDateOfBirth = obj.DateOfBirth.ToString("yyyy-MM-dd");
             string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
-
+            DateTime ldb = DateTime.MinValue;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.[User] (username, password, credit, pseudo, registrationDate, dateOfBirth, role) VALUES ('{obj.UserName}', '{obj.Password}', '10', '{obj.Pseudo}', '{formattedDateNow}', '{formattedDateOfBirth}', '0')", connection);
+                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.[User] (username, password, credit, pseudo, registrationDate, dateOfBirth, role, lastDateBonus) VALUES ('{obj.UserName}', '{obj.Password}', '10', '{obj.Pseudo}', '{formattedDateNow}', '{formattedDateOfBirth}', '0', '{ldb.ToString("yyyy-MM-dd")}')", connection);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();
                 success = res > 0;
@@ -58,8 +58,8 @@ namespace ProjetVideoGameV2.Model.Dao
             bool success = false;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"UPDATE dbo.Player SET dateOfBirth = '{obj.Pseudo}' WHERE idUser = @id", connection);
-                cmd.Parameters.AddWithValue("id", obj.IdUser);
+                SqlCommand cmd = new SqlCommand($"UPDATE dbo.[User] SET credit = '{obj.Credit}', lastDateBonus = '{obj.LastDateBonus.ToString("yyyy-MM-dd")}' WHERE userName = @name", connection);
+                cmd.Parameters.AddWithValue("name", obj.UserName);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();
                 success = res > 0;
@@ -134,6 +134,7 @@ namespace ProjetVideoGameV2.Model.Dao
                             player.Pseudo = reader.GetString("pseudo");
                             player.Credit = reader.GetInt32("credit");
                             player.Role = reader.GetBoolean("role");
+                            player.LastDateBonus = reader.GetDateTime("lastDateBonus");
 
                         }
                     }

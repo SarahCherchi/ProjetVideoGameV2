@@ -41,7 +41,8 @@ namespace ProjetVideoGameV2
                 player.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
                 player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
                 player.Password = playerDAO.Login(Username.Text, Password.Text).Password;
-                //player.addBirthday();
+                player.DateOfBirth = playerDAO.Login(Username.Text, Password.Text).DateOfBirth;
+                player.LastDateBonus = playerDAO.Login(Username.Text, Password.Text).LastDateBonus;
                 Home_Page hp = new Home_Page(player);
                 this.Content = hp;
             }

@@ -12,10 +12,13 @@ namespace ProjetVideoGameV2.POCO
         private string pseudo;
         private DateTime registrationDate;
         private DateTime dateOfBirth;
+        private DateTime lastDateBonus;
         private List<Booking> bookingsList;
         private List<Copy> copyList;
         private List<Loan> loanList;
         private static PlayerDAO playerDAO = new PlayerDAO();
+
+        public bool bonusReceived;
 
         public Player()
         {
@@ -60,6 +63,12 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return dateOfBirth; }
             set { dateOfBirth = value; }
+        }
+
+        public DateTime LastDateBonus
+        {
+            get { return lastDateBonus; }
+            set { lastDateBonus = value; }
         }
 
         public List<Booking> BookingsList
@@ -110,12 +119,16 @@ namespace ProjetVideoGameV2.POCO
             return playerDAO.FindAll();
         }
 
-        public void addBirthday()
+        public void addBirthdayBonus()
         {
-            Player player = findPlayer(idPlayer);
-            if (player.DateOfBirth.Day == DateTime.Now.Day && player.DateOfBirth.Month == DateTime.Now.Month)
+           
+            DateTime now = DateTime.Now.Date;
+
+            if (DateOfBirth.Day == DateTime.Now.Day && DateOfBirth.Month == DateTime.Now.Month && LastDateBonus.AddYears(1) <= now)
             {
-                player.Credit += 2;
+                Credit += 2;
+                lastDateBonus = now;
+                bonusReceived = playerDAO.Update(this);
             }
         }
     }

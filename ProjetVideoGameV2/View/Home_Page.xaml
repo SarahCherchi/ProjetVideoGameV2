@@ -20,7 +20,7 @@
                 <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Button_Booking" Content="Book" Foreground="White" Background="LightSlateGray" Click="Button_Booking"/>
+                            <Button Content="Book" Foreground="White" Background="LightSlateGray" Click="Button_Booking"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
 

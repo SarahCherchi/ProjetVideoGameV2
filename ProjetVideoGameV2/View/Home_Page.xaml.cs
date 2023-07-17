@@ -13,24 +13,14 @@ namespace ProjectVideoGameV2.View
 
     public partial class Home_Page : UserControl
     {
-        private Player currentPlayer;
 
         private Player player;
 
         public Home_Page(Player player)
         {
             InitializeComponent();
-<<<<<<<<< Temporary merge branch 1
-            //Player player = new Player();
-            //player.addBirthday();
             this.player = player;
-=========
-            //Player player = new Player();
-            //player.addBirthday();
->>>>>>>>> Temporary merge branch 2
-            this.player = player;
-=========
-            currentPlayer = player;
+            
             player.addBirthdayBonus();
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
@@ -72,7 +62,7 @@ namespace ProjectVideoGameV2.View
 
         private void ShowBirthdayMessage()
         {
-            if (currentPlayer.bonusReceived)
+            if (player.bonusReceived)
             {
                 MessageBox.Show("Congratulations! You have won 2 credits for your birthday!", "Birthday Bonus", MessageBoxButton.OK, MessageBoxImage.Information);
             }

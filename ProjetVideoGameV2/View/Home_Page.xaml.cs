@@ -13,11 +13,14 @@ namespace ProjectVideoGameV2.View
     public partial class Home_Page : UserControl
     {
 
+        private Player player;
+
         public Home_Page(Player player)
         {
             InitializeComponent();
             //Player player = new Player();
             //player.addBirthday();
+            this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
             List<VideoGames> vg = VideoGames.FindAll();
@@ -57,8 +60,15 @@ namespace ProjectVideoGameV2.View
 
         private void Button_Booking(object sender, RoutedEventArgs e)
         {
-            Test test = new Test();
-            this.Content = test;
+            if(player.Credit > 0)
+            {
+                Test test = new Test();
+                this.Content = test;
+            }
+            else
+            {
+                MessageBox.Show("You cannot book a video game with 0 credits. Please rent a game first");
+            }
         }
 
         private void Button_Logout(object sender, RoutedEventArgs e)

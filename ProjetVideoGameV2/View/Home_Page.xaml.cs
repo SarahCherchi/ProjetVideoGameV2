@@ -20,6 +20,16 @@ namespace ProjectVideoGameV2.View
         public Home_Page(Player player)
         {
             InitializeComponent();
+<<<<<<<<< Temporary merge branch 1
+            //Player player = new Player();
+            //player.addBirthday();
+            this.player = player;
+=========
+            //Player player = new Player();
+            //player.addBirthday();
+>>>>>>>>> Temporary merge branch 2
+            this.player = player;
+=========
             currentPlayer = player;
             player.addBirthdayBonus();
             lb_pseudo.Content = player.Pseudo;

@@ -6,21 +6,24 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace ProjectVideoGameV2.View
 {
 
     public partial class Home_Page : UserControl
     {
+        private Player currentPlayer;
 
         private Player player;
 
         public Home_Page(Player player)
         {
             InitializeComponent();
-            //Player player = new Player();
-            //player.addBirthday();
-            this.player = player;
+
+            currentPlayer = player;
+            player.addBirthdayBonus();
+            
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
             List<VideoGames> vg = VideoGames.FindAll();
@@ -28,7 +31,7 @@ namespace ProjectVideoGameV2.View
             foreach (var game in vg)
             {
                 game.NumberOfCopy = VideoGames.CopyAvailable(game.IdVideoGames);
-                if(game.NumberOfCopy > 0)
+                if (game.NumberOfCopy > 0)
                 {
                     game.IsAvailable = true;
                 }
@@ -36,11 +39,35 @@ namespace ProjectVideoGameV2.View
                 {
                     game.IsAvailable = false;
                 }
-                //game.Available = copyAvailable ? "Yes" : "No";
             }
 
-
             dgVideoGames.ItemsSource = vg;
+
+            Loaded += Home_Page_Loaded;
+        }
+
+        private void Home_Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(0.3);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+
+            ShowBirthdayMessage();
+        }
+
+        private void ShowBirthdayMessage()
+        {
+            if (currentPlayer.bonusReceived)
+            {
+                MessageBox.Show("Congratulations! You have won 2 credits for your birthday!", "Birthday Bonus", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -87,9 +87,11 @@ namespace ProjetVideoGameV2.POCO
             return videoGamesDAO.FindAll();
         }
 
-        public static int CopyAvailable(int id)
+        public static int nbrCopyAvailable(int id)
         {
-            return videoGamesDAO.CopyAvailable(id);
+            return videoGamesDAO.nbrCopyAvailable(id);
         }
+
+
     }
 }

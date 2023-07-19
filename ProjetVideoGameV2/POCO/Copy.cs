@@ -87,7 +87,7 @@ namespace ProjetVideoGameV2.POCO
 
         public static bool IsAvailable(int id)
         {
-            return videoGamesDAO.nbrCopyAvailable(id) > 0;
+           return copyDAO.IsAvailable(id);
 
         }
 

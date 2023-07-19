@@ -13,13 +13,7 @@
                     <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
                     <DataGridTextColumn Header="Owner" Binding="{Binding OwnerId}" />
                     <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
-                    <DataGridTemplateColumn Header="Select">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <RadioButton IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -32,6 +26,6 @@
         </StackPanel>
 
         <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="523,357,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
-        <CheckBox x:Name="chkCopy" Content="Show all copies" HorizontalAlignment="Left" Margin="82,25,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="82,25,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
     </Grid>
 </UserControl>

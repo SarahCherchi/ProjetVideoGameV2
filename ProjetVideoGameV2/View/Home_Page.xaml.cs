@@ -30,7 +30,6 @@ namespace ProjectVideoGameV2.View
             foreach (var game in vg)
             {
                 game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
-                //game.IsAvailable = Copy.IsAvailable(game.IdVideoGames);
             }
 
             dgVideoGames.ItemsSource = vg;

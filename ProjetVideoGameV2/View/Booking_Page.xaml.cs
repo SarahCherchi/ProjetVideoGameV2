@@ -24,7 +24,7 @@ namespace ProjetVideoGameV2.View
 
         private void RefreshData()
         {
-            if (chkCopy.IsChecked == true)
+            if (chkCopy.IsChecked == false)
             {
                 copies = Copy.findAllCopyByIdVG(videoGame.IdVideoGames);
             }
@@ -35,6 +35,12 @@ namespace ProjetVideoGameV2.View
 
             collectionView = CollectionViewSource.GetDefaultView(copies);
             dgCopy.ItemsSource = collectionView;
+
+            foreach (var copy in copies)
+            {
+                copy.Available = Copy.IsAvailable(copy.IdCopy);
+
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

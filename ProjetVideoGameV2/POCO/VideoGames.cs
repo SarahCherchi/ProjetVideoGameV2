@@ -11,7 +11,7 @@ namespace ProjetVideoGameV2.POCO
         private int creditCost;
         private string console;
         private int numberOfCopy;
-        private bool isAvailable;
+        //private bool isAvailable;
         private List<Booking> bookingList;
         private List<Copy> copyList;
         private static VideoGamesDAO videoGamesDAO = new VideoGamesDAO(); 
@@ -62,13 +62,13 @@ namespace ProjetVideoGameV2.POCO
             get { return numberOfCopy; }
             set { numberOfCopy = value; }
         }
-
+/*
         public bool IsAvailable
         {
             get { return isAvailable; }
             set { isAvailable = value; }
         }
-
+*/
         public List<Booking> BookingList
         {
             get { return bookingList; }
@@ -92,6 +92,10 @@ namespace ProjetVideoGameV2.POCO
             return videoGamesDAO.nbrCopyAvailable(id);
         }
 
+        public static List<Copy> CopyAvailable(int id)
+        {
+            return videoGamesDAO.CopyAvailable(id);
+        }
 
     }
 }

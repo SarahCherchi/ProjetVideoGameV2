@@ -15,6 +15,7 @@ namespace ProjectVideoGameV2.View
     {
 
         private Player player;
+        private VideoGames selectedVg;
 
         public Home_Page(Player player)
         {
@@ -29,10 +30,12 @@ namespace ProjectVideoGameV2.View
             foreach (var game in vg)
             {
                 game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
-                game.IsAvailable = Copy.IsAvailable(game.IdVideoGames);
+                //game.IsAvailable = Copy.IsAvailable(game.IdVideoGames);
             }
 
             dgVideoGames.ItemsSource = vg;
+
+            dgVideoGames.SelectionChanged += dgVideoGames_SelectionChanged;
 
             Loaded += Home_Page_Loaded;
         }
@@ -63,7 +66,10 @@ namespace ProjectVideoGameV2.View
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (dgVideoGames.SelectedItem is VideoGames selectedGame)
+            {
+                selectedVg = selectedGame;
+            }
         }
 
         private void Button_Search(object sender, RoutedEventArgs e)
@@ -80,8 +86,8 @@ namespace ProjectVideoGameV2.View
         {
             if(player.Credit > 0)
             {
-                Test test = new Test();
-                this.Content = test;
+                Booking_Page book = new Booking_Page(selectedVg);
+                this.Content = book;
             }
             else
             {

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ProjetVideoGameV2.View.Booking_Page"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ProjetVideoGameV2.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Margin="63,73,157,127">
+            <DataGrid Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
+                    <DataGridTextColumn Header="Owner" Binding="{Binding OwnerId}" />
+                    <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
+                    <DataGridTemplateColumn Header="Select">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <RadioButton IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Number of Weeks: " VerticalAlignment="Center" />
+                <TextBox x:Name="txtNumWeeks" VerticalAlignment="Center" Width="100" />
+            </StackPanel>
+
+            <Button Content="Confirm Booking" HorizontalAlignment="Left" Height="37" Margin="0,10" VerticalAlignment="Top" Width="120" Click="Button_ConfirmBooking_Click"/>
+        </StackPanel>
+
+        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="523,357,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
+        <CheckBox x:Name="chkCopy" Content="Show all copies" HorizontalAlignment="Left" Margin="82,25,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+    </Grid>
+</UserControl>

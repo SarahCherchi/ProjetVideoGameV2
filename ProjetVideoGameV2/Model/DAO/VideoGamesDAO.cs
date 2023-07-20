@@ -117,17 +117,15 @@ namespace ProjetVideoGameV2.Model.Dao
                         vg.Name = reader.GetString("name");
                         vg.CreditCost = reader.GetInt32("creditCost");
                         vg.Console = reader.GetString("console");
-                        if(vg.CreditCost > 0)
-                        {
-                            videoGames.Add(vg);
-                        }
+                        videoGames.Add(vg);
+
                     }
                 }
             }
             return videoGames;
 
         }
-
+/*
         public List<VideoGames> GetVideoGamesAdmin()
         {
             List<VideoGames> videoGames = new List<VideoGames>();
@@ -155,7 +153,7 @@ namespace ProjetVideoGameV2.Model.Dao
             return videoGames;
 
         }
-
+*/
         public List<VideoGames> GetVideoGamesByName(string name)
         {
             List<VideoGames> videoGames = new List<VideoGames>();

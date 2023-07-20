@@ -22,6 +22,16 @@ namespace ProjetVideoGameV2.Model.DAO
         {
             return false;
         }
+        public override bool Delete(int id)
+        {
+            return false ;
+        }
+
+        public override List<Administrator> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public override Administrator Find(int id)
         {
 
@@ -94,16 +104,6 @@ namespace ProjetVideoGameV2.Model.DAO
             return admin;
 
 
-        }
-
-        public override bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override List<Administrator> FindAll()
-        {
-            throw new NotImplementedException();
         }
     }
 }

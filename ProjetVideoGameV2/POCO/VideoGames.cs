@@ -81,6 +81,11 @@ namespace ProjetVideoGameV2.POCO
             set { copyList = value; }
         }
 
+        public static bool UpdateCreditCost(VideoGames vg)
+        {
+            return videoGamesDAO.Update(vg);
+        }
+
         public static VideoGames FindVideoGames(int id) 
         {
             return videoGamesDAO.Find(id);

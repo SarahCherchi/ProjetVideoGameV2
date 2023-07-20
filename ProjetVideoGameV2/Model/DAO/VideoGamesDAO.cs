@@ -209,11 +209,9 @@ namespace ProjetVideoGameV2.Model.Dao
                     while (reader.Read())
                     {
                         Copy cp = new Copy();
-                        cp.IdCopy = reader.GetInt32("id");
-                        cp.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        cp.IdCopy = reader.GetInt32("idCopy");
+                        cp.Owner = new Player();
                         cp.Owner.IdPlayer = reader.GetInt32("owner");
-                        cp.Loan.IdLoan = reader.GetInt32("idLoan");
-                       
                         lCopy.Add(cp);
                     }
                 }

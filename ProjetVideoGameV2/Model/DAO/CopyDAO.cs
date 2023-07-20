@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace ProjetVideoGameV2.Model.DAO
 {
@@ -123,6 +124,49 @@ namespace ProjetVideoGameV2.Model.DAO
             return copies;
 
         }
+
+        public List<Copy> FindAllCopyVideoGame(int id)
+        {
+            List<Copy> copies = new List<Copy>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Copy WHERE idVideoGame = @id", connection);
+                cmd.Parameters.AddWithValue("@id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Copy copy = new Copy();
+                        copy.IdCopy = reader.GetInt32("idCopy");
+                        copy.Owner = new Player();
+                        copy.Owner.IdPlayer = reader.GetInt32("owner");
+                        
+                        copies.Add(copy);
+
+                    }
+                }
+            }
+            return copies;
+
+        }
+
+        public bool IsAvailable(int id)
+        {
+            bool success = false;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Copy WHERE idCopy = @id AND idLoan IS NULL", connection);
+                cmd.Parameters.AddWithValue("id", id);
+                connection.Open();
+                int count = (int)cmd.ExecuteScalar();
+                success = count > 0;
+            }
+
+            return success;
+        }
+
     }
 }
 

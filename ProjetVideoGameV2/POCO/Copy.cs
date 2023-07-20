@@ -13,6 +13,7 @@ namespace ProjetVideoGameV2.POCO
         private Player owner;
         private Loan loan;
         private static CopyDAO copyDAO = new CopyDAO();
+        private static VideoGamesDAO videoGamesDAO = new VideoGamesDAO();
 
         public Copy()
         {
@@ -71,6 +72,12 @@ namespace ProjetVideoGameV2.POCO
         public static List<Copy> findAllCopies()
         {
             return copyDAO.FindAll();
+        }
+
+        public static bool IsAvailable(int id)
+        {
+            return videoGamesDAO.nbrCopyAvailable(id) > 0;
+
         }
     }
 }

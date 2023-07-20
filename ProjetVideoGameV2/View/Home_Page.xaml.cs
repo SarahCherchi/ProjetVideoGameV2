@@ -28,15 +28,8 @@ namespace ProjectVideoGameV2.View
 
             foreach (var game in vg)
             {
-                game.NumberOfCopy = VideoGames.CopyAvailable(game.IdVideoGames);
-                if (game.NumberOfCopy > 0)
-                {
-                    game.IsAvailable = true;
-                }
-                else
-                {
-                    game.IsAvailable = false;
-                }
+                game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
+                game.IsAvailable = Copy.IsAvailable(game.IdVideoGames);
             }
 
             dgVideoGames.ItemsSource = vg;

@@ -182,7 +182,7 @@ namespace ProjetVideoGameV2.Model.Dao
 
         }
 
-        public int CopyAvailable(int id)
+        public int nbrCopyAvailable(int id)
         {
             int numberOfCopy = 0;
              using (SqlConnection connection = new SqlConnection(this.connectionString))
@@ -195,5 +195,31 @@ namespace ProjetVideoGameV2.Model.Dao
             return numberOfCopy;
         }
 
+        public List<Copy> CopyAvailable(int id)
+        {
+            List<Copy> lCopy = new List<Copy>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Copy WHERE idVideoGame = @id AND idLoan IS NULL", connection);
+                cmd.Parameters.AddWithValue("@id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Copy cp = new Copy();
+                        cp.IdCopy = reader.GetInt32("id");
+                        cp.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        cp.Owner.IdPlayer = reader.GetInt32("owner");
+                        cp.Loan.IdLoan = reader.GetInt32("idLoan");
+                       
+                        lCopy.Add(cp);
+                    }
+                }
+            }
+            return lCopy;
+        }
+
     }
-}
+ }

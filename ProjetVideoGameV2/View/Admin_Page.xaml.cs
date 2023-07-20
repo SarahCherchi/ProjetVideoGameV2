@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetVideoGameV2.POCO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,21 +24,30 @@ namespace ProjetVideoGameV2.View
         public Admin_Page()
         {
             InitializeComponent();
+            List<VideoGames> vg = VideoGames.FindAll();
+            dgVideoGames.ItemsSource = vg;
+        }
+
+        private void Button_Update(object sender, RoutedEventArgs e)
+        {
+            VideoGames vg = new VideoGames();
+            vg.IdVideoGames = int.Parse(ID.Text);
+            vg.CreditCost = int.Parse(Credit.Text);
+            VideoGames.UpdateCreditCost(vg);
+            Admin_Page ap = new Admin_Page();
+            this.Content = ap;
         }
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+           
         }
 
-        private void Button_Search(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+
     }
 }

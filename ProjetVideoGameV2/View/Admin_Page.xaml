@@ -18,7 +18,7 @@
         </DataGrid>
         <TextBox x:Name="Credit" HorizontalAlignment="Left" Margin="32,359,0,0" TextWrapping="Wrap" Text="Enter the credit cost" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
         <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="32,316,0,0" TextWrapping="Wrap" Text="Enter the ID of the Video Games" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
-        <Button Content="Update" Foreground="White" HorizontalAlignment="Left" Margin="32,401,0,0" VerticalAlignment="Top" Height="25" Width="216" Click="Button_Search" Background="#FF2E65CF"/>
+        <Button Content="Update" Foreground="White" HorizontalAlignment="Left" Margin="32,401,0,0" VerticalAlignment="Top" Height="25" Width="216" Click="Button_Update" Background="#FF2E65CF"/>
 
     </Grid>
 </UserControl>

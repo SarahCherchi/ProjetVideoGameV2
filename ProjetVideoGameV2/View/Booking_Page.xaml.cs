@@ -70,19 +70,28 @@ namespace ProjetVideoGameV2.View
         private void Button_BookingCopy(object sender, RoutedEventArgs e)
         {
             Copy copy = dgCopy.SelectedItem as Copy;
-            if (copy.Available)
+            if (player.IdPlayer != copy.Owner.IdPlayer) //CORRIGER LE IF 
             {
-                copy.Available = false;
-                Copy.updateLoanerCopy(copy);
-                player.Credit = player.Credit - copy.VideoGames.CreditCost;
-                Player.updatePlayer(player);
-                lb_credit.Content = player.Credit;
-                dgCopy.Items.Refresh();
-                MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console}");
+                if (copy.Available)
+                {
+                    copy.Available = false;
+                    //Copy.updateLoanerCopy(copy);
+                    videoGame = VideoGames.FindVideoGames(videoGame.IdVideoGames);
+                    copy.VideoGames = videoGame;
+                    player.Credit = player.Credit - copy.VideoGames.CreditCost;
+                    Player.updatePlayer(player);
+                    lb_credit.Content = player.Credit;
+                    dgCopy.Items.Refresh();
+                    MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console}");
+                }
+                else
+                {
+                    MessageBox.Show("This copy is already booked.");
+                }
             }
             else
             {
-                MessageBox.Show("This copy is already booked.");
+                MessageBox.Show("You can't book your own copy !");
             }
         }
 

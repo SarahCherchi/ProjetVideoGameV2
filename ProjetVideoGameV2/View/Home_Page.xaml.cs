@@ -85,7 +85,7 @@ namespace ProjectVideoGameV2.View
         {
             if(player.Credit > 0)
             {
-                Booking_Page book = new Booking_Page(selectedVg);
+                Booking_Page book = new Booking_Page(selectedVg,player);
                 this.Content = book;
             }
             else

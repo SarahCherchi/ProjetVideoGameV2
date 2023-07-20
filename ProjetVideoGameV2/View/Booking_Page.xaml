@@ -7,25 +7,29 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Margin="63,73,157,127">
+        <Label Content="Booking" Foreground="Black" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="30" Width="119" Background="{x:Null}"/>
+        <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
+        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <StackPanel Margin="63,81,157,119">
             <DataGrid Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
                     <DataGridTextColumn Header="Owner" Binding="{Binding OwnerId}" />
                     <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
-                    
+                    <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Book this copy" Foreground="White" Background="LightSlateGray" Click="Button_BookingCopy"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
-
-            <StackPanel Orientation="Horizontal" Margin="0,10">
-                <TextBlock Text="Number of Weeks: " VerticalAlignment="Center" />
-                <TextBox x:Name="txtNumWeeks" VerticalAlignment="Center" Width="100" />
-            </StackPanel>
-
-            <Button Content="Confirm Booking" HorizontalAlignment="Left" Height="37" Margin="0,10" VerticalAlignment="Top" Width="120" Click="Button_ConfirmBooking_Click"/>
         </StackPanel>
 
         <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="523,357,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
-        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="82,25,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="63,379,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
     </Grid>
 </UserControl>

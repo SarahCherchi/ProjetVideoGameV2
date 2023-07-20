@@ -70,7 +70,7 @@ namespace ProjetVideoGameV2.POCO
             return copyDAO.Delete(id);
         }
 
-        public static bool updateCopy(Copy copy)
+        public static bool updateLoanerCopy(Copy copy)
         {
             return copyDAO.Update(copy);
         }

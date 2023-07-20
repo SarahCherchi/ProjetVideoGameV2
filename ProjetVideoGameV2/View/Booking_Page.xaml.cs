@@ -2,6 +2,7 @@
 using ProjetVideoGameV2.POCO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,14 +12,18 @@ namespace ProjetVideoGameV2.View
     public partial class Booking_Page : UserControl
     {
         private VideoGames videoGame;
+        private Player player;
         private List<Copy> copies;
         private ICollectionView collectionView;
 
-        public Booking_Page(VideoGames vg)
+        public Booking_Page(VideoGames vg, Player player)
         {
             InitializeComponent();
-            videoGame = vg;
-            
+            this.videoGame = vg;
+            this.player = player;
+            lb_pseudo.Content = player.Pseudo;
+            lb_credit.Content = player.Credit;
+
             RefreshData();
         }
 
@@ -62,10 +67,29 @@ namespace ProjetVideoGameV2.View
         {
 
         }
+        private void Button_BookingCopy(object sender, RoutedEventArgs e)
+        {
+            Copy copy = dgCopy.SelectedItem as Copy;
+            if (copy.Available)
+            {
+                copy.Available = false;
+                Copy.updateLoanerCopy(copy);
+                player.Credit = player.Credit - copy.VideoGames.CreditCost;
+                Player.updatePlayer(player);
+                lb_credit.Content = player.Credit;
+                dgCopy.Items.Refresh();
+                MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console}");
+            }
+            else
+            {
+                MessageBox.Show("This copy is already booked.");
+            }
+        }
+
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)
         {
-
+            Home_Page hp = new Home_Page(player);
         }
     }
 }

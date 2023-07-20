@@ -81,6 +81,10 @@ namespace ProjetVideoGameV2.POCO
             set { copyList = value; }
         }
 
+        public static VideoGames FindVideoGames(int id) 
+        {
+            return videoGamesDAO.Find(id);
+        }
 
         public static List<VideoGames> FindAll()
         {

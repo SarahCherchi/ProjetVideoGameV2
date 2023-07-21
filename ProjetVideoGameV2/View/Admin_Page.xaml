@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label Content="Home Admin" Foreground="Black" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="30" Width="184" Background="{x:Null}"/>
-        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,65,229,159" SelectionChanged="dgVideoGames_SelectionChanged">
+        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,65,229,159" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -16,9 +16,7 @@
                 <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="Credit" HorizontalAlignment="Left" Margin="32,359,0,0" TextWrapping="Wrap" Text="Enter the credit cost" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
-        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="32,316,0,0" TextWrapping="Wrap" Text="Enter the ID of the Video Games" VerticalAlignment="Top" Width="216" Height="25" TextChanged="Search_TextChanged"/>
-        <Button Content="Update" Foreground="White" HorizontalAlignment="Left" Margin="32,401,0,0" VerticalAlignment="Top" Height="25" Width="216" Click="Button_Update" Background="#FF2E65CF"/>
+        <Button Content="Update Credit Cost" Foreground="White" HorizontalAlignment="Left" Margin="32,333,0,0" VerticalAlignment="Top" Height="25" Width="216" Click="Button_Update" Background="#FF2E65CF"/>
 
     </Grid>
 </UserControl>

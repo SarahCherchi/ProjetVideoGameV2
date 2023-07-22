@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
+using System;
+using System.Collections.Generic;
 
 namespace ProjetVideoGameV2.POCO
 {
@@ -8,6 +11,7 @@ namespace ProjetVideoGameV2.POCO
         private DateTime bookingDate;
         private VideoGames videoGames;
         private Player player;
+        private static BookingDAO bookingDAO = new BookingDAO();
 
         public Booking()
         {
@@ -51,5 +55,29 @@ namespace ProjetVideoGameV2.POCO
             set { player = value; }
         }
 
+        public static bool createBooking(Booking booking)
+        {
+            return bookingDAO.Create(booking);
+        }
+
+        public static bool deleteBooking(int id)
+        {
+            return bookingDAO.Delete(id);
+        }
+
+        public static bool updateBooking(Booking booking)
+        {
+            return bookingDAO.Update(booking);
+        }
+
+        public static Booking findBooking(int id)
+        {
+            return bookingDAO.Find(id);
+        }
+
+        public static List<Booking> findAllBooking()
+        {
+            return bookingDAO.FindAll();
+        }
     }
 }

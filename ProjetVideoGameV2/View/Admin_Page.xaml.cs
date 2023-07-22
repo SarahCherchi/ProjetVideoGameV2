@@ -30,19 +30,30 @@ namespace ProjetVideoGameV2.View
 
         private void Button_Update(object sender, RoutedEventArgs e)
         {
-            VideoGames vg = new VideoGames();
-            vg.IdVideoGames = int.Parse(ID.Text);
-            vg.CreditCost = int.Parse(Credit.Text);
-            VideoGames.UpdateCreditCost(vg);
-            Admin_Page ap = new Admin_Page();
-            this.Content = ap;
+            VideoGames selectedGame = (VideoGames)dgVideoGames.SelectedItem;
+            if (selectedGame == null)
+            {
+                MessageBox.Show("Please select a game to update.");
+                return;
+            }
+
+            CreditInputDialog inputDialog = new CreditInputDialog();
+            if (inputDialog.ShowDialog() == true)
+            {
+                selectedGame.CreditCost = inputDialog.NewCreditCost;
+                VideoGames.UpdateCreditCost(selectedGame);
+
+                List<VideoGames> vg = VideoGames.FindAll();
+                dgVideoGames.ItemsSource = vg;
+
+                MessageBox.Show("Credit cost updated successfully.");
+            }
         }
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
-        }
 
+        }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {

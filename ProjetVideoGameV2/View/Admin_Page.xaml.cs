@@ -33,7 +33,7 @@ namespace ProjetVideoGameV2.View
             VideoGames selectedGame = (VideoGames)dgVideoGames.SelectedItem;
             if (selectedGame == null)
             {
-                MessageBox.Show("Please select a game to update.");
+                MessageBox.Show("Please select a game to update.","Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -59,6 +59,14 @@ namespace ProjetVideoGameV2.View
         {
 
         }
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
 
+            home_page.Close();
+            mainWindow.Show();
+
+        }
     }
 }

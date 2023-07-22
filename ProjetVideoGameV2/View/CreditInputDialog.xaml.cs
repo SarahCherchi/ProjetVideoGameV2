@@ -22,12 +22,12 @@ namespace ProjetVideoGameV2.View
                 }
                 else
                 {
-                    MessageBox.Show("Invalid credit cost. Please enter a number between 1 and 5.");
+                    MessageBox.Show("Invalid credit cost. Please enter a number between 1 and 5.","Error",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Invalid credit cost. Please enter a number.");
+                MessageBox.Show("Invalid credit cost. Please enter a number.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

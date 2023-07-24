@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjetVideoGameV2.Model.DAO;
+using System;
+using System.Collections.Generic;
 
 namespace ProjetVideoGameV2.POCO
 {
@@ -11,6 +13,7 @@ namespace ProjetVideoGameV2.POCO
         private Copy copy;
         private Player lender;
         private Player borrower;
+        private static LoanDAO loanDAO = new LoanDAO();
 
 
         public Loan()
@@ -78,6 +81,31 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return borrower; }
             set { borrower = value; }
+        }
+
+        public static int createLoan(Loan loan)
+        {
+            return loanDAO.CreateLoan(loan);
+        }
+
+        public static bool deleteLoan(int id)
+        {
+            return loanDAO.Delete(id);
+        }
+
+        public static bool updateLoan(Loan loan)
+        {
+            return loanDAO.Update(loan);
+        }
+
+        public static Loan findLoan(int id)
+        {
+            return loanDAO.Find(id);
+        }
+
+        public static List<Loan> findAllLoan()
+        {
+            return loanDAO.FindAll();
         }
     }
 }

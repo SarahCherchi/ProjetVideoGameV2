@@ -126,7 +126,7 @@ namespace ProjetVideoGameV2.Model.Dao
                         if (reader.Read())
                         {
                             player = new Player();
-
+                            player.IdPlayer = reader.GetInt32("idUser");
                             player.UserName = reader.GetString("username");
                             player.Password = reader.GetString("password");
                             player.RegistrationDate = reader.GetDateTime("registrationDate");

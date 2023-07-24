@@ -1,5 +1,8 @@
 ﻿using ProjectVideoGameV2.View;
+using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +16,7 @@ namespace ProjetVideoGameV2.View
     {
         private VideoGames videoGame;
         private Player player;
+        private Loan loan = new Loan();
         private List<Copy> copies;
         private ICollectionView collectionView;
 
@@ -75,12 +79,12 @@ namespace ProjetVideoGameV2.View
                 if (copy.Available)
                 {
                     copy.Available = false;
-                    //Copy.updateLoanerCopy(copy);
                     videoGame = VideoGames.FindVideoGames(videoGame.IdVideoGames);
                     copy.VideoGames = videoGame;
                     player.Credit = player.Credit - copy.VideoGames.CreditCost;
                     Player.updatePlayer(player);
                     lb_credit.Content = player.Credit;
+                    createLoan(copy);
                     dgCopy.Items.Refresh();
                     MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console}");
                 }
@@ -99,6 +103,26 @@ namespace ProjetVideoGameV2.View
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)
         {
             Home_Page hp = new Home_Page(player);
+        }
+        
+        private void createLoan(Copy copy)
+        {
+            //LoanDAO loanDAO = new LoanDAO();
+            loan.StartDate = DateTime.Now;
+            loan.EndDate = loan.StartDate.AddDays(7);
+            loan.Ongoing = true;
+            loan.Copy = copy;
+            loan.Lender = copy.Owner;
+            loan.Borrower = player;
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+        }
+
+       
+        private void updateCopyByIdLoan(Loan loan)
+        {
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
         }
     }
 }

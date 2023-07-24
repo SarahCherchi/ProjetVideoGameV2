@@ -103,6 +103,7 @@ namespace ProjetVideoGameV2.View
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)
         {
             Home_Page hp = new Home_Page(player);
+            this.Content = hp;
         }
         
         private void createLoan(Copy copy)

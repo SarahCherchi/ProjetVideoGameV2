@@ -68,5 +68,10 @@ namespace ProjetVideoGameV2.View
             mainWindow.Show();
 
         }
+
+        private void Button_AddVG(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -6,29 +6,59 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace ProjetVideoGameV2.Model.DAO
 {
     internal class LoanDAO : DAO<Loan>
     {
         public LoanDAO() { }
+        
+            public override bool Create(Loan obj)
+               {
+                   bool success = false;
+                   string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
+                   string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+                   using (SqlConnection connection = new SqlConnection(this.connectionString))
+                   {
+                       SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection);
+                       connection.Open();
+                       int res = cmd.ExecuteNonQuery();
+                       success = res > 0;
+                   }
 
-        public override bool Create(Loan obj)
-        {
-            bool success = false;
-            string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
-            string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+                   return success;
+               }
+        
+            public int CreateLoan(Loan obj)
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection);
-                connection.Open();
-                int res = cmd.ExecuteNonQuery();
-                success = res > 0;
+                int idLoan;
+                string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
+                string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection, transaction);
+                            cmd.ExecuteNonQuery();
+
+                            cmd = new SqlCommand("SELECT SCOPE_IDENTITY();", connection, transaction);
+                            idLoan = Convert.ToInt32(cmd.ExecuteScalar());
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+                return idLoan;
             }
-
-            return success;
-        }
-
 
         public override bool Delete(int id)
         {

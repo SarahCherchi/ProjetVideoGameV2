@@ -37,6 +37,7 @@ namespace ProjetVideoGameV2
                 PlayerDAO playerDAO = new PlayerDAO();
                 Player player = new Player();
                 player.Login(Username.Text, Password.Text);
+                player.IdPlayer = playerDAO.Login(Username.Text, Password.Text).IdPlayer;
                 player.Pseudo = playerDAO.Login(Username.Text, Password.Text).Pseudo;
                 player.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
                 player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;

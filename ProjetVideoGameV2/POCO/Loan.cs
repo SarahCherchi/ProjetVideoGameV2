@@ -83,9 +83,9 @@ namespace ProjetVideoGameV2.POCO
             set { borrower = value; }
         }
 
-        public static bool createLoan(Loan loan)
+        public static int createLoan(Loan loan)
         {
-            return loanDAO.Create(loan);
+            return loanDAO.CreateLoan(loan);
         }
 
         public static bool deleteLoan(int id)

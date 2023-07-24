@@ -1,4 +1,6 @@
 ﻿using ProjectVideoGameV2.View;
+using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace ProjetVideoGameV2.View
     {
         private VideoGames videoGame;
         private Player player;
-        private Loan loan;
+        private Loan loan = new Loan();
         private List<Copy> copies;
         private ICollectionView collectionView;
 
@@ -102,16 +104,25 @@ namespace ProjetVideoGameV2.View
         {
             Home_Page hp = new Home_Page(player);
         }
-
+        
         private void createLoan(Copy copy)
         {
+            //LoanDAO loanDAO = new LoanDAO();
             loan.StartDate = DateTime.Now;
             loan.EndDate = loan.StartDate.AddDays(7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;
             loan.Borrower = player;
-            Loan.createLoan(loan);
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+        }
+
+       
+        private void updateCopyByIdLoan(Loan loan)
+        {
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
         }
     }
 }

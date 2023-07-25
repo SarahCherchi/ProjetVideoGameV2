@@ -4,7 +4,7 @@
         Title="Update" Height="150" Width="250">
     <Grid>
         <Label Content="Enter the new credit cost:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,36,0,0" />
-        <TextBox x:Name="txtNewCreditCost" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="159,40,0,0" Width="50" />
+        <TextBox x:Name="txtNewCreditCost" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="165,41,0,0" Width="50" />
         <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="75" Click="btnOk_Click" />
     </Grid>
 </Window>

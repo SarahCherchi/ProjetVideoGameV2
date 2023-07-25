@@ -18,7 +18,7 @@ namespace ProjetVideoGameV2.Model.Dao
             bool success = false;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.VideoGame(name, creditCost, console) VALUES('{obj.Name}','{null}','{obj.Console}')", connection);
+                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.VideoGame(name, creditCost, console) VALUES('{obj.Name}','{obj.CreditCost}','{obj.Console}')", connection);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();
                 success = res > 0;
@@ -125,35 +125,23 @@ namespace ProjetVideoGameV2.Model.Dao
             return videoGames;
 
         }
-/*
-        public List<VideoGames> GetVideoGamesAdmin()
-        {
-            List<VideoGames> videoGames = new List<VideoGames>();
 
+        public bool FindDuplcateVg(VideoGames obj)
+        {
+            bool success = false;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.VideoGame", connection);
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.VideoGame WHERE name = @name AND console = @console", connection);
+                cmd.Parameters.AddWithValue("@name", obj.Name);
+                cmd.Parameters.AddWithValue("@console", obj.Console);
                 connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        VideoGames vg = new VideoGames();
-                        vg.IdVideoGames = reader.GetInt32("idVideoGame");
-                        vg.Name = reader.GetString("name");
-                        vg.CreditCost = reader.GetInt32("creditCost");
-                        vg.Console = reader.GetString("console");
-                        if (vg.CreditCost == 0)
-                        {
-                            videoGames.Add(vg);
-                        }
-                    }
-                }
+                int count = (int)cmd.ExecuteScalar();
+                success = count > 0;
             }
-            return videoGames;
 
+            return success;
         }
-*/
+
         public List<VideoGames> GetVideoGamesByName(string name)
         {
             List<VideoGames> videoGames = new List<VideoGames>();

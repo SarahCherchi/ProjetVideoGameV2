@@ -14,7 +14,6 @@ namespace ProjetVideoGameV2.POCO
         private Loan loan;
         private bool available;
         private static CopyDAO copyDAO = new CopyDAO();
-        private static VideoGamesDAO videoGamesDAO = new VideoGamesDAO();
 
         public Copy()
         {
@@ -28,7 +27,7 @@ namespace ProjetVideoGameV2.POCO
             this.owner = owner;
             this.loan = loan;
         }
-
+       
         public int OwnerId
         {
             get { return owner.IdPlayer; }

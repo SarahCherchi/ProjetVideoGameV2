@@ -51,7 +51,7 @@ namespace ProjetVideoGameV2.View
             foreach (var copy in copies)
             {
                 copy.Available = Copy.IsAvailable(copy.IdCopy);
-
+                copy.Owner = Player.findPlayer(copy.Owner.IdPlayer);
             }
         }
 
@@ -70,10 +70,6 @@ namespace ProjetVideoGameV2.View
 
         }
 
-        private void Button_ConfirmBooking_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void Button_BookingCopy(object sender, RoutedEventArgs e)
         {
             Copy copy = dgCopy.SelectedItem as Copy;

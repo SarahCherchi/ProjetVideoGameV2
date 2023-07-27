@@ -14,7 +14,7 @@
             <DataGrid Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
-                    <DataGridTextColumn Header="Owner" Binding="{Binding OwnerId}" />
+                    <DataGridTextColumn Header="Owner" Binding="{Binding OwnerPseudo}" />
                     <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
                     <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
                         <DataGridTemplateColumn.CellTemplate>
@@ -22,9 +22,7 @@
                                 <Button Content="Book this copy" Foreground="White" Background="LightSlateGray" Click="Button_BookingCopy"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

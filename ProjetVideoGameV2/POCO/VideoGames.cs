@@ -1,5 +1,6 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
 using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace ProjetVideoGameV2.POCO
 
@@ -97,6 +98,11 @@ namespace ProjetVideoGameV2.POCO
         public static bool FindVgByNameConsole(VideoGames vg)
         {
             return videoGamesDAO.FindDuplcateVg(vg);
+        }
+
+        public static List<VideoGames> FindVideoGamesByName(string nameVG)
+        {
+            return videoGamesDAO.GetVideoGamesByName(nameVG);
         }
 
         public static int nbrCopyAvailable(int id)

@@ -148,7 +148,7 @@ namespace ProjetVideoGameV2.Model.Dao
 
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.VideoGame WHERE name = @name", connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.VideoGame WHERE name LIKE '%' + @name + '%'", connection);
                 cmd.Parameters.AddWithValue("name", name);
                 connection.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())

@@ -8,9 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label Content="Home" Foreground="Black" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" FontSize="30" Width="92" Background="{x:Null}"/>
-        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="653,24,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search"/>
-        
-        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,112,160,112" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
+        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="160,101,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search"/>
+
+        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,146,160,78" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -24,7 +24,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
                 <DataGridTemplateColumn Header="Rent out a copy" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -32,13 +32,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <Image HorizontalAlignment="Left" Height="17" Margin="583,25,0,0" VerticalAlignment="Top" Width="30" Source="/WPF/coin.png" RenderTransformOrigin="1.783,0.552"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
         <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
         <Button Content="Log out" HorizontalAlignment="Left" Margin="708,25,0,0" VerticalAlignment="Top" Background="#FFFF0020" Foreground="White" Click="Button_Logout"/>
+        <TextBox x:Name="nameSearch" HorizontalAlignment="Left" Margin="32,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="20"/>
     </Grid>
 </UserControl>

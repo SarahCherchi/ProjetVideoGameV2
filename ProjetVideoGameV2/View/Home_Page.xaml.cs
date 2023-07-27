@@ -74,7 +74,8 @@ namespace ProjectVideoGameV2.View
 
         private void Button_Search(object sender, RoutedEventArgs e)
         {
-
+            List<VideoGames> vg = VideoGames.FindVideoGamesByName(nameSearch.Text);
+            dgVideoGames.ItemsSource = vg;
         }
 
         private void Button_Renting(object sender, RoutedEventArgs e)

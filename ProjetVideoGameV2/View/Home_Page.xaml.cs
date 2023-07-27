@@ -76,6 +76,10 @@ namespace ProjectVideoGameV2.View
         {
             List<VideoGames> vg = VideoGames.FindVideoGamesByName(nameSearch.Text);
             dgVideoGames.ItemsSource = vg;
+            foreach (var game in vg)
+            {
+                game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
+            }
         }
 
         private void Button_Renting(object sender, RoutedEventArgs e)

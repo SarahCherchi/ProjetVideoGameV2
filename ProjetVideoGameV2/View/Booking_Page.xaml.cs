@@ -2,6 +2,7 @@
 using ProjetVideoGameV2.Model.Dao;
 using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
+using ProjetVideoGameV2.View.AdminInputDialog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ namespace ProjetVideoGameV2.View
         private Loan loan = new Loan();
         private List<Copy> copies;
         private ICollectionView collectionView;
+        private int totalCreditCost;
+        private int numberOfWeeks;
 
         public Booking_Page(VideoGames vg, Player player)
         {
@@ -74,19 +77,22 @@ namespace ProjetVideoGameV2.View
         private void Button_BookingCopy(object sender, RoutedEventArgs e)
         {
             Copy copy = dgCopy.SelectedItem as Copy;
-            if (player.IdPlayer != copy.Owner.IdPlayer) //CORRIGER LE IF 
+            if (player.IdPlayer != copy.Owner.IdPlayer)
             {
-                if (copy.Available)
+                if (isAvailable(copy))
                 {
-                    copy.Available = false;
-                    videoGame = VideoGames.FindVideoGames(videoGame.IdVideoGames);
-                    copy.VideoGames = videoGame;
-                    player.Credit = player.Credit - copy.VideoGames.CreditCost;
-                    Player.updatePlayer(player);
-                    lb_credit.Content = player.Credit;
-                    createLoan(copy);
-                    dgCopy.Items.Refresh();
-                    MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console}");
+                    calculationRentalCost(copy);
+                    if (totalCreditCost <= player.Credit)
+                    {
+                        updatePlayer(copy);
+                        createLoan(copy);
+                        dgCopy.Items.Refresh();
+                        MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console} for {numberOfWeeks} weeks.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"You cannot book for {numberOfWeeks} weeks. You have {player.Credit} credits, and the total cost is {totalCreditCost}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
@@ -108,9 +114,8 @@ namespace ProjetVideoGameV2.View
         
         private void createLoan(Copy copy)
         {
-            //LoanDAO loanDAO = new LoanDAO();
             loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(7);
+            loan.EndDate = loan.StartDate.AddDays(numberOfWeeks * 7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;
@@ -124,6 +129,36 @@ namespace ProjetVideoGameV2.View
         {
             loan.Copy.Loan = loan;
             Copy.updateLoanerCopy(loan.Copy);
+        }
+
+        private bool isAvailable(Copy copy)
+        {
+            if(copy.Available)
+            {
+                copy.Available = false;
+                return true;
+            }
+            return false;
+        }
+
+        private void calculationRentalCost(Copy copy)
+        {
+            copy.VideoGames = VideoGames.FindVideoGames(videoGame.IdVideoGames);
+            CreateLoanDialog createLoanDialog = new CreateLoanDialog(player, copy.VideoGames);
+            createLoanDialog.ShowDialog();
+            if (createLoanDialog.DialogResult == true)
+            {
+                numberOfWeeks = createLoanDialog.numberOfWeeks;
+                totalCreditCost = numberOfWeeks * copy.VideoGames.CreditCost;
+            }
+
+        }
+
+        private void updatePlayer(Copy copy)
+        {
+            player.Credit -= totalCreditCost;
+            Player.updatePlayer(player);
+            lb_credit.Content = player.Credit;
         }
     }
 }

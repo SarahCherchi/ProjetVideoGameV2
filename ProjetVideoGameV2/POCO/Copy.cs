@@ -27,10 +27,10 @@ namespace ProjetVideoGameV2.POCO
             this.owner = owner;
             this.loan = loan;
         }
-       
-        public int OwnerId
-        {
-            get { return owner.IdPlayer; }
+
+        public string OwnerPseudo 
+        { 
+            get { return Owner.Pseudo; } 
         }
 
         public int IdCopy

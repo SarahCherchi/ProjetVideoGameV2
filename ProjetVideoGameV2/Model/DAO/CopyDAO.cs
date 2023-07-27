@@ -19,7 +19,7 @@ namespace ProjetVideoGameV2.Model.DAO
             bool success = false;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Copy(idVideoGame,owner,idLoan) VALUES('{obj.VideoGames.IdVideoGames}','{obj.Owner.IdPlayer}','{obj.Loan.IdLoan}')", connection);
+                SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Copy(idVideoGame,owner) VALUES('{obj.VideoGames.IdVideoGames}','{obj.Owner.IdPlayer}')", connection);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();
                 success = res > 0;

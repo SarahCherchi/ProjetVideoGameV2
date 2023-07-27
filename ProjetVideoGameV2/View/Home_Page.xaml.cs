@@ -1,5 +1,6 @@
 ﻿using ProjetVideoGameV2;
 using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
 using System;
@@ -78,7 +79,29 @@ namespace ProjectVideoGameV2.View
 
         private void Button_Renting(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                Copy copy = new Copy();
+
+                copy.VideoGames = selectedVg;
+                copy.Owner = player;
+
+                bool success = Copy.createCopy(copy);
+
+                if (success)
+                {
+                    MessageBox.Show("Renting successful!", "Renting", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Renting failed!", "Renting", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            Home_Page home_Page = new Home_Page(player);
+            Content = home_Page;
+            
         }
 
         private void Button_Booking(object sender, RoutedEventArgs e)

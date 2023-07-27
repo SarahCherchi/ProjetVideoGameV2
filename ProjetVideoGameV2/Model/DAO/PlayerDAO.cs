@@ -176,7 +176,6 @@ namespace ProjetVideoGameV2.Model.Dao
                 }
             }
             return players;
-
         }
     }
 }

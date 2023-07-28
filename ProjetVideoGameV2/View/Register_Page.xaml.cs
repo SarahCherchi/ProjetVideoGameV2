@@ -28,7 +28,7 @@ namespace ProjetVideoGameV2.View
         {
             Player p = new Player();
             p.UserName = Username.Text;
-            p.Password = Password.Text;
+            p.Password = Password.Password;
             p.DateOfBirth = DateTime.Parse(Birthday.Text);
             p.Pseudo = Pseudo.Text;
             p.Credit = 10;

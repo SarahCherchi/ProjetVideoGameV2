@@ -28,6 +28,5 @@
         </StackPanel>
 
         <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="613,354,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
-        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="63,83,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
     </Grid>
 </UserControl>

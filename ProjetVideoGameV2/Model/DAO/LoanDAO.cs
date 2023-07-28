@@ -150,16 +150,50 @@ namespace ProjetVideoGameV2.Model.DAO
                         loan.IdLoan = reader.GetInt32("idLoan");
                         loan.StartDate = reader.GetDateTime("startDate");
                         loan.EndDate = reader.GetDateTime("endDate");
-                        loan.Ongoing = reader.GetBoolean("ongoing");
-                        loan.Copy.IdCopy = reader.GetInt32("idCopy");
-                        loan.Lender.IdPlayer = reader.GetInt32("lender");
-                        loan.Borrower.IdPlayer = reader.GetInt32("borrower");
+                        Copy copy = new Copy();
+                        copy.IdCopy = reader.GetInt32("idCopy");
+                        loan.Copy = copy;
+                        Player player = new Player();
+                        player.IdPlayer = reader.GetInt32("lender");
+                        loan.Lender = player;
+                        Player borrower = new Player();
+                        player.IdPlayer = reader.GetInt32("borrower");
+                        loan.Borrower = player;
                         loans.Add(loan);
                     }
                 }
             }
             return loans;
+        }
 
+        public List<Loan> FindAllByIdPlayer(int id)
+        {
+            List<Loan> loans = new List<Loan>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Loan WHERE lender = @idLoan", connection);
+                cmd.Parameters.AddWithValue("idLoan", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Loan loan = new Loan();
+                        loan.IdLoan = reader.GetInt32("idLoan");
+                        loan.StartDate = reader.GetDateTime("startDate");
+                        loan.EndDate = reader.GetDateTime("endDate");
+                        Copy copy = new Copy();
+                        copy.IdCopy = reader.GetInt32("idCopy");
+                        loan.Copy = copy;
+                        Player borrower = new Player();
+                        borrower.IdPlayer = reader.GetInt32("borrower");
+                        loan.Borrower = borrower;
+                        loans.Add(loan);
+                    }
+                }
+            }
+            return loans;
         }
     }
 }

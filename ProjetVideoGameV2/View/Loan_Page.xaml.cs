@@ -2,6 +2,7 @@
 using ProjetVideoGameV2.POCO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,17 @@ namespace ProjetVideoGameV2.View
     public partial class Loan_Page : UserControl
     {
         private Player player;
+        private List<Loan> loans;
+        private ICollectionView collectionView;
         public Loan_Page(Player player)
         {
             InitializeComponent();
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
+            loans = Loan.findAllLoanByIdPlayer(player.IdPlayer);
+            collectionView = CollectionViewSource.GetDefaultView(loans);
+            dgLoan.ItemsSource = collectionView;
         }
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)

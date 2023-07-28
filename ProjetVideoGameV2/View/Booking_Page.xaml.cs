@@ -36,15 +36,7 @@ namespace ProjetVideoGameV2.View
 
         private void RefreshData()
         {
-            if (chkCopy.IsChecked == false)
-            {
-                copies = Copy.findAllCopyByIdVG(videoGame.IdVideoGames);
-            }
-            else
-            {
-                copies = VideoGames.CopyAvailable(videoGame.IdVideoGames);
-            }
-
+            copies = VideoGames.CopyAvailable(videoGame.IdVideoGames);
             collectionView = CollectionViewSource.GetDefaultView(copies);
             dgCopy.ItemsSource = collectionView;
 
@@ -55,16 +47,6 @@ namespace ProjetVideoGameV2.View
             }
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            RefreshData();
-        }
-
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            RefreshData();
-        }
-
         private void dgCopy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -72,34 +54,49 @@ namespace ProjetVideoGameV2.View
 
         private void Button_BookingCopy(object sender, RoutedEventArgs e)
         {
-            Copy copy = dgCopy.SelectedItem as Copy;
-            if (player.IdPlayer != copy.Owner.IdPlayer)
+            if (player.Credit > 0)
             {
-                if (isAvailable(copy))
+                Copy copy = dgCopy.SelectedItem as Copy;
+                if (player.IdPlayer != copy.Owner.IdPlayer)
                 {
-                    calculationRentalCost(copy);
-                    if (totalCreditCost <= player.Credit)
+                    if (isAvailable(copy))
                     {
-                        updatePlayer(copy);
-                        createLoan(copy);
-                        dgCopy.Items.Refresh();
-                        MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console} for {numberOfWeeks} weeks.");
+                        calculationRentalCost(copy);
+
+                        if (numberOfWeeks <= 0 || numberOfWeeks.Equals(null))
+                        {
+                            return;
+                        }
+
+                        if (totalCreditCost <= player.Credit)
+                        {
+                            updatePlayer(copy);
+                            createLoan(copy);
+                            RefreshData();
+                            MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console} for {numberOfWeeks} weeks.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"You cannot book for {numberOfWeeks} weeks. You have {player.Credit} credits, and the total cost is {totalCreditCost}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show($"You cannot book for {numberOfWeeks} weeks. You have {player.Credit} credits, and the total cost is {totalCreditCost}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("This copy is already booked.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("This copy is already booked.");
+                    MessageBox.Show("You can't book your own copy!");
                 }
             }
             else
             {
-                MessageBox.Show("You can't book your own copy !");
+                Home_Page hp = new Home_Page(player);
+                this.Content = hp;
             }
         }
+
 
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)
@@ -131,7 +128,6 @@ namespace ProjetVideoGameV2.View
         {
             if(copy.Available)
             {
-                copy.Available = false;
                 return true;
             }
             return false;
@@ -152,6 +148,7 @@ namespace ProjetVideoGameV2.View
 
         private void updatePlayer(Copy copy)
         {
+            copy.Available = false;
             player.Credit -= totalCreditCost;
             Player.updatePlayer(player);
             lb_credit.Content = player.Credit;

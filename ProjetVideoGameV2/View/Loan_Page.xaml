@@ -7,11 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="Loan" Foreground="Black" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="30" Width="119" Background="{x:Null}"/>
+        <Label Content="  Loan" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="120" Background="{x:Null}"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
         <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
-        <StackPanel Margin="63,81,157,119">
+        <StackPanel Margin="63,81,157,211">
             <DataGrid Name="dgLoan" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
+                    <DataGridTextColumn Header="Star Date" Binding="{Binding StartDate}" />
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" />
+                    <DataGridTextColumn Header="Video Games" Binding="{Binding IdCopy}"/>
+                    <DataGridTextColumn Header="Borrower" Binding="{Binding Borrower}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="670,403,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
+        <StackPanel Margin="63,282,157,10">
+            <DataGrid x:Name="dgLoan1" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
                     <DataGridTextColumn Header="Star Date" Binding="{Binding StartDate}" />
@@ -28,7 +40,8 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="523,357,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
-            
+        <Label Content="My Loan" Foreground="Black" HorizontalAlignment="Left" Margin="63,242,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
+        <Label Content="My Booking" Foreground="Black" HorizontalAlignment="Left" Margin="63,44,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
+
     </Grid>
 </UserControl>

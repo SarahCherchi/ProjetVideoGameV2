@@ -14,7 +14,8 @@ namespace ProjetVideoGameV2.View.AdminInputDialog
             InitializeComponent();
             this.player = player;
             this.videoGames = vg;
-            lblGameName.Content = $"Number of weeks for {videoGames.Name}";
+            lblGameName.Content = $"Number of weeks for {videoGames.Name} : ";
+            lblGameCost.Content = $"The price is {videoGames.CreditCost} credits/weeks";
         }
 
         private void btnValider_Click(object sender, RoutedEventArgs e)

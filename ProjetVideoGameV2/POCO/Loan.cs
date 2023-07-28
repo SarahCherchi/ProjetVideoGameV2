@@ -107,5 +107,10 @@ namespace ProjetVideoGameV2.POCO
         {
             return loanDAO.FindAll();
         }
+
+        public static List<Loan> findAllLoanByIdPlayer(int id)
+        {
+            return loanDAO.FindAllByIdPlayer(id);
+        }
     }
 }

@@ -28,22 +28,22 @@ namespace ProjetVideoGameV2
         {
             AdminDAO adminDAO = new AdminDAO();
             Administrator admin = new Administrator();
-            adminDAO.Login(Username.Text, Password.Text);
-            admin.Role = adminDAO.Login(Username.Text, Password.Text).Role;
+            adminDAO.Login(Username.Text, Password.Password);
+            admin.Role = adminDAO.Login(Username.Text, Password.Password).Role;
             Admin_Page ap = new Admin_Page();
             this.Content = ap;
             if (admin.Role != true)
             {
                 PlayerDAO playerDAO = new PlayerDAO();
                 Player player = new Player();
-                player.Login(Username.Text, Password.Text);
-                player.IdPlayer = playerDAO.Login(Username.Text, Password.Text).IdPlayer;
-                player.Pseudo = playerDAO.Login(Username.Text, Password.Text).Pseudo;
-                player.Credit = playerDAO.Login(Username.Text, Password.Text).Credit;
-                player.UserName = playerDAO.Login(Username.Text, Password.Text).UserName;
-                player.Password = playerDAO.Login(Username.Text, Password.Text).Password;
-                player.DateOfBirth = playerDAO.Login(Username.Text, Password.Text).DateOfBirth;
-                player.LastDateBonus = playerDAO.Login(Username.Text, Password.Text).LastDateBonus;
+                player.Login(Username.Text, Password.Password);
+                player.IdPlayer = playerDAO.Login(Username.Text, Password.Password).IdPlayer;
+                player.Pseudo = playerDAO.Login(Username.Text, Password.Password).Pseudo;
+                player.Credit = playerDAO.Login(Username.Text, Password.Password).Credit;
+                player.UserName = playerDAO.Login(Username.Text, Password.Password).UserName;
+                player.Password = playerDAO.Login(Username.Text, Password.Password).Password;
+                player.DateOfBirth = playerDAO.Login(Username.Text, Password.Password).DateOfBirth;
+                player.LastDateBonus = playerDAO.Login(Username.Text, Password.Password).LastDateBonus;
                 Home_Page hp = new Home_Page(player);
                 this.Content = hp;
             }

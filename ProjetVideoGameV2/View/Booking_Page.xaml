@@ -10,7 +10,7 @@
         <Label Content="Booking" Foreground="Black" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="30" Width="119" Background="{x:Null}"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
         <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
-        <StackPanel Margin="63,81,157,119">
+        <StackPanel Margin="63,115,203,115">
             <DataGrid Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
@@ -27,7 +27,7 @@
             </DataGrid>
         </StackPanel>
 
-        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="523,357,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
-        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="63,379,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="613,354,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
+        <CheckBox x:Name="chkCopy" Content="Show only available copies" HorizontalAlignment="Left" Margin="63,83,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
     </Grid>
 </UserControl>

@@ -7,20 +7,44 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="Home" Foreground="Black" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" FontSize="30" Width="92" Background="{x:Null}"/>
-        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="160,101,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search"/>
 
-        <DataGrid Name="dgVideoGames" AutoGenerateColumns="False" Margin="32,146,160,78" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="63" />
+            <RowDefinition Height="Auto" MinHeight="40" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Home" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="92" Background="{x:Null}" Height="50" Margin="0,10,0,0"/>
+        <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="130,22,0,16" Width="156" Height="26" />
+        <Label x:Name="lb_credit" HorizontalAlignment="Right" Margin="0,0,60,0" VerticalAlignment="Center" Width="41" Height="24"/>
+        <TextBlock Margin="0,25,30,0" HorizontalAlignment="Right"  VerticalAlignment="Top" FontFamily="Segoe UI Emoji" Width="27" Height="18">&#x1F4B0;</TextBlock>
+
+
+        <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="30,7,0,3" Grid.Row="0" Height="22" Width="85" Background="CornflowerBlue">
+            <MenuItem Header="My account"  Foreground="White" FontSize="14">
+                <MenuItem Header="My Loan"  Click="Button_Loan" Foreground="CornflowerBlue"/>
+                <MenuItem Header="My Copies" Foreground="CornflowerBlue"/>
+                <MenuItem Header="History" Foreground="CornflowerBlue"/>
+                <MenuItem Header="Account Info" Foreground="CornflowerBlue"/>
+                <Separator />
+                <MenuItem Header="Log Out" Click="Button_Logout" Foreground="CornflowerBlue"/>
+            </MenuItem>
+        </Menu>
+
+        <TextBox x:Name="nameSearch" HorizontalAlignment="Left" Margin="30,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="20" Grid.Row="1"/>
+        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="160,20,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search" Height="20" Width="39" Grid.Row="1"/>
+
+        <DataGrid Name="dgVideoGames" Grid.Row="2" AutoGenerateColumns="False" Margin="30,26,30,88" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" />
-                <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
-                <DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopy}" />
+                <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Credit cost" Binding="{Binding CreditCost}" Width="Auto"/>
+                <DataGridTextColumn Header="Console" Binding="{Binding Console}" Width="*"/>
+                <DataGridTextColumn Header="Number of copy" Binding="{Binding NumberOfCopy}" Width="Auto"/>
                 <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Book" Foreground="White" Background="LightSlateGray" Click="Button_Booking"/>
+                            <Button Content="Book" Foreground="White" Background="LightSlateGray" Click="Button_Booking" Width="Auto"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -28,19 +52,12 @@
                 <DataGridTemplateColumn Header="Rent out a copy" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Add you copy" Foreground="White" Background="CadetBlue" Click="Button_Renting"/>
+                            <Button Content="Add you copy" Foreground="White" Background="CadetBlue" Click="Button_Renting" Width="Auto"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>
-
-        <Image HorizontalAlignment="Left" Height="17" Margin="583,25,0,0" VerticalAlignment="Top" Width="30" Source="/WPF/coin.png" RenderTransformOrigin="1.783,0.552"/>
-        <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
-        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
-        <Button Content="Log out" HorizontalAlignment="Left" Margin="708,25,0,0" VerticalAlignment="Top" Background="#FFFF0020" Foreground="White" Click="Button_Logout"/>
-        <TextBox x:Name="nameSearch" HorizontalAlignment="Left" Margin="32,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="20"/>
-        <Button Content="My Loan" HorizontalAlignment="Left" Margin="640,25,0,0" VerticalAlignment="Top" Background="#FFA500" Foreground="White" Click="Button_Loan"/>
     </Grid>
 </UserControl>

@@ -22,12 +22,32 @@
 
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="30,7,0,3" Grid.Row="0" Height="22" Width="85" Background="CornflowerBlue">
             <MenuItem Header="My account"  Foreground="White" FontSize="14">
-                <MenuItem Header="My Loan"  Click="Button_Loan" Foreground="CornflowerBlue"/>
-                <MenuItem Header="My Copies" Foreground="CornflowerBlue"/>
-                <MenuItem Header="History" Foreground="CornflowerBlue"/>
-                <MenuItem Header="Account Info" Foreground="CornflowerBlue"/>
+                <MenuItem Header="My Loan"  Click="Button_Loan" Foreground="Black">
+                    <MenuItem.Icon >
+                        <Run Text="&#x1F4B8;"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="My Copies" Foreground="Black">
+                <MenuItem.Icon >
+                        <Run Text="&#x1F3AE;"/>
+                </MenuItem.Icon>
+            </MenuItem>
+                <MenuItem Header="History" Foreground="Black">
+                    <MenuItem.Icon >
+                        <Run Text="&#x1F4CB;"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Account Info" Foreground="Black">
+                    <MenuItem.Icon >
+                        <Run Text="&#x1F575;"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="Log Out" Click="Button_Logout" Foreground="CornflowerBlue"/>
+                <MenuItem Header="Log Out" Click="Button_Logout" Foreground="Black">
+                    <MenuItem.Icon >
+                        <Run Text="&#x27A1;"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 

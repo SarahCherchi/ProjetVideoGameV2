@@ -15,8 +15,8 @@
         <DataGrid Name="dgCopiesBooking" AutoGenerateColumns="False" SelectionChanged="dgCopiesBooking_SelectionChanged" IsReadOnly="True" Margin="32,112,32,112">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="n° Loan" Binding="{Binding IdLoan}" />
-                <DataGridTextColumn Header="Star Date" Binding="{Binding StartDate}" />
-                <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" />
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
                 <DataGridTextColumn Header="Borrower" Binding="{Binding Borrower}"/>
             </DataGrid.Columns>
         </DataGrid>

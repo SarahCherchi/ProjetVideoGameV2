@@ -57,7 +57,7 @@ namespace ProjetVideoGameV2.View
         {
             if (player.Credit > 0)
             {
-                Copy copy = dgCopy.SelectedItem as Copy;
+                Copy copy = (Copy)dgCopy.SelectedItem;
                 if (player.IdPlayer != copy.Owner.IdPlayer)
                 {
                     if (isAvailable(copy))

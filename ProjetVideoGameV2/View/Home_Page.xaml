@@ -28,10 +28,10 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="My Copies" Foreground="Black">
-                <MenuItem.Icon >
+                    <MenuItem.Icon >
                         <Run Text="&#x1F3AE;"/>
-                </MenuItem.Icon>
-            </MenuItem>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="History" Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F4CB;"/>
@@ -51,10 +51,10 @@
             </MenuItem>
         </Menu>
 
-        <TextBox x:Name="nameSearch" HorizontalAlignment="Left" Margin="30,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="20" Grid.Row="1"/>
-        <Button Content="Search" Foreground="White" HorizontalAlignment="Left" Margin="160,20,0,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search" Height="20" Width="39" Grid.Row="1"/>
+        <TextBox x:Name="nameSearch" HorizontalAlignment="Right" Margin="0,8,80,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" Height="20" Grid.Row="2"/>
+        <Button Content="Search" Foreground="White" HorizontalAlignment="Right" Margin="0,8,30,0" VerticalAlignment="Top" Background="MediumSeaGreen" Click="Button_Search" Height="20" Width="39" Grid.Row="2"/>
 
-        <DataGrid Name="dgVideoGames" Grid.Row="2" AutoGenerateColumns="False" Margin="30,26,30,88" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
+        <DataGrid Name="dgVideoGames" Grid.Row="2" AutoGenerateColumns="False" Margin="30,38,30,76" SelectionChanged="dgVideoGames_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding IdVideoGames}" Width="Auto"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
@@ -79,5 +79,6 @@
 
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Games catalog" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="150" Background="{x:Null}" Height="50" Margin="26,38,0,0" Grid.Row="1" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>

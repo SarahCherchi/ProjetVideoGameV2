@@ -88,6 +88,11 @@ namespace ProjectVideoGameV2.View
             this.Content = loan;
         }
 
+        private void Button_Copies(object sender, RoutedEventArgs e)
+        {
+            Copies_Page copies = new Copies_Page(player);
+            this.Content = copies;
+        }
 
         private void Button_Renting(object sender, RoutedEventArgs e)
         {

@@ -152,6 +152,32 @@ namespace ProjetVideoGameV2.Model.DAO
 
         }
 
+        public List<Copy> FindAllCopyOwner(int id)
+        {
+            List<Copy> copies = new List<Copy>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Copy WHERE owner = @id", connection);
+                cmd.Parameters.AddWithValue("@id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Copy copy = new Copy();
+                        copy.IdCopy = reader.GetInt32("idCopy");
+                        copy.VideoGames = new VideoGames();
+                        copy.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+
+                        copies.Add(copy);
+
+                    }
+                }
+            }
+            return copies;
+        }
+
         public bool IsAvailable(int id)
         {
             bool success = false;

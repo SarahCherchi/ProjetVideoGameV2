@@ -33,6 +33,16 @@ namespace ProjetVideoGameV2.POCO
             get { return Owner.Pseudo; } 
         }
 
+        public string VideoGameName
+        {
+            get { return VideoGames.Name; }
+        }
+
+        public string Console 
+        { 
+            get { return VideoGames.Console; } 
+        }
+
         public int IdCopy
         {
             get { return idCopy; }
@@ -93,6 +103,11 @@ namespace ProjetVideoGameV2.POCO
         public static List<Copy> findAllCopyByIdVG(int id)
         {
             return copyDAO.FindAllCopyVideoGame(id);
+        }
+
+        public static List<Copy> findAllCopiesByUser(int id)
+        {
+            return copyDAO.FindAllCopyOwner(id);
         }
     }
 }

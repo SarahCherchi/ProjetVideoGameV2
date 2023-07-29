@@ -41,6 +41,17 @@ namespace ProjetVideoGameV2.POCO
             
         }
 
+        public string StartDateString
+        {
+            get { return startDate.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string EndDateString 
+        {
+            get { return endDate.ToString("dd-MM-yyyy"); }
+                
+        }
         public int IdLoan
         {
             get { return idLoan; }

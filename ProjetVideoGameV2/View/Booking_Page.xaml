@@ -10,8 +10,9 @@
         <Label Content="Booking" Foreground="Black" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="30" Width="119" Background="{x:Null}"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
         <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
-        <StackPanel Margin="63,115,203,115">
-            <DataGrid Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
+        <Label x:Name="lb_nameOfDg" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" Width="337" Height="39" FontSize="20"/>
+        <StackPanel Margin="63,130,203,100">
+            <DataGrid x:Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
                     <DataGridTextColumn Header="Owner" Binding="{Binding OwnerPseudo}" />

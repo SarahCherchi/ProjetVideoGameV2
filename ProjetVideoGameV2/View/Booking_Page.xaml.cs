@@ -30,6 +30,7 @@ namespace ProjetVideoGameV2.View
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
+            lb_nameOfDg.Content = $"Catalog of copies of {vg.Name} on {vg.Console}";
 
             RefreshData();
         }

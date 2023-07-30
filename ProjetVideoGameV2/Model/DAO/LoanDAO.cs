@@ -87,7 +87,7 @@ namespace ProjetVideoGameV2.Model.DAO
             bool success = false;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"UPDATE dbo.Loan SET ongoin = '{obj.Ongoing}' WHERE idLoan = @idLoan", connection);
+                SqlCommand cmd = new SqlCommand($"UPDATE dbo.Loan SET ongoing = '{obj.Ongoing}' WHERE idLoan = @idLoan", connection);
                 cmd.Parameters.AddWithValue("idLoan", obj.IdLoan);
                 connection.Open();
                 int res = cmd.ExecuteNonQuery();

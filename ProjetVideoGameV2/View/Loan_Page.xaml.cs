@@ -23,11 +23,19 @@ namespace ProjetVideoGameV2.View
         private Player player;
         private List<Loan> loans;
         private ICollectionView collectionView;
+        private Loan selectedLoan;
         public Loan_Page(Player player)
         {
             InitializeComponent();
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
+            lb_credit.Content = player.Credit;
+            refreshData();
+
+        }
+
+        private void refreshData()
+        {
             lb_credit.Content = player.Credit;
             loans = Loan.findAllLoanByIdBorrower(player.IdPlayer);
             collectionView = CollectionViewSource.GetDefaultView(loans);
@@ -37,7 +45,6 @@ namespace ProjetVideoGameV2.View
             {
                 loan.Lender = Player.findPlayer(loan.Lender.IdPlayer);
             }
-
         }
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)
@@ -48,12 +55,30 @@ namespace ProjetVideoGameV2.View
 
         private void Button_ReturnedCopy(object sender, RoutedEventArgs e)
         {
-            
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to return the copy?", "Confirm Return", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+
+                Loan.EndLoan(selectedLoan);
+                Copy.ReleaseCopy(selectedLoan.Copy);
+                int latePenalty = Loan.calculateBalance(selectedLoan,player);
+
+                MessageBox.Show("The copy has been returned successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if(latePenalty > 0)
+                {
+                    MessageBox.Show($"You have returned your copy late. Your penalty is {latePenalty} credits.", "Overdue penalty",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                }
+                refreshData();
+            }
         }
 
         private void dgLoan_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if(dgLoan.SelectedItem is Loan l)
+            {
+                selectedLoan = l;
+            }
         }
     }
 }

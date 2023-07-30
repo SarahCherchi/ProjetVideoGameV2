@@ -9,9 +9,10 @@
     <Grid>
         <Label Content="  Loan" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="120" Background="{x:Null}"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
-        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Label x:Name="lb_credit" HorizontalAlignment="Right" Margin="0,20,61,0" VerticalAlignment="Top" Width="40" Height="24"/>
+        <TextBlock Margin="0,25,30,0" HorizontalAlignment="Right"  VerticalAlignment="Top" FontFamily="Segoe UI Emoji" Width="27" Height="18">&#x1F4B0;</TextBlock>
 
-        <Button Content="Go back" HorizontalAlignment="Left" Height="37" Margin="626,364,0,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
+        <Button Content="Go back" HorizontalAlignment="Right" Height="37" Margin="0,363,32,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
         <StackPanel Margin="60,124,160,126">
             <DataGrid x:Name="dgLoan" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
@@ -20,10 +21,10 @@
                     <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
                     <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
                     <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
-                    <DataGridTemplateColumn Header="Returned" IsReadOnly="False">
+                    <DataGridTemplateColumn Header="Return" IsReadOnly="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Copy returned" Foreground="White" Background="LightSlateGray" Click="Button_ReturnedCopy"/>
+                                <Button Content="Return copy" Foreground="White" Background="LightSlateGray" Click="Button_ReturnedCopy"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

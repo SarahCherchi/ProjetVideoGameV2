@@ -193,6 +193,21 @@ namespace ProjetVideoGameV2.Model.DAO
             return success;
         }
 
+        public bool UpdateIdLoanCopy(Copy obj)
+        {
+            bool success = false;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand($"UPDATE dbo.Copy SET idLoan = NULL WHERE idCopy = @id", connection);
+                cmd.Parameters.AddWithValue("id", obj.IdCopy);
+                connection.Open();
+                int res = cmd.ExecuteNonQuery();
+                success = res > 0;
+            }
+
+            return success;
+        }
+
     }
 }
 

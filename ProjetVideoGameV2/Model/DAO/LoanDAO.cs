@@ -166,7 +166,7 @@ namespace ProjetVideoGameV2.Model.DAO
             return loans;
         }
 
-        public List<Loan> FindAllByIdPlayer(int id, int idc)
+        public List<Loan> FindAllByLender(int id, int idc)
         {
             List<Loan> loans = new List<Loan>();
             using (SqlConnection connection = new SqlConnection(this.connectionString))
@@ -198,6 +198,39 @@ namespace ProjetVideoGameV2.Model.DAO
             }
             return loans;
         }
+
+        public List<Loan> FindAllByBorrower(int id)
+        {
+            List<Loan> loans = new List<Loan>();
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Loan WHERE borrower = @idLoan AND ongoing = 'True'", connection);
+                cmd.Parameters.AddWithValue("idLoan", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Loan loan = new Loan();
+                        loan.IdLoan = reader.GetInt32("idLoan");
+
+                        loan.StartDate = reader.GetDateTime("startDate");
+                        loan.EndDate = reader.GetDateTime("endDate");
+
+                        loan.Ongoing = reader.GetBoolean("ongoing");
+                        Copy copy = new Copy();
+                        copy.IdCopy = reader.GetInt32("idCopy");
+                        loan.Copy = copy;
+                        Player lender = new Player();
+                        lender.IdPlayer = reader.GetInt32("lender");
+                        loan.Lender = lender;
+                        loans.Add(loan);
+                    }
+                }
+            }
+            return loans;
+        }
+
     }
 }
 

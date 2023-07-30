@@ -17,7 +17,7 @@
                 <DataGridTextColumn Header="n° Loan" Binding="{Binding IdLoan}" />
                 <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
                 <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
-                <DataGridTextColumn Header="Borrower" Binding="{Binding Borrower}"/>
+                <DataGridTextColumn Header="Borrower" Binding="{Binding BorrowerPseudo}"/>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -23,10 +23,15 @@ namespace ProjetVideoGameV2.View
             this.copies = copy;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-            loans = Loan.findAllLoanByIdPlayer(player.IdPlayer,copies.IdCopy);
+            loans = Loan.findAllLoanByIdLender(player.IdPlayer,copies.IdCopy);
             collectionView = CollectionViewSource.GetDefaultView(loans);
             dgCopiesBooking.ItemsSource = collectionView;
-            
+
+            foreach (var loan in loans)
+            {
+                loan.Borrower = Player.findPlayer(loan.Borrower.IdPlayer);
+            }
+
         }
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)

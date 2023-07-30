@@ -29,7 +29,15 @@ namespace ProjetVideoGameV2.View
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-           
+            loans = Loan.findAllLoanByIdBorrower(player.IdPlayer);
+            collectionView = CollectionViewSource.GetDefaultView(loans);
+            dgLoan.ItemsSource = collectionView;
+
+            foreach (var loan in loans)
+            {
+                loan.Lender = Player.findPlayer(loan.Lender.IdPlayer);
+            }
+
         }
 
         private void Button_GoBack_Click(object sender, RoutedEventArgs e)

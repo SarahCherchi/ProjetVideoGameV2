@@ -94,6 +94,16 @@ namespace ProjetVideoGameV2.POCO
             set { borrower = value; }
         }
 
+        public string BorrowerPseudo
+        {
+            get { return Borrower.Pseudo; }
+        }
+
+        public string LenderPseudo
+        {
+            get { return Lender.Pseudo; }
+        }
+
         public static int createLoan(Loan loan)
         {
             return loanDAO.CreateLoan(loan);
@@ -119,9 +129,14 @@ namespace ProjetVideoGameV2.POCO
             return loanDAO.FindAll();
         }
 
-        public static List<Loan> findAllLoanByIdPlayer(int id, int idc)
+        public static List<Loan> findAllLoanByIdLender(int id, int idc)
         {
-            return loanDAO.FindAllByIdPlayer(id, idc);
+            return loanDAO.FindAllByLender(id, idc);
+        }
+
+        public static List<Loan> findAllLoanByIdBorrower(int id)
+        {
+            return loanDAO.FindAllByBorrower(id);
         }
     }
 }

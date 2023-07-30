@@ -177,5 +177,23 @@ namespace ProjetVideoGameV2.Model.Dao
             }
             return players;
         }
+        public bool UpdateCreditBalancePenality(Player obj1, Player obj2)
+        {
+            bool success = false;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd1 = new SqlCommand($"UPDATE dbo.[User] SET credit = '{obj1.Credit}' WHERE idUser = @id", connection);
+                SqlCommand cmd2 = new SqlCommand($"UPDATE dbo.[User] SET credit = '{obj2.Credit}' WHERE idUser = @id", connection);
+                cmd1.Parameters.AddWithValue("id", obj1.IdPlayer);
+                cmd2.Parameters.AddWithValue("id", obj2.IdPlayer);
+                connection.Open();
+                int res1 = cmd1.ExecuteNonQuery();
+                int res2 = cmd2.ExecuteNonQuery();
+                success = res1 > 0 && res2 > 0;
+            }
+
+            return success;
+        }
+
     }
 }

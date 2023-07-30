@@ -11,7 +11,7 @@ namespace ProjetVideoGameV2.POCO
         private int idCopy;
         private VideoGames videoGames;
         private Player owner;
-        private Loan loan;
+        private Loan? loan;
         private bool available;
         private static CopyDAO copyDAO = new CopyDAO();
 
@@ -82,6 +82,11 @@ namespace ProjetVideoGameV2.POCO
         public static bool updateLoanerCopy(Copy copy)
         {
             return copyDAO.Update(copy);
+        }
+
+        public static bool ReleaseCopy(Copy copy)
+        {
+            return copyDAO.UpdateIdLoanCopy(copy);
         }
 
         public static Copy findCopy(int id)

@@ -1,4 +1,5 @@
-﻿using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace ProjetVideoGameV2.POCO
         private Player lender;
         private Player borrower;
         private static LoanDAO loanDAO = new LoanDAO();
+        private static PlayerDAO playerDAO = new PlayerDAO();
 
 
         public Loan()
@@ -114,8 +116,9 @@ namespace ProjetVideoGameV2.POCO
             return loanDAO.Delete(id);
         }
 
-        public static bool updateLoan(Loan loan)
+        public static bool EndLoan(Loan loan)
         {
+            loan.ongoing = false;
             return loanDAO.Update(loan);
         }
 
@@ -137,6 +140,23 @@ namespace ProjetVideoGameV2.POCO
         public static List<Loan> findAllLoanByIdBorrower(int id)
         {
             return loanDAO.FindAllByBorrower(id);
+        }
+
+        public static int calculateBalance(Loan l,Player pBorrower)
+        {
+            int balance = 0;
+            
+            if(l.EndDate < DateTime.Now)
+            {
+                TimeSpan difference = DateTime.Now - l.EndDate;
+                int nbrDaysOverdue = (int)difference.TotalDays;
+                balance = 5 * nbrDaysOverdue;
+                pBorrower.Credit -= balance;
+                l.Lender.Credit += balance;
+                playerDAO.UpdateCreditBalancePenality(pBorrower,l.Lender);
+                return balance;
+            }
+            return balance;
         }
     }
 }

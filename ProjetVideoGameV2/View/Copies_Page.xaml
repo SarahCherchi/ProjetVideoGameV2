@@ -9,11 +9,12 @@
     <Grid>
         <Label Content="My copies" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="150" Background="{x:Null}"/>
         <Label x:Name="lb_pseudo" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="156" Height="27"/>
-        <Label x:Name="lb_credit" HorizontalAlignment="Left" Margin="613,20,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Label x:Name="lb_credit" HorizontalAlignment="Right" Margin="0,20,60,0" VerticalAlignment="Top" Width="41" Height="24"/>
+        <TextBlock Margin="0,25,30,0" HorizontalAlignment="Right"  VerticalAlignment="Top" FontFamily="Segoe UI Emoji" Width="27" Height="18">&#x1F4B0;</TextBlock>
         <Label Content="My List of copies" Foreground="Black" HorizontalAlignment="Left" Margin="63,62,0,0" VerticalAlignment="Top" FontSize="20" Width="169" Background="{x:Null}"/>
 
-        
-        <DataGrid x:Name="dgCopies" AutoGenerateColumns="False" SelectionChanged="dgCopies_SelectionChanged" IsReadOnly="True" Margin="63,104,41,119">
+
+        <DataGrid x:Name="dgCopies" AutoGenerateColumns="False" SelectionChanged="dgCopies_SelectionChanged" IsReadOnly="True" Margin="63,104,41,148">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="N° Copy" Binding="{Binding IdCopy}" />
                 <DataGridTextColumn Header="Video Game" Binding="{Binding VideoGameName}" />
@@ -28,7 +29,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-       
+
         <Button Content="Go back" HorizontalAlignment="Right" Height="37" Margin="0,350,41,0" VerticalAlignment="Top" Width="120" Click="Button_GoBack_Click"/>
 
     </Grid>

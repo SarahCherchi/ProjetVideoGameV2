@@ -106,6 +106,11 @@ namespace ProjetVideoGameV2.POCO
             get { return Lender.Pseudo; }
         }
 
+        public string VideoGameName
+        {
+            get { return Copy.VideoGames.Name; }
+        }
+
         public static int createLoan(Loan loan)
         {
             return loanDAO.CreateLoan(loan);

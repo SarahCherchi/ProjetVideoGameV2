@@ -82,10 +82,16 @@ namespace ProjetVideoGameV2.Model.DAO
                         {
                             copy = new Copy();
                             {
-                                copy.IdCopy = Convert.ToInt32(reader.GetString("idCopy"));
-                                copy.VideoGames.IdVideoGames = Convert.ToInt32("idVideoGame");
-                                copy.Owner.IdPlayer = Convert.ToInt32("owner");
-                                copy.Loan.IdLoan = Convert.ToInt32("idLoan");
+                                copy.IdCopy = reader.GetInt32("idCopy");
+                                VideoGames videoGames = new VideoGames();
+                                videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                                copy.VideoGames = videoGames;
+                                Player owner = new Player();
+                                owner.IdPlayer = reader.GetInt32("owner");
+                                copy.Owner = owner;
+                                Loan loan = new Loan();
+                                loan.IdLoan = reader.GetInt32("idLoan");
+                                copy.Loan = loan;   
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Controls;
 
 namespace ProjetVideoGameV2.POCO

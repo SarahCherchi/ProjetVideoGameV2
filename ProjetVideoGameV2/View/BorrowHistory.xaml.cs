@@ -10,13 +10,13 @@ using System.Windows.Data;
 namespace ProjetVideoGameV2.View
 {
    
-    public partial class UserCopiesBook : UserControl
+    public partial class BorrowHistory : UserControl
     {
         private Player player;
         private Copy copies;
         private List<Loan> loans;
         private ICollectionView collectionView;
-        public UserCopiesBook(Player player, Copy copy)
+        public BorrowHistory(Player player, Copy copy)
         {
             InitializeComponent();
             this.player = player;
@@ -34,10 +34,32 @@ namespace ProjetVideoGameV2.View
 
         }
 
-        private void Button_GoBack_Click(object sender, RoutedEventArgs e)
+        private void Button_Home(object sender, RoutedEventArgs e)
         {
-            Copies_Page cp = new Copies_Page(player);
-            this.Content = cp;
+            Home_Page home = new Home_Page(player);
+            Content = home;
+        }
+
+        private void Button_Loan(object sender, RoutedEventArgs e)
+        {
+            Loan_Page loan = new Loan_Page(player);
+            this.Content = loan;
+        }
+
+        private void Button_Copies(object sender, RoutedEventArgs e)
+        {
+            Copies_Page copies = new Copies_Page(player);
+            this.Content = copies;
+        }
+
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
+
         }
 
         private void dgCopiesBooking_SelectionChanged(object sender, SelectionChangedEventArgs e)

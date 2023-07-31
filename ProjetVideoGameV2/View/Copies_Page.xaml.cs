@@ -31,16 +31,37 @@ namespace ProjetVideoGameV2.View
 
         private void Button_ViewMore(object sender, RoutedEventArgs e)
         {
-            UserCopiesBook userCopiesBook = new UserCopiesBook(player,selectedCopy);
+            BorrowHistory userCopiesBook = new BorrowHistory(player,selectedCopy);
             this.Content = userCopiesBook;
         }
 
-        private void Button_GoBack_Click(object sender, RoutedEventArgs e)
+        private void Button_Home(object sender, RoutedEventArgs e)
         {
-            Home_Page hp = new Home_Page(player);
-            this.Content = hp;
+            Home_Page home = new Home_Page(player);
+            Content = home;
         }
 
+        private void Button_Loan(object sender, RoutedEventArgs e)
+        {
+            Loan_Page loan = new Loan_Page(player);
+            this.Content = loan;
+        }
+
+        private void Button_Copies(object sender, RoutedEventArgs e)
+        {
+            Copies_Page copies = new Copies_Page(player);
+            this.Content = copies;
+        }
+
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
+
+        }
         private void dgCopies_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(dgCopies.SelectedItem is Copy myCopy)

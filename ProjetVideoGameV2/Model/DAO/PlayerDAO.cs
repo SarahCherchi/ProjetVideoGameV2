@@ -195,5 +195,42 @@ namespace ProjetVideoGameV2.Model.Dao
             return success;
         }
 
+        public Player FindUserName(string username)
+        {
+            Player player = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.[User] WHERE username = @username", connection);
+                    cmd.Parameters.AddWithValue("username", username);
+                    connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            player = new Player
+                            {
+                                IdPlayer = reader.GetInt32("idUser"),
+                                Pseudo = reader.GetString("pseudo"),
+                                UserName = reader.GetString("username"),
+                                Password = reader.GetString("password"),
+                                Credit = reader.GetInt32("credit"),
+                                RegistrationDate = reader.GetDateTime("registrationDate"),
+                                DateOfBirth = reader.GetDateTime("dateOfBirth"),
+                                
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Une erreur sql s'est produite!");
+            }
+            return player;
+        }
+
     }
 }

@@ -26,15 +26,23 @@ namespace ProjetVideoGameV2.View
         }
         private void Button_Confirm(object sender, RoutedEventArgs e)
         {
-            Player p = new Player();
-            p.UserName = Username.Text;
-            p.Password = Password.Password;
-            p.DateOfBirth = DateTime.Parse(Birthday.Text);
-            p.Pseudo = Pseudo.Text;
-            p.Credit = 10;
-            Player.createPlayer(p);
-            Home_Page hp = new Home_Page(p);
-            this.Content = hp;
+            if (Player.findPlayerByUsername(Username.Text) != null)
+            {
+                MessageBox.Show("Username already taken, choose another one ", "Username taken", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                Player p = new Player();
+                p.UserName = Username.Text;
+                p.Password = Password.Password;
+                p.DateOfBirth = DateTime.Parse(Birthday.Text);
+                p.Pseudo = Pseudo.Text;
+                p.Credit = 10;
+                Player.createPlayer(p);
+                Home_Page hp = new Home_Page(p);
+                this.Content = hp;
+            }
+            
         }
 
     }

@@ -81,6 +81,11 @@ namespace ProjectVideoGameV2.View
                 game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
             }
         }
+        private void Button_Home(object sender, RoutedEventArgs e)
+        {
+            Home_Page home = new Home_Page(player);
+            Content = home;
+        }
 
         private void Button_Loan(object sender, RoutedEventArgs e)
         {
@@ -130,7 +135,7 @@ namespace ProjectVideoGameV2.View
             }
             else
             {
-                MessageBox.Show("You cannot book a video game with 0 credits. Please rent a game first");
+                MessageBox.Show("You cannot book a video game with 0 credits. Please lend one of your games first");
             }
         }
 

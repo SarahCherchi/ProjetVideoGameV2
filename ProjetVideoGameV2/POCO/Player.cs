@@ -42,6 +42,23 @@ namespace ProjetVideoGameV2.POCO
             set { idPlayer = value; }
         }
 
+        public string RegistrationDateString
+        {
+            get { return registrationDate.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string DateOfBirthString
+        {
+            get { return registrationDate.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string UsernameString
+        {
+            get { return UserName.ToString(); }
+        }
+
         public int Credit
         {
             get { return credit; }

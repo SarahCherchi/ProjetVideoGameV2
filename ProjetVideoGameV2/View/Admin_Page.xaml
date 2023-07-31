@@ -16,10 +16,11 @@
                 <DataGridTextColumn Header="Console" Binding="{Binding Console}" />
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button Content="Log out" HorizontalAlignment="Left" Margin="667,32,0,0" VerticalAlignment="Top" Height="28" Width="61" Background="Red" Foreground="White" Click="Button_Logout"/>
+
+        <Button Content="Log out" HorizontalAlignment="Left" Margin="718,32,0,0" VerticalAlignment="Top" Height="28" Width="61" Background="Red" Foreground="White" Click="Button_Logout"/>
         <Button Content="Update Credit Cost" Foreground="White" HorizontalAlignment="Left" Margin="32,333,0,0" VerticalAlignment="Top" Height="25" Width="143" Click="Button_Update" Background="#FF2E65CF"/>
         <Button Content="Add Video Game" HorizontalAlignment="Left" Margin="32,376,0,0" VerticalAlignment="Top" Height="25" Width="143" Foreground="White" Background="Green" Click="Button_AddVG"/>
+        <Button Content="List of user" HorizontalAlignment="Left" Margin="623,32,0,0" VerticalAlignment="Top" Height="28" Width="68" Background="OrangeRed" Foreground="White" Click="Button_ListOfUser"/>
 
     </Grid>
 </UserControl>

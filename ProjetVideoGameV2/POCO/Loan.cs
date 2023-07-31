@@ -15,7 +15,7 @@ namespace ProjetVideoGameV2.POCO
         private Player lender;
         private Player borrower;
         private static LoanDAO loanDAO = new LoanDAO();
-        private static PlayerDAO playerDAO = new PlayerDAO();
+        private static UserDAO userDAO = new UserDAO();
 
 
         public Loan()
@@ -158,7 +158,7 @@ namespace ProjetVideoGameV2.POCO
                 balance = 5 * nbrDaysOverdue;
                 pBorrower.Credit -= balance;
                 l.Lender.Credit += balance;
-                playerDAO.UpdateCreditBalancePenality(pBorrower,l.Lender);
+                userDAO.UpdateCreditBalancePenalty(pBorrower,l.Lender);
                 return balance;
             }
             return balance;

@@ -1,4 +1,5 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 using System;
 using System.Collections.Generic;
 
@@ -16,13 +17,13 @@ namespace ProjetVideoGameV2.POCO
         private List<Booking> bookingsList;
         private List<Copy> copyList;
         private List<Loan> loanList;
-        private static PlayerDAO playerDAO = new PlayerDAO();
+        private static UserDAO userDAO = new UserDAO();
 
         public bool bonusReceived;
 
         public Player()
         {
-           
+
         }
 
         public Player(int idPlayer, int credit, string pseudo, DateTime registrationDate, DateTime dateOfBirth)
@@ -77,7 +78,7 @@ namespace ProjetVideoGameV2.POCO
             set { bookingsList = value; }
         }
 
-        public List <Loan> LoanList
+        public List<Loan> LoanList
         {
             get { return loanList; }
             set { loanList = value; }
@@ -86,55 +87,51 @@ namespace ProjetVideoGameV2.POCO
         public List<Copy> CopyList
         {
             get { return copyList; }
-            set{copyList = value; }
+            set { copyList = value; }
         }
 
         public static bool createPlayer(Player player)
         {
-            return playerDAO.Create(player);
+            return userDAO.Create(player);
         }
 
         public static bool deletePlayer(int id)
         {
-            return playerDAO.Delete(id);
+            return userDAO.Delete(id);
         }
 
         public static bool updatePlayer(Player player)
         {
-            return playerDAO.Update(player);
+            return userDAO.Update(player);
         }
 
-        public static Player findPlayer(int id)
+        public static User findPlayer(int id)
         {
-            return playerDAO.Find(id);
+            return userDAO.Find(id);
         }
 
-        public static Player loginPlayer(String username, String pw)
-        {
-            return playerDAO.Login(username, pw);
-        }
 
-        public static List<Player> findAllPlayer()
+        public static List<User> findAllPlayer()
         {
-            return playerDAO.FindAll();
+            return userDAO.FindAll();
         }
 
         public void addBirthdayBonus()
         {
-           
+
             DateTime now = DateTime.Now.Date;
 
             if (DateOfBirth.Day == DateTime.Now.Day && DateOfBirth.Month == DateTime.Now.Month && LastDateBonus.AddYears(1) <= now)
             {
                 Credit += 2;
                 lastDateBonus = now;
-                bonusReceived = playerDAO.Update(this);
+                bonusReceived = userDAO.Update(this);
             }
         }
 
         public static Player findPlayerByUsername(string username)
         {
-            return playerDAO.FindUserName(username);
+            return userDAO.FindUserName(username);
         }
     }
 }

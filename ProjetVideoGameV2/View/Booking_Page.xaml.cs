@@ -44,7 +44,7 @@ namespace ProjetVideoGameV2.View
             foreach (var copy in copies)
             {
                 copy.Available = Copy.IsAvailable(copy.IdCopy);
-                copy.Owner = Player.findPlayer(copy.Owner.IdPlayer);
+                copy.Owner = (Player) Player.findPlayer(copy.Owner.IdPlayer);
             }
         }
 

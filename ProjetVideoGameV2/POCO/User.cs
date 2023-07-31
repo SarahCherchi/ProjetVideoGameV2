@@ -1,5 +1,5 @@
 ﻿
-using ProjetVideoGameV2.Model.Dao;
+using ProjetVideoGameV2.Model.DAO;
 
 namespace ProjetVideoGameV2.POCO
 {
@@ -9,6 +9,7 @@ namespace ProjetVideoGameV2.POCO
         private string username;
         private string password;
         private bool role;
+        private static UserDAO userDAO = new UserDAO();
 
         public User()
         {
@@ -50,8 +51,7 @@ namespace ProjetVideoGameV2.POCO
 
         public User Login(string username, string password)
         {
-            PlayerDAO player = new PlayerDAO();
-            return player.Login(username, password);
+            return userDAO.Login(username, password);
         }
 
     }

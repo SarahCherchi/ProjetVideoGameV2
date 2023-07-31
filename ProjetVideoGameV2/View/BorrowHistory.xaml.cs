@@ -29,7 +29,7 @@ namespace ProjetVideoGameV2.View
 
             foreach (var loan in loans)
             {
-                loan.Borrower = Player.findPlayer(loan.Borrower.IdPlayer);
+                loan.Borrower = (Player) Player.findPlayer(loan.Borrower.IdPlayer);
             }
 
         }

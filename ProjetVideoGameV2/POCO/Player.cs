@@ -131,5 +131,10 @@ namespace ProjetVideoGameV2.POCO
                 bonusReceived = playerDAO.Update(this);
             }
         }
+
+        public static Player findPlayerByUsername(string username)
+        {
+            return playerDAO.FindUserName(username);
+        }
     }
 }

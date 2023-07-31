@@ -33,6 +33,11 @@ namespace ProjetVideoGameV2.POCO
             get { return Owner.Pseudo; } 
         }
 
+        public string VideoGameName
+        {
+            get { return VideoGames.Name; }
+        }
+
         public string Console 
         { 
             get { return VideoGames.Console; } 

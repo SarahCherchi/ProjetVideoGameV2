@@ -38,9 +38,22 @@ namespace ProjetVideoGameV2.View
                 p.DateOfBirth = DateTime.Parse(Birthday.Text);
                 p.Pseudo = Pseudo.Text;
                 p.Credit = 10;
-                Player.createPlayer(p);
-                Home_Page hp = new Home_Page(p);
-                this.Content = hp;
+                bool ok = Player.createPlayer(p);
+
+                if (ok)
+                {
+                    MessageBox.Show("Your account has been created. You may now log in ", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Window register_page = Window.GetWindow(this);
+                    MainWindow mainWindow = new MainWindow();
+
+                    register_page.Close();
+                    mainWindow.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Account creation failed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             
         }

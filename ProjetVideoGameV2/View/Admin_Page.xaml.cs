@@ -71,6 +71,12 @@ namespace ProjetVideoGameV2.View
 
         }
 
+        private void Button_ListOfUser(object sender, RoutedEventArgs e)
+        {
+            Admin_ListOfUserPage listOfUserPage = new Admin_ListOfUserPage();
+            this.Content = listOfUserPage;
+        }
+
         private void Button_AddVG(object sender, RoutedEventArgs e)
         {
             while (true)

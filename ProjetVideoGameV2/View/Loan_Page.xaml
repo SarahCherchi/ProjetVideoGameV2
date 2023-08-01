@@ -59,7 +59,7 @@
             <DataGrid x:Name="dgLoan" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
-                    <DataGridTextColumn Header="Star Date" Binding="{Binding StartDateString}" />
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
                     <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
                     <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
                     <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>

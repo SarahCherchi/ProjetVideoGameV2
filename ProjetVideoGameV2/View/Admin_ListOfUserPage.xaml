@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ProjetVideoGameV2.View.Admin_ListOfUserPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjetVideoGameV2.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="63" />
+            <RowDefinition Height="Auto" MinHeight="40" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="List of User" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="167" Background="{x:Null}" Height="50" Margin="0,10,0,0"/>
+
+        <DataGrid Name="dgUsers" Grid.Row="2" AutoGenerateColumns="False" Margin="30,15,30,99" SelectionChanged="dgUsers_SelectionChanged" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding IdPlayer}" Width="Auto"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding UsernameString}" Width="*"/>
+                <DataGridTextColumn Header="Credit" Binding="{Binding Credit}" Width="Auto"/>
+                <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}" Width="*"/>
+                <DataGridTextColumn Header="Registration Date" Binding="{Binding RegistrationDateString}" Width="Auto"/>
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirthString}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="List of application users" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="233" Background="{x:Null}" Height="50" Margin="30,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+        <Button Content="Go Back" Foreground="White" HorizontalAlignment="Right" Margin="0,264,30,0" VerticalAlignment="Top" Background="Gray" Click="Button_Back" Height="44" Width="153" Grid.Row="2"/>
+    </Grid>
+</UserControl>

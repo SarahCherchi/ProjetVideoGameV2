@@ -23,7 +23,11 @@ namespace ProjectVideoGameV2.View
             InitializeComponent();
             this.player = player;
             
-            player.addBirthdayBonus();
+            bool ok = player.addBirthdayBonus();
+            if (ok)
+            {
+                Loaded += Home_Page_Loaded;
+            }
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
             List<VideoGames> vg = VideoGames.FindAll();
@@ -36,14 +40,13 @@ namespace ProjectVideoGameV2.View
             dgVideoGames.ItemsSource = vg;
 
             dgVideoGames.SelectionChanged += dgVideoGames_SelectionChanged;
-
-            Loaded += Home_Page_Loaded;
+          
         }
 
         private void Home_Page_Loaded(object sender, RoutedEventArgs e)
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.3);
+            timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
             timer.Start();
         }

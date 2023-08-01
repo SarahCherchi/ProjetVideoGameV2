@@ -133,7 +133,7 @@ namespace ProjetVideoGameV2.POCO
             return userDAO.FindAll();
         }
 
-        public void addBirthdayBonus()
+        public bool addBirthdayBonus()
         {
 
             DateTime now = DateTime.Now.Date;
@@ -143,6 +143,11 @@ namespace ProjetVideoGameV2.POCO
                 Credit += 2;
                 lastDateBonus = now;
                 bonusReceived = userDAO.Update(this);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

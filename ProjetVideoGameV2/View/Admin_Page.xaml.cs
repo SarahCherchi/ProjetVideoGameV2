@@ -67,6 +67,12 @@ namespace ProjetVideoGameV2.View
             this.Content = listOfUserPage;
         }
 
+        private void Button_ListOfLoan(object sender, RoutedEventArgs e)
+        {
+            Admin_ListOfLoan listOfLoan = new Admin_ListOfLoan();
+            this.Content = listOfLoan;
+        }
+
         private void Button_AddVG(object sender, RoutedEventArgs e)
         {
             while (true)

@@ -1,20 +1,9 @@
 ﻿using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View.AdminInputDialog;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ProjetVideoGameV2.View
 {
@@ -39,9 +28,10 @@ namespace ProjetVideoGameV2.View
                 return;
             }
 
-            CreditInputDialog inputDialog = new CreditInputDialog();
+            CreditInputDialog inputDialog = new CreditInputDialog(selectedGame);
             if (inputDialog.ShowDialog() == true)
             {
+                
                 selectedGame.CreditCost = inputDialog.NewCreditCost;
                 VideoGames.UpdateCreditCost(selectedGame);
 

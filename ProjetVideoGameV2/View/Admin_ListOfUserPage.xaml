@@ -27,6 +27,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="List of application users" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="233" Background="{x:Null}" Height="50" Margin="30,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>
-        <Button Content="Go Back" Foreground="White" HorizontalAlignment="Right" Margin="0,264,30,0" VerticalAlignment="Top" Background="Gray" Click="Button_Back" Height="44" Width="153" Grid.Row="2"/>
+        <Button Content="Go Back" Foreground="White" HorizontalAlignment="Right" Margin="0,0,30,40" VerticalAlignment="Bottom" Background="Gray" Click="Button_Back" Height="44" Width="153" Grid.Row="2"/>
     </Grid>
 </UserControl>

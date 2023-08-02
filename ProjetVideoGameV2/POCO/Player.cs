@@ -50,7 +50,7 @@ namespace ProjetVideoGameV2.POCO
 
         public string DateOfBirthString
         {
-            get { return registrationDate.ToString("dd-MM-yyyy"); }
+            get { return dateOfBirth.ToString("dd-MM-yyyy"); }
 
         }
 

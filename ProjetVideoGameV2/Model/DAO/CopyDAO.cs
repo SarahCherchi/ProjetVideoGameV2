@@ -89,9 +89,12 @@ namespace ProjetVideoGameV2.Model.DAO
                                 Player owner = new Player();
                                 owner.IdPlayer = reader.GetInt32("owner");
                                 copy.Owner = owner;
-                                Loan loan = new Loan();
-                                loan.IdLoan = reader.GetInt32("idLoan");
-                                copy.Loan = loan;   
+                                if (!reader.IsDBNull(reader.GetOrdinal("idLoan")))
+                                {
+                                    Loan loan = new Loan();
+                                    loan.IdLoan = reader.GetInt32(reader.GetOrdinal("idLoan"));
+                                    copy.Loan = loan;
+                                }   
                             }
                         }
                     }

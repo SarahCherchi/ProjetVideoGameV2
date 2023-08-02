@@ -1,14 +1,15 @@
-﻿using System.Windows;
+﻿using ProjetVideoGameV2.POCO;
+using System.Windows;
 
 namespace ProjetVideoGameV2.View
 {
     public partial class CreditInputDialog : Window
     {
         public int NewCreditCost;
-
-        public CreditInputDialog()
+        public CreditInputDialog(VideoGames videoGames)
         {
             InitializeComponent();
+            lbNameVG.Content = videoGames.Name;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

@@ -5,8 +5,11 @@ using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace ProjectVideoGameV2.View
@@ -17,6 +20,8 @@ namespace ProjectVideoGameV2.View
 
         private Player player;
         private VideoGames selectedVg;
+        private List<Booking> bookings = new List<Booking>();
+        private List<Booking> waitingList = new List<Booking>();  
 
         public Home_Page(Player player)
         {
@@ -131,14 +136,100 @@ namespace ProjectVideoGameV2.View
 
         private void Button_Booking(object sender, RoutedEventArgs e)
         {
-            if(player.Credit > 0)
+            if(selectedVg.NumberOfCopy > 0)
             {
-                Booking_Page book = new Booking_Page(selectedVg,player);
-                this.Content = book;
+                if (isEnoughCredit(player))
+                {
+                    Booking_Page book = new Booking_Page(selectedVg, player);
+                    this.Content = book;
+                }
+                else
+                {
+                    MessageBox.Show("You cannot book a video game with 0 credits. Please lend one of your games first");
+                }
             }
             else
             {
-                MessageBox.Show("You cannot book a video game with 0 credits. Please lend one of your games first");
+                if(isEnoughCredit(player)) 
+                {
+                    MessageBoxResult result = MessageBox.Show($"Do you want to get on the waiting list for {selectedVg.Name} ?", "New Booking", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        createNewBooking(selectedVg);
+                        MessageBox.Show($"You are placed on the waiting list and you are {waitingList.Count} people waiting");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You cannot place to the waiting list with 0 credits. Please lend one of your games first");
+                }
+            }
+        }
+
+        private bool isEnoughCredit(Player player)
+        {
+            if (player.Credit > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        private Player generatePlayerHaveCopy(int id)
+        {
+            bookings = Booking.findAllBookingByIdVideoGame(id);
+
+            // Tri des réservations selon l'ordre de priorité
+            SortBookingsByPriority();
+
+            // Sélection du premier joueur avec suffisamment de crédits
+            Player selectedPlayer = bookings.FirstOrDefault(booking => booking.Player.Credit > 0)?.Player;
+
+            return selectedPlayer;
+        }
+
+        private void SortBookingsByPriority()
+        {
+            bookings.Sort((booking1, booking2) =>
+            {
+                // Trier par le plus grand nombre d'unités sur le compte (ordre décroissant)
+                int creditComparison = booking2.Player.Credit.CompareTo(booking1.Player.Credit);
+                if (creditComparison != 0)
+                    return creditComparison;
+
+                // Trier par la réservation la plus ancienne (ordre croissant)
+                int bookingDateComparison = booking1.BookingDate.CompareTo(booking2.BookingDate);
+                if (bookingDateComparison != 0)
+                    return bookingDateComparison;
+
+                // Trier par l'abonné inscrit depuis le plus longtemps (ordre décroissant)
+                int registrationDateComparison = booking2.Player.RegistrationDate.CompareTo(booking1.Player.RegistrationDate);
+                if (registrationDateComparison != 0)
+                    return registrationDateComparison;
+
+                // Trier par l'abonné le plus âgé (ordre décroissant)
+                int ageComparison = booking2.Player.DateOfBirth.CompareTo(booking1.Player.DateOfBirth);
+                if (ageComparison != 0)
+                    return ageComparison;
+
+                // Trier aléatoirement si tous les critères sont égaux
+                return Guid.NewGuid().CompareTo(Guid.NewGuid());
+            });
+        }
+
+        private void createNewBooking(VideoGames videoGames)
+        {
+            Booking booking = new Booking();
+            booking.BookingDate = DateTime.Now;
+            booking.VideoGames = videoGames;
+            booking.Player = player;
+            bool success = Booking.createBooking(booking);
+            if (success)
+            {
+                waitingList.AddRange(Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames));
+            }
+            else
+            {
+                MessageBox.Show("Error at the creation of the booking", "Error Booking", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

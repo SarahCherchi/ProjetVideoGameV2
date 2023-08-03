@@ -79,5 +79,10 @@ namespace ProjetVideoGameV2.POCO
         {
             return bookingDAO.FindAll();
         }
+
+        public static List<Booking> findAllBookingByIdVideoGame(int id)
+        {
+            return bookingDAO.FindAllByIdVidegoGame(id);
+        }
     }
 }

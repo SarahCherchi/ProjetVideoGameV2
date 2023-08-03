@@ -140,7 +140,14 @@ namespace ProjetVideoGameV2.Model.DAO
 
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Loan", connection);
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT l.idLoan, l.startDate, l.endDate, l.ongoing, " +
+                    "l.idCopy, l.lender, l.borrower, " +
+                    "u1.username AS lenderPseudo, u2.username AS borrowerPseudo " +
+                    "FROM dbo.Loan l " +
+                    "INNER JOIN dbo.[User] u1 ON l.lender = u1.idUser " +
+                    "INNER JOIN dbo.[User] u2 ON l.borrower = u2.idUser", connection);
+
                 connection.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -153,18 +160,16 @@ namespace ProjetVideoGameV2.Model.DAO
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
                         loan.Copy = copy;
-                        Player player = new Player();
-                        player.IdPlayer = reader.GetInt32("lender");
-                        loan.Lender = player;
-                        Player borrower = new Player();
-                        player.IdPlayer = reader.GetInt32("borrower");
-                        loan.Borrower = player;
+                        loan.LenderUsername = reader.GetString("lenderPseudo");
+                        loan.BorrowerUsername = reader.GetString("borrowerPseudo");
+
                         loans.Add(loan);
                     }
                 }
             }
             return loans;
         }
+
 
         public List<Loan> FindAllByLender(int id, int idc)
         {

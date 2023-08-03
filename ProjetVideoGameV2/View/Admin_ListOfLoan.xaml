@@ -18,12 +18,13 @@
 
         <DataGrid Name="dgLoans" Grid.Row="2" AutoGenerateColumns="False" Margin="30,15,30,99" SelectionChanged="dgUsers_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
-                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
-                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
-                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
-                <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
-                <DataGridTextColumn Header="Borrower" Binding="{Binding BorrowerPseudo}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" Width="Auto"/>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" Width="Auto" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" Width="Auto" />
+                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}" Width="*"/>
+                <DataGridTextColumn Header="IdCopy" Binding="{Binding IdCopy}" Width="Auto"/>
+                <DataGridTextColumn Header="Lender" Binding="{Binding LenderUsername}" Width="*"/>
+                <DataGridTextColumn Header="Borrower" Binding="{Binding BorrowerUsername}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="List of application loans" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="233" Background="{x:Null}" Height="50" Margin="30,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>

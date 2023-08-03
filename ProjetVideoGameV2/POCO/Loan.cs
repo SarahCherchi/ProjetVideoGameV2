@@ -96,6 +96,16 @@ namespace ProjetVideoGameV2.POCO
             set { borrower = value; }
         }
 
+        public string BorrowerUsername
+        {
+            get; set;
+        }
+
+        public string LenderUsername
+        {
+             get; set; 
+        }
+
         public string BorrowerPseudo
         {
             get { return Borrower.Pseudo; }
@@ -109,6 +119,11 @@ namespace ProjetVideoGameV2.POCO
         public string VideoGameName
         {
             get { return Copy.VideoGames.Name; }
+        }
+
+        public int IdCopy
+        {
+            get { return Copy.IdCopy; }
         }
 
         public static int createLoan(Loan loan)

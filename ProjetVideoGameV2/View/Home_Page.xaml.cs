@@ -185,14 +185,9 @@ namespace ProjectVideoGameV2.View
 
         public bool isAllowedToWaitingList(VideoGames videoGames)
         {
-            foreach (var booking in waitingList)
-            {
-                if (booking.Player.IdPlayer == player.IdPlayer && booking.VideoGames.IdVideoGames == videoGames.IdVideoGames)
-                {
-                        return false;
-                }
-            } 
-            return true;
+            List<Booking> playerBookings = Booking.findAllBookingByIdVideoGame(videoGames.IdVideoGames).Where(booking => booking.Player.IdPlayer == player.IdPlayer).ToList();
+
+            return playerBookings.Count == 0;
         }
 
 

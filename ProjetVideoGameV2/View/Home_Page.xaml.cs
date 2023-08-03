@@ -27,7 +27,8 @@ namespace ProjectVideoGameV2.View
         {
             InitializeComponent();
             this.player = player;
-            
+            //waitingList.AddRange(Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames));
+
             bool ok = player.addBirthdayBonus();
             if (ok)
             {
@@ -138,42 +139,63 @@ namespace ProjectVideoGameV2.View
         {
             if(selectedVg.NumberOfCopy > 0)
             {
-                if (isEnoughCredit(player))
+                if (isEnoughCredit(player, selectedVg))
                 {
                     Booking_Page book = new Booking_Page(selectedVg, player);
                     this.Content = book;
                 }
                 else
                 {
-                    MessageBox.Show("You cannot book a video game with 0 credits. Please lend one of your games first");
+                    MessageBox.Show("You don't have enough credits for book this game. Please lend one of your games first");
                 }
             }
             else
             {
-                if(isEnoughCredit(player)) 
+                if(isEnoughCredit(player, selectedVg)) 
                 {
-                    MessageBoxResult result = MessageBox.Show($"Do you want to get on the waiting list for {selectedVg.Name} ?", "New Booking", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
+                    if (isAllowedToWaitingList(selectedVg))
                     {
-                        createNewBooking(selectedVg);
-                        MessageBox.Show($"You are placed on the waiting list and you are {waitingList.Count} people waiting");
+                        MessageBoxResult result = MessageBox.Show($"Do you want to get on the waiting list for {selectedVg.Name} ?", "New Booking", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            createNewBooking(selectedVg);
+                            MessageBox.Show($"You are placed on the waiting list and you are {waitingList.Count} people waiting");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You cannot are placed on the waiting list a second time", "Error Booking", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("You cannot place to the waiting list with 0 credits. Please lend one of your games first");
+                    MessageBox.Show("You don't have enough credit to be place to the waiting list. Please lend one of your games first");
                 }
             }
         }
 
-        private bool isEnoughCredit(Player player)
+        private bool isEnoughCredit(Player player, VideoGames videoGames)
         {
-            if (player.Credit > 0)
+            if (player.Credit > 0 && player.Credit >= videoGames.CreditCost)
             {
                 return true;
             }
             return false;
         }
+
+        public bool isAllowedToWaitingList(VideoGames videoGames)
+        {
+            foreach (var booking in waitingList)
+            {
+                if (booking.Player.IdPlayer == player.IdPlayer && booking.VideoGames.IdVideoGames == videoGames.IdVideoGames)
+                {
+                        return false;
+                }
+            } 
+            return true;
+        }
+
+
         private Player generatePlayerHaveCopy(int id)
         {
             bookings = Booking.findAllBookingByIdVideoGame(id);

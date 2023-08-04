@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ProjetVideoGameV2.View.AccountInfo"
+﻿<UserControl x:Class="ProjetVideoGameV2.View.BookingList_Page"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Label Content="  Booking List" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="204" Background="{x:Null}" Margin="0,10,0,0"/>
+
+        <Label x:Name="lb_pseudo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,22,0,16" Width="156" Height="26" />
+        <Label x:Name="lb_credit" HorizontalAlignment="Right" Margin="0,20,60,0" VerticalAlignment="Top" Width="41" Height="24"/>
+        <TextBlock Margin="0,25,30,0" HorizontalAlignment="Right"  VerticalAlignment="Top" FontFamily="Segoe UI Emoji" Width="27" Height="18">&#x1F4B0;</TextBlock>
+
 
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,23,10,3" Grid.Row="0" Height="22" Width="85" Background="CornflowerBlue">
             <MenuItem Header="My account"  Foreground="White" FontSize="14">
@@ -25,7 +31,7 @@
                         <Run Text="&#x1F3AE;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Booking List" Click="Button_BookingList" Foreground="Black">
+                <MenuItem Header="Booking List" Click="Button_BookingList"  Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F4D6;"/>
                     </MenuItem.Icon>
@@ -48,17 +54,17 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        
-        <Label Content="Account info" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="190" Background="{x:Null}" Height="50" Margin="0,10,0,0"/>
-        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="400,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
-        <TextBox x:Name="Credit" HorizontalAlignment="Left" Margin="400,219,0,0" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
-        <TextBox x:Name="DateofBirth" HorizontalAlignment="Left" Margin="400,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
-        <Label Content="Username :" HorizontalAlignment="Left" Margin="258,179,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
-        <Label Content="Credits :" HorizontalAlignment="Left" Margin="258,216,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
-        <Label Content="Pseudo :" HorizontalAlignment="Left" Margin="258,251,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
-        <Label Content="Date of Birthday :" HorizontalAlignment="Left" Margin="258,288,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
-        <TextBox x:Name="Pseudo" HorizontalAlignment="Left" Margin="400,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16"/>
-        <TextBox x:Name="RegistrationDate" HorizontalAlignment="Left" Margin="400,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
-        <Label Content="Registration Date :" HorizontalAlignment="Left" Margin="258,327,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+
+        <StackPanel Margin="60,124,160,96">
+            <DataGrid x:Name="dgBookingList" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" />
+                    <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" />
+                    <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" />
+                    <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Label Content="Booking List" Foreground="Black" HorizontalAlignment="Left" Margin="53,82,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
     </Grid>
 </UserControl>

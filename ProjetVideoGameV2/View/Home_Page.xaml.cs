@@ -270,5 +270,11 @@ namespace ProjectVideoGameV2.View
             BookingList_Page bookingList = new BookingList_Page(player);
             this.Content = bookingList; 
         }
+
+        private void Button_History(object sender, RoutedEventArgs e)
+        {
+            History_Page history = new History_Page(player);
+            this.Content = history;
+        }
     }
 }

@@ -31,17 +31,17 @@
                         <Run Text="&#x1F3AE;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Booking List" Foreground="Black">
+                <MenuItem Header="Booking List" Click="Button_BookingList"  Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F4D6;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="History" Foreground="Black">
+                <MenuItem Header="History" Click="Button_History"  Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F4CB;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Account Info" Foreground="Black">
+                <MenuItem Header="Account Info" Click="Button_Account" Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F575;"/>
                     </MenuItem.Icon>

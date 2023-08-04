@@ -42,7 +42,7 @@
                         <Run Text="&#x1F4D6;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="History" Foreground="Black">
+                <MenuItem Header="History" Click="Button_History" Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F4CB;"/>
                     </MenuItem.Icon>

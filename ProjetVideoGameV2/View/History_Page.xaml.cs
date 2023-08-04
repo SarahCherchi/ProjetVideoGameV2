@@ -1,38 +1,45 @@
 ﻿using ProjectVideoGameV2.View;
 using ProjetVideoGameV2.POCO;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace ProjetVideoGameV2.View
 {
-    public partial class Copies_Page : UserControl
+    public partial class History_Page : UserControl
     {
         private Player player;
-        private Copy selectedCopy;
-
-        public Copies_Page(Player player)
+        private List<Loan> loans = new List<Loan>();
+        private ICollectionView collectionView;
+        public History_Page(Player player)
         {
             InitializeComponent();
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-            List<Copy> cp = Copy.findAllCopiesByUser(player.IdPlayer);
-            dgCopies.ItemsSource = cp;
-            
-            foreach(Copy copy in cp)
+
+            loans = Loan.findAllLoanHistory(player.IdPlayer);
+            collectionView = CollectionViewSource.GetDefaultView(loans);
+            dgLoanHistory.ItemsSource = collectionView;
+
+            foreach (var loan in loans)
             {
-                copy.VideoGames = VideoGames.FindVideoGames(copy.VideoGames.IdVideoGames);
-                copy.Available = Copy.IsAvailable(copy.IdCopy);
+                loan.Lender = (Player)Player.findPlayer(loan.Lender.IdPlayer);
+                loan.Copy = Copy.findCopy(loan.Copy.IdCopy);
+                loan.Copy.VideoGames = VideoGames.FindVideoGames(loan.Copy.VideoGames.IdVideoGames);
             }
-
-        }
-
-        private void Button_ViewMore(object sender, RoutedEventArgs e)
-        {
-            BorrowHistory userCopiesBook = new BorrowHistory(player,selectedCopy);
-            this.Content = userCopiesBook;
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)
@@ -53,22 +60,22 @@ namespace ProjetVideoGameV2.View
             this.Content = copies;
         }
 
-        private void Button_Account(object sender, RoutedEventArgs e)
-        {
-            AccountInfo account = new AccountInfo(player);
-            this.Content = account;
-        }
-
         private void Button_BookingList(object sender, RoutedEventArgs e)
         {
             BookingList_Page bookingList = new BookingList_Page(player);
             this.Content = bookingList;
         }
 
+        private void Button_Account(object sender, RoutedEventArgs e)
+        {
+            AccountInfo account = new AccountInfo(player);
+            this.Content = account;
+        }
+
         private void Button_History(object sender, RoutedEventArgs e)
         {
             History_Page history = new History_Page(player);
-            this.Content = history;
+            this.Content = history; 
         }
 
         private void Button_Logout(object sender, RoutedEventArgs e)
@@ -79,13 +86,6 @@ namespace ProjetVideoGameV2.View
             home_page.Close();
             mainWindow.Show();
 
-        }
-        private void dgCopies_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(dgCopies.SelectedItem is Copy myCopy)
-            {
-                selectedCopy = myCopy;
-            }
         }
     }
 }

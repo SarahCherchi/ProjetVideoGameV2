@@ -108,6 +108,12 @@ namespace ProjectVideoGameV2.View
             this.Content = copies;
         }
 
+        private void Button_Account(object sender, RoutedEventArgs e)
+        {
+            AccountInfo account = new AccountInfo(player);
+            this.Content = account;
+        }
+
         private void Button_Renting(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo);

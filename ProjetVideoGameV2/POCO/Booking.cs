@@ -55,6 +55,21 @@ namespace ProjetVideoGameV2.POCO
             set { player = value; }
         }
 
+        public string BookingDateString
+        {
+            get { return BookingDate.ToString("dd-MM-yyyy"); }
+        }
+
+        public string VideoGamesString
+        {
+            get { return VideoGames.Name; }
+        }
+
+        public string PseudoString
+        {
+            get { return Player.Pseudo; }
+        }
+
         public static bool createBooking(Booking booking)
         {
             return bookingDAO.Create(booking);

@@ -27,7 +27,6 @@ namespace ProjectVideoGameV2.View
         {
             InitializeComponent();
             this.player = player;
-            //waitingList.AddRange(Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames));
 
             bool ok = player.addBirthdayBonus();
             if (ok)
@@ -264,6 +263,12 @@ namespace ProjectVideoGameV2.View
             home_page.Close();
             mainWindow.Show();
 
+        }
+
+        private void Button_BookingList(object sender, RoutedEventArgs e)
+        {
+            BookingList_Page bookingList = new BookingList_Page(player);
+            this.Content = bookingList; 
         }
     }
 }

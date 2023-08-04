@@ -1,35 +1,34 @@
 ﻿using ProjectVideoGameV2.View;
 using ProjetVideoGameV2.POCO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProjetVideoGameV2.View
 {
-    public partial class AccountInfo : UserControl
+    public partial class BookingList_Page : UserControl
     {
         private Player player;
-
-        public AccountInfo(Player player)
+        private List<Booking> bookings = new List<Booking>();
+        private ICollectionView collectionView;
+        public BookingList_Page(Player player)
         {
             InitializeComponent();
             this.player = player;
-            Username.Text = player.UsernameString;
-            Credit.Text = player.Credit.ToString();
-            Pseudo.Text = player.Pseudo;
-            DateofBirth.Text = player.DateOfBirthString;
-            RegistrationDate.Text = player.RegistrationDateString;
+            lb_pseudo.Content = player.Pseudo;
+            lb_credit.Content = player.Credit;
+
+            bookings = Booking.findAllBooking();
+            collectionView = CollectionViewSource.GetDefaultView(bookings);
+            dgBookingList.ItemsSource = collectionView;
+
+            foreach (var booking in bookings)
+            {
+                booking.VideoGames = VideoGames.FindVideoGames(booking.VideoGames.IdVideoGames);
+                booking.Player = (Player) Player.findPlayer(booking.Player.IdPlayer);
+            }
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)

@@ -115,8 +115,12 @@ namespace ProjetVideoGameV2.Model.DAO
                         Booking booking = new Booking();
                         booking.Idbooking = reader.GetInt32("idBooking");
                         booking.BookingDate = reader.GetDateTime("bookingDate");
-                        booking.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
-                        booking.Player.IdPlayer = reader.GetInt32("idPlayer");
+                        VideoGames videoGames = new VideoGames();
+                        videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        booking.VideoGames = videoGames;
+                        Player player = new Player();
+                        player.IdPlayer = reader.GetInt32("idUser");
+                        booking.Player = player;
                         bookings.Add(booking);
                     }
                 }

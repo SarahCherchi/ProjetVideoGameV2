@@ -47,7 +47,7 @@
                         <Run Text="&#x1F4CB;"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Account Info" Foreground="Black">
+                <MenuItem Header="Account Info" Click="Button_Account"  Foreground="Black">
                     <MenuItem.Icon >
                         <Run Text="&#x1F575;"/>
                     </MenuItem.Icon>

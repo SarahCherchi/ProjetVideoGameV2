@@ -7,6 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Label Content="Account info" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="190" Background="{x:Null}" Height="50" Margin="0,10,0,0"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="400,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
+        <TextBox x:Name="Credit" HorizontalAlignment="Left" Margin="400,219,0,0" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
+        <TextBox x:Name="DateofBirth" HorizontalAlignment="Left" Margin="400,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
+        <Label Content="Username :" HorizontalAlignment="Left" Margin="258,179,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Credits :" HorizontalAlignment="Left" Margin="258,216,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Pseudo :" HorizontalAlignment="Left" Margin="258,251,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <Label Content="Date of Birthday :" HorizontalAlignment="Left" Margin="258,288,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
+        <TextBox x:Name="Pseudo" HorizontalAlignment="Left" Margin="400,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <TextBox x:Name="RegistrationDate" HorizontalAlignment="Left" Margin="400,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontSize="16" IsReadOnly="True"/>
+        <Label Content="Registration Date :" HorizontalAlignment="Left" Margin="258,327,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="15" Background="{x:Null}"/>
     </Grid>
 </UserControl>

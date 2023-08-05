@@ -162,6 +162,11 @@ namespace ProjetVideoGameV2.POCO
             return loanDAO.FindAllByBorrower(id);
         }
 
+        public static List<Loan> findAllLoanHistory(int id)
+        {
+            return loanDAO.FindAllHistoryLoan(id);
+        }
+
         public static int calculateBalance(Loan l,Player pBorrower)
         {
             int balance = 0;

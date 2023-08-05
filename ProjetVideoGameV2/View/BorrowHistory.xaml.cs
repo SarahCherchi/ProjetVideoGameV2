@@ -52,6 +52,24 @@ namespace ProjetVideoGameV2.View
             this.Content = copies;
         }
 
+        private void Button_Account(object sender, RoutedEventArgs e)
+        {
+            AccountInfo account = new AccountInfo(player);
+            this.Content = account;
+        }
+
+        private void Button_BookingList(object sender, RoutedEventArgs e)
+        {
+            BookingList_Page bookingList = new BookingList_Page(player);
+            this.Content = bookingList;
+        }
+
+        private void Button_History(object sender, RoutedEventArgs e)
+        {
+            History_Page history = new History_Page(player);
+            this.Content = history;
+        }
+
         private void Button_Logout(object sender, RoutedEventArgs e)
         {
             Window home_page = Window.GetWindow(this);

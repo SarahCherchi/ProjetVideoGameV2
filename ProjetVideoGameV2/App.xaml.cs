@@ -8,10 +8,9 @@ using System.Windows;
 
 namespace ProjetVideoGameV2
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+    
     public partial class App : Application
     {
+        public int UserIdWithNewCopy { get; set; } = -1;
     }
 }

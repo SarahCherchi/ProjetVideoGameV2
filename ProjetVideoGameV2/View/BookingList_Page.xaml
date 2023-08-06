@@ -62,6 +62,13 @@
                     <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" />
                     <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" />
                     <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}"/>
+                    <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Cancel" Foreground="White" Background="LightSlateGray" Click="Button_CancelBooking" Width="Auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

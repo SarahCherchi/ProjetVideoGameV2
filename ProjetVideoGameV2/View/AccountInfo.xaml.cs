@@ -77,5 +77,10 @@ namespace ProjetVideoGameV2.View
             mainWindow.Show();
 
         }
+
+        private void Pseudo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -55,22 +55,20 @@
             </MenuItem>
         </Menu>
 
-        <Label x:Name="lb_nameOfDg" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" Width="397" Height="39" FontSize="20"/>
-        <StackPanel Margin="63,130,203,100">
-            <DataGrid x:Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding IdCopy}" />
-                    <DataGridTextColumn Header="Owner" Binding="{Binding OwnerPseudo}" />
-                    <DataGridTextColumn Header="Available" Binding="{Binding Available}" />
-                    <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Book this copy" Foreground="White" Background="LightSlateGray" Click="Button_BookingCopy"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <Label x:Name="lb_nameOfDg" HorizontalAlignment="Left" Margin="30,86,0,0" VerticalAlignment="Top" Width="690" Height="39" FontSize="20"/>
+        <DataGrid x:Name="dgCopy" AutoGenerateColumns="False" SelectionChanged="dgCopy_SelectionChanged" Margin="30,130,340,100" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="N° Copy" Binding="{Binding IdCopy}" Width="Auto"/>
+                <DataGridTextColumn Header="Owner" Binding="{Binding OwnerPseudo}" Width="*"/>
+                <DataGridTextColumn Header="Available" Binding="{Binding Available}" Width="Auto"/>
+                <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Book this copy" Foreground="White" Background="LightSlateGray" Click="Button_BookingCopy"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

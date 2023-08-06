@@ -4,9 +4,9 @@
         Title="Number of weeks" Height="150" Width="300">
 
     <Grid>
-        <Label x:Name="lblGameName" FontSize="12px" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,32,0,0" Width="207" Height="26" />
+        <Label x:Name="lblGameName" FontSize="12px" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,32,0,0" Width="103" Height="26" />
         <Label x:Name="lblGameCost" FontSize="10px" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,58,0,0" Width="207" Height="23" />
-        <TextBox x:Name="txtNumberOfWeeks" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,36,0,0" Width="50" Height="19" />
+        <TextBox x:Name="txtNumberOfWeeks" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,36,0,0" Width="50" Height="18" />
         <Button x:Name="btnValider" Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="75" Click="btnValider_Click" />
     </Grid>
 </Window>

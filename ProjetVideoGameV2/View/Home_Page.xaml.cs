@@ -20,7 +20,6 @@ namespace ProjectVideoGameV2.View
 
         private Player player;
         private VideoGames selectedVg;
-        private List<Booking> bookings = new List<Booking>();
         private List<Booking> waitingList = new List<Booking>();  
 
         public Home_Page(Player player)
@@ -129,6 +128,17 @@ namespace ProjectVideoGameV2.View
                 if (success)
                 {
                     MessageBox.Show("Renting successful!", "Renting", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    selectedVg.NumberOfCopy = VideoGames.nbrCopyAvailable(selectedVg.IdVideoGames);
+                    waitingList = Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames);
+
+
+                    if (selectedVg.NumberOfCopy == 1 && waitingList.Count > 0)
+                    {
+                        copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
+                        AllocateCopyToWaitingPlayer(selectedVg, copy);
+                        MessageBox.Show("Your copy has just been assigned to a player on the waiting list");
+                    }
                 }
                 else
                 {
@@ -140,6 +150,26 @@ namespace ProjectVideoGameV2.View
             
         }
 
+        private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
+        {
+            Player waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            Loan loan = new Loan();
+            loan.StartDate = DateTime.Now;
+            loan.EndDate = loan.StartDate.AddDays(7);
+            loan.Ongoing = true;
+            loan.Copy = copy;
+            loan.Lender = copy.Owner;
+            loan.Borrower = waitingPlayer;
+            Loan.createLoan(loan);
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+        }
+
+        private void updateCopyByIdLoan(Loan loan)
+        {
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
+        }
         private void Button_Booking(object sender, RoutedEventArgs e)
         {
             if(selectedVg.NumberOfCopy > 0)
@@ -198,20 +228,24 @@ namespace ProjectVideoGameV2.View
 
         private Player generatePlayerHaveCopy(int id)
         {
-            bookings = Booking.findAllBookingByIdVideoGame(id);
+            waitingList = Booking.findAllBookingByIdVideoGame(id);
 
             // Tri des réservations selon l'ordre de priorité
             SortBookingsByPriority();
 
             // Sélection du premier joueur avec suffisamment de crédits
-            Player selectedPlayer = bookings.FirstOrDefault(booking => booking.Player.Credit > 0)?.Player;
+            //Player selectedPlayer = waitingList.FirstOrDefault(booking => booking.Player.Credit > 0)?.Player; 
+            int idSelectedPlayer = waitingList.First().Player.IdPlayer;
+            Player selectedPlayer = (Player)Player.findPlayer(idSelectedPlayer);
 
             return selectedPlayer;
+            
+
         }
 
         private void SortBookingsByPriority()
         {
-            bookings.Sort((booking1, booking2) =>
+            waitingList.Sort((booking1, booking2) =>
             {
                 // Trier par le plus grand nombre d'unités sur le compte (ordre décroissant)
                 int creditComparison = booking2.Player.Credit.CompareTo(booking1.Player.Credit);

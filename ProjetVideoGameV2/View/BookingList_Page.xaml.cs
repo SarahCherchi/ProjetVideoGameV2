@@ -24,6 +24,8 @@ namespace ProjetVideoGameV2.View
             collectionView = CollectionViewSource.GetDefaultView(bookings);
             dgBookingList.ItemsSource = collectionView;
 
+            bookings.RemoveAll(booking => booking.Player.IdPlayer != player.IdPlayer);
+
             foreach (var booking in bookings)
             {
                 booking.VideoGames = VideoGames.FindVideoGames(booking.VideoGames.IdVideoGames);
@@ -75,6 +77,26 @@ namespace ProjetVideoGameV2.View
             home_page.Close();
             mainWindow.Show();
 
+        }
+
+        private void Button_CancelBooking(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to withdraw from the waiting list ?", "Cancel Booking", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.Yes)
+            {
+                Booking booking = (Booking) dgBookingList.SelectedItem;
+                bool success = Booking.deleteBooking(booking.Idbooking);
+                if(success)
+                {
+                    BookingList_Page bookingList = new BookingList_Page(player);
+                    Content = bookingList;
+                    MessageBox.Show("Booking cancelled", "Success", MessageBoxButton.OK ,MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

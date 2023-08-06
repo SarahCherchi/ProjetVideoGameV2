@@ -19,8 +19,10 @@ namespace ProjectVideoGameV2.View
     {
 
         private Player player;
+        private Player waitingPlayer;
         private VideoGames selectedVg;
-        private List<Booking> waitingList = new List<Booking>();  
+        private List<Booking> waitingList = new List<Booking>();
+        private int userIdWithNewCopy = -1;
 
         public Home_Page(Player player)
         {
@@ -31,6 +33,15 @@ namespace ProjectVideoGameV2.View
             if (ok)
             {
                 Loaded += Home_Page_Loaded;
+            }
+            // Récupérer l'ID de l'utilisateur qui a obtenu la copie de la liste d'attente depuis App
+            int userIdWithNewCopy = ((App)Application.Current).UserIdWithNewCopy;
+
+            if (userIdWithNewCopy == player.IdPlayer)
+            {
+                MessageBox.Show("Congratulations! You have received a new loan for a game from the waiting list.", "New Loan", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Réinitialiser l'ID après avoir affiché le message
+                ((App)Application.Current).UserIdWithNewCopy = -1;
             }
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
@@ -137,22 +148,30 @@ namespace ProjectVideoGameV2.View
                     {
                         copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
                         AllocateCopyToWaitingPlayer(selectedVg, copy);
-                        MessageBox.Show("Your copy has just been assigned to a player on the waiting list");
+                        bool successDelete = Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedVg.IdVideoGames);
+                        if (successDelete)
+                        {
+                            MessageBox.Show("Your copy has just been assigned to a player on the waiting list", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
+                    Home_Page home_Page = new Home_Page(player);
+                    Content = home_Page;
                 }
                 else
                 {
                     MessageBox.Show("Renting failed!", "Renting", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            Home_Page home_Page = new Home_Page(player);
-            Content = home_Page;
             
         }
 
         private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
         {
-            Player waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
             Loan loan = new Loan();
             loan.StartDate = DateTime.Now;
             loan.EndDate = loan.StartDate.AddDays(7);
@@ -160,9 +179,9 @@ namespace ProjectVideoGameV2.View
             loan.Copy = copy;
             loan.Lender = copy.Owner;
             loan.Borrower = waitingPlayer;
-            Loan.createLoan(loan);
             loan.IdLoan = Loan.createLoan(loan);
             updateCopyByIdLoan(loan);
+            ((App)Application.Current).UserIdWithNewCopy = waitingPlayer.IdPlayer;
         }
 
         private void updateCopyByIdLoan(Loan loan)
@@ -225,8 +244,45 @@ namespace ProjectVideoGameV2.View
             return playerBookings.Count == 0;
         }
 
-
         private Player generatePlayerHaveCopy(int id)
+        {
+            waitingList = Booking.findAllBookingByIdVideoGame(id);
+
+            Player selectedPlayer = SortBookingsByPriority();
+
+            return selectedPlayer;
+        }
+
+
+        private Player SortBookingsByPriority()
+        {
+            List<Booking> sortedList = waitingList.OrderByDescending(booking => booking.Player.Credit)
+                                                 .ThenBy(booking => booking.BookingDate)
+                                                 .ThenByDescending(booking => booking.Player.RegistrationDate)
+                                                 .ThenByDescending(booking => booking.Player.DateOfBirth)
+                                                 .ThenBy(_ => Guid.NewGuid()) // Trier aléatoirement si tous les critères sont égaux
+                                                 .ToList();
+
+            return sortedList.First().Player;
+        }
+
+        /*private Player generatePlayerHaveCopy(int id)
+        {
+            waitingList = Booking.findAllBookingByIdVideoGame(id);
+
+            // Tri des réservations selon l'ordre de priorité
+            SortBookingsByPriority();
+
+            // Sélection du premier joueur avec suffisamment de crédits
+            Booking firstBookingWithEnoughCredit = waitingList.FirstOrDefault(booking => booking.Player.Credit > 0);
+            Player selectedPlayer = firstBookingWithEnoughCredit?.Player;
+
+            return selectedPlayer;
+        }*/
+
+
+
+        /*private Player generatePlayerHaveCopy(int id)
         {
             waitingList = Booking.findAllBookingByIdVideoGame(id);
 
@@ -239,13 +295,17 @@ namespace ProjectVideoGameV2.View
             Player selectedPlayer = (Player)Player.findPlayer(idSelectedPlayer);
 
             return selectedPlayer;
-            
-
         }
 
         private void SortBookingsByPriority()
         {
-            waitingList.Sort((booking1, booking2) =>
+            waitingList = waitingList.OrderByDescending(booking => booking.Player.Credit)
+                             .ThenBy(booking => booking.BookingDate)
+                             .ThenByDescending(booking => booking.Player.RegistrationDate)
+                             .ThenByDescending(booking => booking.Player.DateOfBirth)
+                             .ThenBy(_ => Guid.NewGuid()) // Trier aléatoirement si tous les critères sont égaux
+                             .ToList();
+            /*waitingList.Sort((booking1, booking2) =>
             {
                 // Trier par le plus grand nombre d'unités sur le compte (ordre décroissant)
                 int creditComparison = booking2.Player.Credit.CompareTo(booking1.Player.Credit);
@@ -270,7 +330,7 @@ namespace ProjectVideoGameV2.View
                 // Trier aléatoirement si tous les critères sont égaux
                 return Guid.NewGuid().CompareTo(Guid.NewGuid());
             });
-        }
+        }*/
 
         private void createNewBooking(VideoGames videoGames)
         {

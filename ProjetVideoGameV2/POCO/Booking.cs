@@ -80,6 +80,11 @@ namespace ProjetVideoGameV2.POCO
             return bookingDAO.Delete(id);
         }
 
+        public static bool deleteBookingByIdUserAndIdVideoGame(int idUser, int idVideoGame)
+        {
+            return bookingDAO.DeleteByIdUserAndIdVideoGames(idUser, idVideoGame);
+        }
+
         public static bool updateBooking(Booking booking)
         {
             return bookingDAO.Update(booking);

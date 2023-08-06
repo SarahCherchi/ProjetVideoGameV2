@@ -51,6 +51,29 @@ namespace ProjetVideoGameV2.Model.DAO
             return success;
         }
 
+        public bool DeleteByIdUserAndIdVideoGames(int idUser, int idVideoGame)
+        {
+            bool success = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Booking WHERE idVideoGame = @idVideoGame AND idUser = @idUser", connection);
+                    cmd.Parameters.AddWithValue("idVideoGame", idVideoGame);
+                    cmd.Parameters.AddWithValue("idUser", idUser);
+                    connection.Open();
+                    int res = cmd.ExecuteNonQuery();
+                    success = res > 0;
+                }
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Une erreur sql s'est produite!");
+                return success;
+            }
+            return success;
+        }
+
         public override bool Update(Booking obj)
         {
             bool success = false;

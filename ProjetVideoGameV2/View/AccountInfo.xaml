@@ -72,7 +72,7 @@
             <TextBox x:Name="Credit" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="200" FontSize="18" IsReadOnly="True" />
 
             <Label Content="Pseudo :" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black" FontSize="20" Background="{x:Null}" />
-            <TextBox x:Name="Pseudo" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" FontSize="18" />
+            <TextBox x:Name="Pseudo" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" FontSize="18" TextChanged="Pseudo_TextChanged" IsReadOnly="True"/>
 
             <Label Content="Date of Birthday :" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black" FontSize="20" Background="{x:Null}" />
             <TextBox x:Name="DateofBirth" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" FontSize="18" IsReadOnly="True" />

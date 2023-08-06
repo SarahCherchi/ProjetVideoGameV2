@@ -112,9 +112,7 @@ namespace ProjetVideoGameV2.Model.DAO
                                     DateOfBirth = reader.GetDateTime("dateOfBirth"),
                                     Role = false,
                                     LastDateBonus = reader.GetDateTime("lastDateBonus"),
-                                    BookingsList = new List<Booking>(),
-                                    CopyList = new List<Copy>(),
-                                    LoanList = new List<Loan>()
+                                   
                                 };
                             }
                         }

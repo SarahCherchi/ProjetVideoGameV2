@@ -31,7 +31,7 @@ namespace ProjectVideoGameV2.View
             InitializeComponent();
             this.player = player;
 
-            
+
             ok = player.addBirthdayBonus();
             if (ok)
             {
@@ -163,6 +163,10 @@ namespace ProjectVideoGameV2.View
                         copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
                         AllocateCopyToWaitingPlayer(selectedVg, copy);
                         bool successDelete = Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedVg.IdVideoGames);
+                        player.Credit = player.Credit + ((App)Application.Current).TotalCredits;
+                        Player.updatePlayer(player);
+                        waitingPlayer.Credit = waitingPlayer.Credit - ((App)Application.Current).TotalCredits;
+                        Player.updatePlayer(waitingPlayer);
                         if (successDelete)
                         {
                             MessageBox.Show("Your copy has just been assigned to a player on the waiting list", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -227,8 +231,12 @@ namespace ProjectVideoGameV2.View
                         if (result == MessageBoxResult.Yes)
                         {
                             calculationRentalCost();
+                            if (((App)Application.Current).NumberOfWeeks <= 0 || ((App)Application.Current).NumberOfWeeks.Equals(null))
+                            {
+                                return;
+                            }
                             createNewBooking(selectedVg);
-                            MessageBox.Show($"You are placed on the waiting list and you are {waitingList.Count} people waiting");
+                            MessageBox.Show($"Congratulations you are placed on the waiting list", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else
@@ -250,6 +258,7 @@ namespace ProjectVideoGameV2.View
             if (createLoanDialog.DialogResult == true)
             {
                 ((App)Application.Current).NumberOfWeeks = createLoanDialog.numberOfWeeks;
+                ((App)Application.Current).TotalCredits = ((App)Application.Current).NumberOfWeeks * selectedVg.CreditCost;
             }
 
         }

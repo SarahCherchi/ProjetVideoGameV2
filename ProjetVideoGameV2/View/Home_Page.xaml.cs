@@ -3,6 +3,7 @@ using ProjetVideoGameV2.Model.Dao;
 using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
+using ProjetVideoGameV2.View.AdminInputDialog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,25 +23,26 @@ namespace ProjectVideoGameV2.View
         private Player waitingPlayer;
         private VideoGames selectedVg;
         private List<Booking> waitingList = new List<Booking>();
+        private bool ok;
+        private int userIdWithNewCopy;
 
         public Home_Page(Player player)
         {
             InitializeComponent();
             this.player = player;
 
-            bool ok = player.addBirthdayBonus();
+            
+            ok = player.addBirthdayBonus();
             if (ok)
             {
                 Loaded += Home_Page_Loaded;
             }
             // Récupérer l'ID de l'utilisateur qui a obtenu la copie de la liste d'attente depuis App
-            int userIdWithNewCopy = ((App)Application.Current).UserIdWithNewCopy;
+            userIdWithNewCopy = ((App)Application.Current).UserIdWithNewCopy;
 
             if (userIdWithNewCopy == player.IdPlayer)
             {
-                MessageBox.Show("Congratulations! You have received a new loan for a game from the waiting list.", "New Loan", MessageBoxButton.OK, MessageBoxImage.Information);
-                // Réinitialiser l'ID après avoir affiché le message
-                ((App)Application.Current).UserIdWithNewCopy = -1;
+                Loaded += Home_Page_Loaded;
             }
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
@@ -69,16 +71,29 @@ namespace ProjectVideoGameV2.View
         {
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
-
-            ShowBirthdayMessage();
+            if (ok)
+            {
+                showBirthdayMessage();
+            }
+            else if(userIdWithNewCopy == player.IdPlayer)
+            {
+                showBookingMessage();
+            }
         }
 
-        private void ShowBirthdayMessage()
+        private void showBirthdayMessage()
         {
             if (player.bonusReceived)
             {
                 MessageBox.Show("Congratulations! You have won 2 credits for your birthday!", "Birthday Bonus", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void showBookingMessage()
+        {
+            MessageBox.Show("Congratulations! You have received a new loan for a game from the waiting list.", "New Loan", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Réinitialiser l'ID après avoir affiché le message
+            ((App)Application.Current).UserIdWithNewCopy = -1;
         }
 
         private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,7 +188,7 @@ namespace ProjectVideoGameV2.View
             waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
             Loan loan = new Loan();
             loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(7);
+            loan.EndDate = loan.StartDate.AddDays(((App)Application.Current).NumberOfWeeks * 7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;
@@ -211,6 +226,7 @@ namespace ProjectVideoGameV2.View
                         MessageBoxResult result = MessageBox.Show($"Do you want to get on the waiting list for {selectedVg.Name} ?", "New Booking", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
+                            calculationRentalCost();
                             createNewBooking(selectedVg);
                             MessageBox.Show($"You are placed on the waiting list and you are {waitingList.Count} people waiting");
                         }
@@ -225,6 +241,17 @@ namespace ProjectVideoGameV2.View
                     MessageBox.Show("You don't have enough credit to be place to the waiting list. Please lend one of your games first");
                 }
             }
+        }
+
+        private void calculationRentalCost()
+        {
+            CreateLoanDialog createLoanDialog = new CreateLoanDialog(player, selectedVg);
+            createLoanDialog.ShowDialog();
+            if (createLoanDialog.DialogResult == true)
+            {
+                ((App)Application.Current).NumberOfWeeks = createLoanDialog.numberOfWeeks;
+            }
+
         }
 
         private bool isEnoughCredit(Player player, VideoGames videoGames)

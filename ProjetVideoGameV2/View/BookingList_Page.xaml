@@ -55,23 +55,21 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Margin="60,124,160,96">
-            <DataGrid x:Name="dgBookingList" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" />
-                    <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" />
-                    <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" />
-                    <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}"/>
-                    <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Cancel" Foreground="White" Background="LightSlateGray" Click="Button_CancelBooking" Width="Auto"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <DataGrid x:Name="dgBookingList" Margin="60,124,160,96" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" />
+                <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" />
+                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" />
+                <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}"/>
+                <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Cancel" Foreground="White" Background="LightSlateGray" Click="Button_CancelBooking" Width="Auto"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Booking List" Foreground="Black" HorizontalAlignment="Left" Margin="53,82,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
     </Grid>
 </UserControl>

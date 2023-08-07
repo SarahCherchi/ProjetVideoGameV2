@@ -22,7 +22,6 @@ namespace ProjectVideoGameV2.View
         private Player waitingPlayer;
         private VideoGames selectedVg;
         private List<Booking> waitingList = new List<Booking>();
-        private int userIdWithNewCopy = -1;
 
         public Home_Page(Player player)
         {
@@ -247,7 +246,10 @@ namespace ProjectVideoGameV2.View
         private Player generatePlayerHaveCopy(int id)
         {
             waitingList = Booking.findAllBookingByIdVideoGame(id);
-
+            foreach(Booking b in waitingList)
+            {
+                b.Player = (Player)Player.findPlayer(b.Player.IdPlayer);
+            }
             Player selectedPlayer = SortBookingsByPriority();
 
             return selectedPlayer;
@@ -258,79 +260,13 @@ namespace ProjectVideoGameV2.View
         {
             List<Booking> sortedList = waitingList.OrderByDescending(booking => booking.Player.Credit)
                                                  .ThenBy(booking => booking.BookingDate)
-                                                 .ThenByDescending(booking => booking.Player.RegistrationDate)
-                                                 .ThenByDescending(booking => booking.Player.DateOfBirth)
+                                                 .ThenBy(booking => booking.Player.RegistrationDate)
+                                                 .ThenBy(booking => booking.Player.DateOfBirth)
                                                  .ThenBy(_ => Guid.NewGuid()) // Trier aléatoirement si tous les critères sont égaux
                                                  .ToList();
 
             return sortedList.First().Player;
         }
-
-        /*private Player generatePlayerHaveCopy(int id)
-        {
-            waitingList = Booking.findAllBookingByIdVideoGame(id);
-
-            // Tri des réservations selon l'ordre de priorité
-            SortBookingsByPriority();
-
-            // Sélection du premier joueur avec suffisamment de crédits
-            Booking firstBookingWithEnoughCredit = waitingList.FirstOrDefault(booking => booking.Player.Credit > 0);
-            Player selectedPlayer = firstBookingWithEnoughCredit?.Player;
-
-            return selectedPlayer;
-        }*/
-
-
-
-        /*private Player generatePlayerHaveCopy(int id)
-        {
-            waitingList = Booking.findAllBookingByIdVideoGame(id);
-
-            // Tri des réservations selon l'ordre de priorité
-            SortBookingsByPriority();
-
-            // Sélection du premier joueur avec suffisamment de crédits
-            //Player selectedPlayer = waitingList.FirstOrDefault(booking => booking.Player.Credit > 0)?.Player; 
-            int idSelectedPlayer = waitingList.First().Player.IdPlayer;
-            Player selectedPlayer = (Player)Player.findPlayer(idSelectedPlayer);
-
-            return selectedPlayer;
-        }
-
-        private void SortBookingsByPriority()
-        {
-            waitingList = waitingList.OrderByDescending(booking => booking.Player.Credit)
-                             .ThenBy(booking => booking.BookingDate)
-                             .ThenByDescending(booking => booking.Player.RegistrationDate)
-                             .ThenByDescending(booking => booking.Player.DateOfBirth)
-                             .ThenBy(_ => Guid.NewGuid()) // Trier aléatoirement si tous les critères sont égaux
-                             .ToList();
-            /*waitingList.Sort((booking1, booking2) =>
-            {
-                // Trier par le plus grand nombre d'unités sur le compte (ordre décroissant)
-                int creditComparison = booking2.Player.Credit.CompareTo(booking1.Player.Credit);
-                if (creditComparison != 0)
-                    return creditComparison;
-
-                // Trier par la réservation la plus ancienne (ordre croissant)
-                int bookingDateComparison = booking1.BookingDate.CompareTo(booking2.BookingDate);
-                if (bookingDateComparison != 0)
-                    return bookingDateComparison;
-
-                // Trier par l'abonné inscrit depuis le plus longtemps (ordre décroissant)
-                int registrationDateComparison = booking2.Player.RegistrationDate.CompareTo(booking1.Player.RegistrationDate);
-                if (registrationDateComparison != 0)
-                    return registrationDateComparison;
-
-                // Trier par l'abonné le plus âgé (ordre décroissant)
-                int ageComparison = booking2.Player.DateOfBirth.CompareTo(booking1.Player.DateOfBirth);
-                if (ageComparison != 0)
-                    return ageComparison;
-
-                // Trier aléatoirement si tous les critères sont égaux
-                return Guid.NewGuid().CompareTo(Guid.NewGuid());
-            });
-        }*/
 
         private void createNewBooking(VideoGames videoGames)
         {

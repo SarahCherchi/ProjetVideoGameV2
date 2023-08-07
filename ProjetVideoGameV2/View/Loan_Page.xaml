@@ -55,24 +55,22 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Margin="60,124,160,126">
-            <DataGrid x:Name="dgLoan" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="dgLoan" AutoGenerateColumns="False" SelectionChanged="dgLoan_SelectionChanged" IsReadOnly="True" Margin="60,124,160,126"> 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
-                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
-                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
-                    <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
-                    <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
-                    <DataGridTemplateColumn Header="Return" IsReadOnly="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Return copy" Foreground="White" Background="LightSlateGray" Click="Button_ReturnedCopy"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+            <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
+            <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
+            <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
+            <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
+            <DataGridTemplateColumn Header="Return" IsReadOnly="False">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Content="Return copy" Foreground="White" Background="LightSlateGray" Click="Button_ReturnedCopy"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="My Loan" Foreground="Black" HorizontalAlignment="Left" Margin="63,82,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
 
     </Grid>

@@ -58,5 +58,13 @@ namespace ProjetVideoGameV2.View
             
         }
 
+        private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
+        }
     }
 }

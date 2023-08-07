@@ -21,6 +21,8 @@ namespace ProjetVideoGameV2.View
     public partial class Loan_Page : UserControl
     {
         private Player player;
+        private Player waitingPlayer;
+        private List<Booking> waitingList;
         private List<Loan> loans;
         private ICollectionView collectionView;
         private Loan selectedLoan;
@@ -110,8 +112,71 @@ namespace ProjetVideoGameV2.View
                 {
                     MessageBox.Show($"You have returned your copy late. Your penalty is {latePenalty} credits.", "Overdue penalty",MessageBoxButton.OK,MessageBoxImage.Exclamation);
                 }
+
+                selectedLoan.Copy.VideoGames.NumberOfCopy = VideoGames.nbrCopyAvailable(selectedLoan.Copy.VideoGames.IdVideoGames);
+                waitingList = Booking.findAllBookingByIdVideoGame(selectedLoan.Copy.VideoGames.IdVideoGames);
+
+                if (selectedLoan.Copy.VideoGames.NumberOfCopy == 1 && waitingList.Count > 0)
+                {
+                    selectedLoan.Copy.IdCopy = Copy.findAllCopyByIdVG(selectedLoan.Copy.VideoGames.IdVideoGames).Last().IdCopy;
+                    AllocateCopyToWaitingPlayer(selectedLoan.Copy.VideoGames, selectedLoan.Copy);
+                    Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedLoan.Copy.VideoGames.IdVideoGames);
+                    Player playerOwner = (Player) Player.findPlayer(selectedLoan.Copy.Owner.IdPlayer);
+                    playerOwner.Credit = playerOwner.Credit + ((App)Application.Current).TotalCredits;
+                    Player.updatePlayer(playerOwner);
+                    waitingPlayer.Credit = waitingPlayer.Credit - ((App)Application.Current).TotalCredits;
+                    Player.updatePlayer(waitingPlayer);
+                }
+                Loan_Page loanPage = new Loan_Page(player);
+                Content = loanPage;
                 refreshData();
             }
+        }
+
+        private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
+        {
+            waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            Loan loan = new Loan();
+            loan.StartDate = DateTime.Now;
+            loan.EndDate = loan.StartDate.AddDays(((App)Application.Current).NumberOfWeeks * 7);
+            loan.Ongoing = true;
+            loan.Copy = copy;
+            loan.Lender = copy.Owner;
+            loan.Borrower = waitingPlayer;
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+            ((App)Application.Current).UserIdWithNewCopy = waitingPlayer.IdPlayer;
+        }
+
+        private void updateCopyByIdLoan(Loan loan)
+        {
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
+        }
+
+        private Player generatePlayerHaveCopy(int id)
+        {
+            waitingList = Booking.findAllBookingByIdVideoGame(id);
+            foreach (Booking b in waitingList)
+            {
+                b.Player = (Player)Player.findPlayer(b.Player.IdPlayer);
+            }
+            Player selectedPlayer = SortBookingsByPriority();
+
+            return selectedPlayer;
+        }
+
+
+        private Player SortBookingsByPriority()
+        {
+            List<Booking> sortedList = waitingList.OrderByDescending(booking => booking.Player.Credit)
+                                                 .ThenBy(booking => booking.BookingDate)
+                                                 .ThenBy(booking => booking.Player.RegistrationDate)
+                                                 .ThenBy(booking => booking.Player.DateOfBirth)
+                                                 .ThenBy(_ => Guid.NewGuid()) // Trier aléatoirement si tous les critères sont égaux
+                                                 .ToList();
+
+            return sortedList.First().Player;
         }
 
         private void dgLoan_SelectionChanged(object sender, SelectionChangedEventArgs e)

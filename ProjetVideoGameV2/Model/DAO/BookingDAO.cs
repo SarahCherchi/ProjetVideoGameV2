@@ -180,6 +180,36 @@ namespace ProjetVideoGameV2.Model.DAO
             }
             return bookings;
         }
+
+        public int CountMemberOnWaitingList(int id)
+        {
+            List<Booking> bookings = new List<Booking>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Booking WHERE idVideoGame = @idVideoGame", connection);
+                cmd.Parameters.AddWithValue("idVideoGame", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Booking booking = new Booking();
+                        booking.Idbooking = reader.GetInt32("idBooking");
+                        booking.BookingDate = reader.GetDateTime("bookingDate");
+                        VideoGames videoGames = new VideoGames();
+                        videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        booking.VideoGames = videoGames;
+                        Player player = new Player();
+                        player.IdPlayer = reader.GetInt32("idUser");
+                        booking.Player = player;
+                        bookings.Add(booking);
+                    }
+                }
+            }
+            return bookings.Count;
+
+        }
     }
 }
 

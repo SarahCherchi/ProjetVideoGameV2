@@ -70,6 +70,11 @@ namespace ProjetVideoGameV2.POCO
             get { return Player.Pseudo; }
         }
 
+        public int NumberOfPlayers
+        {
+            get; set;
+        }
+
         public static bool createBooking(Booking booking)
         {
             return bookingDAO.Create(booking);
@@ -103,6 +108,11 @@ namespace ProjetVideoGameV2.POCO
         public static List<Booking> findAllBookingByIdVideoGame(int id)
         {
             return bookingDAO.FindAllByIdVidegoGame(id);
+        }
+
+        public static int CountNumberOfPlayerOnWaitingList(int id)
+        {
+            return bookingDAO.CountMemberOnWaitingList(id);
         }
     }
 }

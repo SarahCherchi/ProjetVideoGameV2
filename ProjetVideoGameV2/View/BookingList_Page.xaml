@@ -55,13 +55,14 @@
             </MenuItem>
         </Menu>
 
-        <DataGrid x:Name="dgBookingList" Margin="60,124,160,96" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="dgBookingList" Margin="60,124,30,96" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" />
-                <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" />
-                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" />
-                <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}"/>
-                <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False">
+                <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" Width="Auto"/>
+                <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" Width="Auto"/>
+                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" Width="*"/>
+                <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}" Width="*"/>
+                <DataGridTextColumn Header="Number of players in the waiting list" Binding="{Binding NumberOfPlayers}" Width="Auto"/>
+                <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Cancel" Foreground="White" Background="LightSlateGray" Click="Button_CancelBooking" Width="Auto"/>

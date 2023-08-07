@@ -14,5 +14,7 @@ namespace ProjetVideoGameV2
         public int UserIdWithNewCopy { get; set; } = -1;
 
         public int NumberOfWeeks { get; set; }
+
+        public int TotalCredits { get; set; }
     }
 }

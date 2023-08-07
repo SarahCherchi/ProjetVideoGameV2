@@ -29,7 +29,8 @@ namespace ProjetVideoGameV2.View
             foreach (var booking in bookings)
             {
                 booking.VideoGames = VideoGames.FindVideoGames(booking.VideoGames.IdVideoGames);
-                booking.Player = (Player) Player.findPlayer(booking.Player.IdPlayer);
+                booking.Player = (Player)Player.findPlayer(booking.Player.IdPlayer);
+                booking.NumberOfPlayers = Booking.CountNumberOfPlayerOnWaitingList(booking.VideoGames.IdVideoGames);
             }
         }
 

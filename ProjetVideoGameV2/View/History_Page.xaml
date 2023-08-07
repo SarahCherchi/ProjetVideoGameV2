@@ -55,17 +55,15 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Margin="60,124,160,126">
-            <DataGrid x:Name="dgLoanHistory" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
-                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
-                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
-                    <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
-                    <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <DataGrid x:Name="dgLoanHistory" Margin="60,124,160,126" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding IdLoan}" />
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateString}" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateString}" />
+                <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGameName}"/>
+                <DataGridTextColumn Header="Lender" Binding="{Binding LenderPseudo}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="History Loan" Foreground="Black" HorizontalAlignment="Left" Margin="54,82,0,0" VerticalAlignment="Top" FontSize="20" Width="119" Background="{x:Null}"/>
     </Grid>
 </UserControl>

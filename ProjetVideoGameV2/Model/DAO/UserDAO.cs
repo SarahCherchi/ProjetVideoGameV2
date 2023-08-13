@@ -90,7 +90,7 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         if (reader.Read())
                         {
-                            if (reader.GetBoolean("role")) // Check if the user is an administrator
+                            if (reader.GetBoolean("role")) 
                             {
                                 user = new Administrator
                                 {
@@ -141,7 +141,7 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         if (reader.Read())
                         {
-                            if (reader.GetBoolean("role")) // Check if the user is an administrator
+                            if (reader.GetBoolean("role")) 
                             {
                                 user = new Administrator
                                 {
@@ -188,7 +188,7 @@ namespace ProjetVideoGameV2.Model.DAO
                 {
                     while (reader.Read())
                     {
-                        if (reader.GetBoolean("role")) // Check if the user is an administrator
+                        if (reader.GetBoolean("role")) 
                         {
                             users.Add(new Administrator
                             {
@@ -210,9 +210,6 @@ namespace ProjetVideoGameV2.Model.DAO
                                 DateOfBirth = reader.GetDateTime("dateOfBirth"),
                                 Role = false,
                                 LastDateBonus = reader.GetDateTime("lastDateBonus"),
-                                BookingsList = new List<Booking>(),
-                                CopyList = new List<Copy>(),
-                                LoanList = new List<Loan>()
                             });
                         }
                     }

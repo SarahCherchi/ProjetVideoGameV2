@@ -1,5 +1,4 @@
-﻿
-using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.DAO;
 
 namespace ProjetVideoGameV2.POCO
 {
@@ -14,14 +13,6 @@ namespace ProjetVideoGameV2.POCO
         public User()
         {
 
-        }
-
-        public User(int idUser, string username, string password, bool role)
-        {
-            this.idUser = idUser;
-            this.username = username;
-            this.password = password;
-            this.role = role;
         }
 
         public int IdUser

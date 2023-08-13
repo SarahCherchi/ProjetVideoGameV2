@@ -1,5 +1,4 @@
-﻿using ProjetVideoGameV2.Model.Dao;
-using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.DAO;
 using System;
 using System.Collections.Generic;
 
@@ -16,20 +15,6 @@ namespace ProjetVideoGameV2.POCO
         public Booking()
         {
 
-        }
-
-        public Booking(int idBooking, DateTime bookingDate)
-        {
-            this.idBooking = idBooking;
-            this.bookingDate = bookingDate;
-        }
-
-        public Booking(int idBooking, DateTime bookingDate,VideoGames videoGames,Player player)
-        {
-            this.idBooking = idBooking;
-            this.bookingDate = bookingDate;
-            this.videoGames = videoGames;
-            this.player = player;
         }
 
         public int Idbooking 

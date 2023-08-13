@@ -1,10 +1,8 @@
-﻿using ProjetVideoGameV2.Model.Dao;
-using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.DAO;
 using System;
 using System.Collections.Generic;
 
 namespace ProjetVideoGameV2.POCO
-
 {
     public class Player : User
     {
@@ -14,51 +12,20 @@ namespace ProjetVideoGameV2.POCO
         private DateTime registrationDate;
         private DateTime dateOfBirth;
         private DateTime lastDateBonus;
-        private List<Booking> bookingsList;
-        private List<Copy> copyList;
-        private List<Loan> loanList;
+        public bool bonusReceived;
         private int numberOfWeeks;
         private int totalCost;
         private static UserDAO userDAO = new UserDAO();
-
-        public bool bonusReceived;
 
         public Player()
         {
 
         }
 
-        public Player(int idPlayer, int credit, string pseudo, DateTime registrationDate, DateTime dateOfBirth)
-        {
-            this.idPlayer = idPlayer;
-            this.credit = credit;
-            this.pseudo = pseudo;
-            this.registrationDate = registrationDate;
-            this.dateOfBirth = dateOfBirth;
-        }
-
-
         public int IdPlayer
         {
             get { return idPlayer; }
             set { idPlayer = value; }
-        }
-
-        public string RegistrationDateString
-        {
-            get { return registrationDate.ToString("dd-MM-yyyy"); }
-
-        }
-
-        public string DateOfBirthString
-        {
-            get { return dateOfBirth.ToString("dd-MM-yyyy"); }
-
-        }
-
-        public string UsernameString
-        {
-            get { return UserName.ToString(); }
         }
 
         public int Credit
@@ -91,24 +58,6 @@ namespace ProjetVideoGameV2.POCO
             set { lastDateBonus = value; }
         }
 
-        public List<Booking> BookingsList
-        {
-            get { return bookingsList; }
-            set { bookingsList = value; }
-        }
-
-        public List<Loan> LoanList
-        {
-            get { return loanList; }
-            set { loanList = value; }
-        }
-
-        public List<Copy> CopyList
-        {
-            get { return copyList; }
-            set { copyList = value; }
-        }
-
         public int NumberOfWeeks
         {
             get { return numberOfWeeks; }
@@ -119,6 +68,23 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return totalCost; }
             set { totalCost = value; }
+        }
+
+        public string RegistrationDateString
+        {
+            get { return registrationDate.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string DateOfBirthString
+        {
+            get { return dateOfBirth.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string UsernameString
+        {
+            get { return UserName.ToString(); }
         }
 
         public static bool createPlayer(Player player)

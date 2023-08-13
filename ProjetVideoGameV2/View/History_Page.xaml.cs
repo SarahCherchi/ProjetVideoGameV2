@@ -1,20 +1,10 @@
 ﻿using ProjectVideoGameV2.View;
 using ProjetVideoGameV2.POCO;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProjetVideoGameV2.View
 {
@@ -29,17 +19,7 @@ namespace ProjetVideoGameV2.View
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-
-            loans = Loan.findAllLoanHistory(player.IdPlayer);
-            collectionView = CollectionViewSource.GetDefaultView(loans);
-            dgLoanHistory.ItemsSource = collectionView;
-
-            foreach (var loan in loans)
-            {
-                loan.Lender = (Player)Player.findPlayer(loan.Lender.IdPlayer);
-                loan.Copy = Copy.findCopy(loan.Copy.IdCopy);
-                loan.Copy.VideoGames = VideoGames.FindVideoGames(loan.Copy.VideoGames.IdVideoGames);
-            }
+            initDgHistory();
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)
@@ -86,6 +66,20 @@ namespace ProjetVideoGameV2.View
             home_page.Close();
             mainWindow.Show();
 
+        }
+
+        private void initDgHistory()
+        {
+            loans = Loan.findAllLoanHistory(player.IdPlayer);
+            collectionView = CollectionViewSource.GetDefaultView(loans);
+            dgLoanHistory.ItemsSource = collectionView;
+
+            foreach (var loan in loans)
+            {
+                loan.Lender = (Player)Player.findPlayer(loan.Lender.IdPlayer);
+                loan.Copy = Copy.findCopy(loan.Copy.IdCopy);
+                loan.Copy.VideoGames = VideoGames.FindVideoGames(loan.Copy.VideoGames.IdVideoGames);
+            }
         }
     }
 }

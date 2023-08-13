@@ -18,15 +18,7 @@ namespace ProjetVideoGameV2.View
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-            List<Copy> cp = Copy.findAllCopiesByUser(player.IdPlayer);
-            dgCopies.ItemsSource = cp;
-            
-            foreach(Copy copy in cp)
-            {
-                copy.VideoGames = VideoGames.FindVideoGames(copy.VideoGames.IdVideoGames);
-                copy.Available = Copy.IsAvailable(copy.IdCopy);
-            }
-
+            initDgCopy();
         }
 
         private void Button_ViewMore(object sender, RoutedEventArgs e)
@@ -80,6 +72,19 @@ namespace ProjetVideoGameV2.View
             mainWindow.Show();
 
         }
+
+        private void initDgCopy()
+        {
+            List<Copy> cp = Copy.findAllCopiesByUser(player.IdPlayer);
+            dgCopies.ItemsSource = cp;
+
+            foreach (Copy copy in cp)
+            {
+                copy.VideoGames = VideoGames.FindVideoGames(copy.VideoGames.IdVideoGames);
+                copy.Available = Copy.IsAvailable(copy.IdCopy);
+            }
+        }
+
         private void dgCopies_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(dgCopies.SelectedItem is Copy myCopy)

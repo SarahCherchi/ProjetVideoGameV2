@@ -13,7 +13,7 @@ namespace ProjetVideoGameV2.View
         {
             InitializeComponent();
             this.player = player;
-            initPlayerHistory();
+            initPlayerInfo();
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)

@@ -23,15 +23,6 @@ namespace ProjetVideoGameV2.View
             this.copies = copy;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-            loans = Loan.findAllLoanByIdLender(player.IdPlayer,copies.IdCopy);
-            collectionView = CollectionViewSource.GetDefaultView(loans);
-            dgCopiesBooking.ItemsSource = collectionView;
-
-            foreach (var loan in loans)
-            {
-                loan.Borrower = (Player) Player.findPlayer(loan.Borrower.IdPlayer);
-            }
-
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)
@@ -78,6 +69,18 @@ namespace ProjetVideoGameV2.View
             home_page.Close();
             mainWindow.Show();
 
+        }
+
+        private void initDgBorrowLoan()
+        {
+            loans = Loan.findAllLoanByIdLender(player.IdPlayer, copies.IdCopy);
+            collectionView = CollectionViewSource.GetDefaultView(loans);
+            dgCopiesBooking.ItemsSource = collectionView;
+
+            foreach (var loan in loans)
+            {
+                loan.Borrower = (Player)Player.findPlayer(loan.Borrower.IdPlayer);
+            }
         }
 
         private void dgCopiesBooking_SelectionChanged(object sender, SelectionChangedEventArgs e)

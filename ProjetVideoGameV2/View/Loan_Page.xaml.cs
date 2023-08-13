@@ -122,9 +122,9 @@ namespace ProjetVideoGameV2.View
                     AllocateCopyToWaitingPlayer(selectedLoan.Copy.VideoGames, selectedLoan.Copy);
                     Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedLoan.Copy.VideoGames.IdVideoGames);
                     Player playerOwner = (Player) Player.findPlayer(selectedLoan.Copy.Owner.IdPlayer);
-                    playerOwner.Credit = playerOwner.Credit + ((App)Application.Current).TotalCredits;
+                    playerOwner.Credit = playerOwner.Credit + waitingPlayer.TotalCost;
                     Player.updatePlayer(playerOwner);
-                    waitingPlayer.Credit = waitingPlayer.Credit - ((App)Application.Current).TotalCredits;
+                    waitingPlayer.Credit = waitingPlayer.Credit - waitingPlayer.TotalCost;
                     Player.updatePlayer(waitingPlayer);
                 }
                 Loan_Page loanPage = new Loan_Page(player);
@@ -136,9 +136,18 @@ namespace ProjetVideoGameV2.View
         private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
         {
             waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            foreach (var player in ((App)Application.Current).PlayerList)
+            {
+                if (player.IdPlayer == waitingPlayer.IdPlayer)
+                {
+                    waitingPlayer.NumberOfWeeks = player.NumberOfWeeks;
+                    waitingPlayer.TotalCost = player.TotalCost;
+                    break;
+                }
+            }
             Loan loan = new Loan();
             loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(((App)Application.Current).NumberOfWeeks * 7);
+            loan.EndDate = loan.StartDate.AddDays(waitingPlayer.NumberOfWeeks * 7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;

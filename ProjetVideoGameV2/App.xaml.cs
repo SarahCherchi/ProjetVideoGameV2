@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ProjetVideoGameV2.POCO;
 
 namespace ProjetVideoGameV2
 {
@@ -13,8 +14,6 @@ namespace ProjetVideoGameV2
     {
         public int UserIdWithNewCopy { get; set; } = -1;
 
-        public int NumberOfWeeks { get; set; }
-
-        public int TotalCredits { get; set; }
+        public List<Player> PlayerList = new List<Player>();  
     }
 }

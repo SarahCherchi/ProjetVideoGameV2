@@ -19,19 +19,7 @@ namespace ProjetVideoGameV2.View
             this.player = player;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
-
-            bookings = Booking.findAllBooking();
-            collectionView = CollectionViewSource.GetDefaultView(bookings);
-            dgBookingList.ItemsSource = collectionView;
-
-            bookings.RemoveAll(booking => booking.Player.IdPlayer != player.IdPlayer);
-
-            foreach (var booking in bookings)
-            {
-                booking.VideoGames = VideoGames.FindVideoGames(booking.VideoGames.IdVideoGames);
-                booking.Player = (Player)Player.findPlayer(booking.Player.IdPlayer);
-                booking.NumberOfPlayers = Booking.CountNumberOfPlayerOnWaitingList(booking.VideoGames.IdVideoGames);
-            }
+            initDgBooking();
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)
@@ -97,6 +85,22 @@ namespace ProjetVideoGameV2.View
                 {
                     MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void initDgBooking()
+        {
+            bookings = Booking.findAllBooking();
+            collectionView = CollectionViewSource.GetDefaultView(bookings);
+            dgBookingList.ItemsSource = collectionView;
+
+            bookings.RemoveAll(booking => booking.Player.IdPlayer != player.IdPlayer);
+
+            foreach (var booking in bookings)
+            {
+                booking.VideoGames = VideoGames.FindVideoGames(booking.VideoGames.IdVideoGames);
+                booking.Player = (Player)Player.findPlayer(booking.Player.IdPlayer);
+                booking.NumberOfPlayers = Booking.CountNumberOfPlayerOnWaitingList(booking.VideoGames.IdVideoGames);
             }
         }
     }

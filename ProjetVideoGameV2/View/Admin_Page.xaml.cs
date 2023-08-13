@@ -12,6 +12,7 @@ namespace ProjetVideoGameV2.View
         public Admin_Page()
         {
             InitializeComponent();
+            initDgVideoGame();
         }
 
         private void initDgVideoGame()

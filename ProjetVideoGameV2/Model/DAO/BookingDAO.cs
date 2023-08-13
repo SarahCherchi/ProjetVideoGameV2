@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjetVideoGameV2.Model.DAO
 {
@@ -51,29 +48,6 @@ namespace ProjetVideoGameV2.Model.DAO
             return success;
         }
 
-        public bool DeleteByIdUserAndIdVideoGames(int idUser, int idVideoGame)
-        {
-            bool success = false;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(this.connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Booking WHERE idVideoGame = @idVideoGame AND idUser = @idUser", connection);
-                    cmd.Parameters.AddWithValue("idVideoGame", idVideoGame);
-                    cmd.Parameters.AddWithValue("idUser", idUser);
-                    connection.Open();
-                    int res = cmd.ExecuteNonQuery();
-                    success = res > 0;
-                }
-            }
-            catch (SqlException)
-            {
-                throw new Exception("Une erreur sql s'est produite!");
-                return success;
-            }
-            return success;
-        }
-
         public override bool Update(Booking obj)
         {
             bool success = false;
@@ -98,8 +72,8 @@ namespace ProjetVideoGameV2.Model.DAO
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
 
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Booking WHERE idBooking = @id", connection);
-                    cmd.Parameters.AddWithValue("id", id);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Booking WHERE idBooking = @idBooking", connection);
+                    cmd.Parameters.AddWithValue("idBooking", id);
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -109,8 +83,12 @@ namespace ProjetVideoGameV2.Model.DAO
                             {
                                 booking.Idbooking = reader.GetInt32("idBooking");
                                 booking.BookingDate = reader.GetDateTime("bookingDate");
-                                booking.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
-                                booking.Player.IdPlayer = reader.GetInt32("idPlayer");
+                                VideoGames videoGames = new VideoGames();
+                                videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                                booking.VideoGames = videoGames;
+                                Player player = new Player();
+                                player.IdPlayer = reader.GetInt32("idUser");
+                                booking.Player = player;
                             }
                         }
                     }
@@ -150,6 +128,28 @@ namespace ProjetVideoGameV2.Model.DAO
             }
             return bookings;
 
+        }
+
+        public bool DeleteByIdUserAndIdVideoGames(int idUser, int idVideoGame)
+        {
+            bool success = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Booking WHERE idVideoGame = @idVideoGame AND idUser = @idUser", connection);
+                    cmd.Parameters.AddWithValue("idVideoGame", idVideoGame);
+                    cmd.Parameters.AddWithValue("idUser", idUser);
+                    connection.Open();
+                    int res = cmd.ExecuteNonQuery();
+                    success = res > 0;
+                }
+            }
+            catch (SqlException)
+            {
+                throw new Exception("Une erreur sql s'est produite!");
+            }
+            return success;
         }
 
         public List<Booking> FindAllByIdVidegoGame(int id)

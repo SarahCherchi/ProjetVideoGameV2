@@ -107,7 +107,7 @@ namespace ProjetVideoGameV2.POCO
 
         public static List<Copy> findAllCopyByIdVG(int id)
         {
-            return copyDAO.FindAllCopyVideoGame(id);
+            return copyDAO.FindAllCopyByVideoGame(id);
         }
 
         public static List<Copy> findAllCopiesByUser(int id)

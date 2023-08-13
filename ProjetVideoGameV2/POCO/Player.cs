@@ -17,6 +17,8 @@ namespace ProjetVideoGameV2.POCO
         private List<Booking> bookingsList;
         private List<Copy> copyList;
         private List<Loan> loanList;
+        private int numberOfWeeks;
+        private int totalCost;
         private static UserDAO userDAO = new UserDAO();
 
         public bool bonusReceived;
@@ -105,6 +107,18 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return copyList; }
             set { copyList = value; }
+        }
+
+        public int NumberOfWeeks
+        {
+            get { return numberOfWeeks; }
+            set { numberOfWeeks = value; }
+        }
+
+        public int TotalCost
+        {
+            get { return totalCost; }
+            set { totalCost = value; }
         }
 
         public static bool createPlayer(Player player)

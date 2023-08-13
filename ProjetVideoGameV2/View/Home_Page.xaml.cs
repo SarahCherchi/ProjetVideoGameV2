@@ -1,16 +1,12 @@
 ﻿using ProjetVideoGameV2;
-using ProjetVideoGameV2.Model.Dao;
-using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
 using ProjetVideoGameV2.View.AdminInputDialog;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace ProjectVideoGameV2.View
@@ -163,9 +159,9 @@ namespace ProjectVideoGameV2.View
                         copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
                         AllocateCopyToWaitingPlayer(selectedVg, copy);
                         bool successDelete = Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedVg.IdVideoGames);
-                        player.Credit = player.Credit + ((App)Application.Current).TotalCredits;
+                        player.Credit = player.Credit + waitingPlayer.TotalCost;
                         Player.updatePlayer(player);
-                        waitingPlayer.Credit = waitingPlayer.Credit - ((App)Application.Current).TotalCredits;
+                        waitingPlayer.Credit = waitingPlayer.Credit - waitingPlayer.TotalCost;
                         Player.updatePlayer(waitingPlayer);
                         if (successDelete)
                         {
@@ -190,9 +186,18 @@ namespace ProjectVideoGameV2.View
         private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
         {
             waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            foreach(var player in ((App)Application.Current).PlayerList)
+            {
+                if (player.IdPlayer == waitingPlayer.IdPlayer)
+                {
+                    waitingPlayer.NumberOfWeeks = player.NumberOfWeeks;
+                    waitingPlayer.TotalCost = player.TotalCost;
+                    break;
+                }
+            }
             Loan loan = new Loan();
             loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(((App)Application.Current).NumberOfWeeks * 7);
+            loan.EndDate = loan.StartDate.AddDays(waitingPlayer.NumberOfWeeks * 7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;
@@ -231,7 +236,7 @@ namespace ProjectVideoGameV2.View
                         if (result == MessageBoxResult.Yes)
                         {
                             calculationRentalCost();
-                            if (((App)Application.Current).NumberOfWeeks <= 0 || ((App)Application.Current).NumberOfWeeks.Equals(null))
+                            if (player.NumberOfWeeks <= 0 || player.NumberOfWeeks.Equals(null))
                             {
                                 return;
                             }
@@ -257,8 +262,8 @@ namespace ProjectVideoGameV2.View
             createLoanDialog.ShowDialog();
             if (createLoanDialog.DialogResult == true)
             {
-                ((App)Application.Current).NumberOfWeeks = createLoanDialog.numberOfWeeks;
-                ((App)Application.Current).TotalCredits = ((App)Application.Current).NumberOfWeeks * selectedVg.CreditCost;
+                player.NumberOfWeeks = createLoanDialog.numberOfWeeks;
+                player.TotalCost = player.NumberOfWeeks * selectedVg.CreditCost;
             }
 
         }
@@ -310,6 +315,7 @@ namespace ProjectVideoGameV2.View
             booking.BookingDate = DateTime.Now;
             booking.VideoGames = videoGames;
             booking.Player = player;
+            ((App)Application.Current).PlayerList.Add(player);
             bool success = Booking.createBooking(booking);
             if (success)
             {

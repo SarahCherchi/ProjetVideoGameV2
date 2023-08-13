@@ -38,7 +38,7 @@ namespace ProjetVideoGameV2.View
                 }
             }  
         }
-        
+
         private bool createNewPlayer()
         {
             Player p = new Player();
@@ -48,6 +48,16 @@ namespace ProjetVideoGameV2.View
             p.Pseudo = Pseudo.Text;
             p.Credit = 10;
             return Player.createPlayer(p);
+        }
+
+
+        private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
         }
     }
 }

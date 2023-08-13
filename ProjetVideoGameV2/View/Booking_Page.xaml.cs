@@ -48,8 +48,31 @@ namespace ProjetVideoGameV2.View
             }
         }
 
-        private void dgCopy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Home(object sender, RoutedEventArgs e)
         {
+            Home_Page home = new Home_Page(player);
+            Content = home;
+        }
+
+        private void Button_Loan(object sender, RoutedEventArgs e)
+        {
+            Loan_Page loan = new Loan_Page(player);
+            this.Content = loan;
+        }
+
+        private void Button_Copies(object sender, RoutedEventArgs e)
+        {
+            Copies_Page copies = new Copies_Page(player);
+            this.Content = copies;
+        }
+
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
 
         }
 
@@ -98,57 +121,9 @@ namespace ProjetVideoGameV2.View
             }
         }
 
-        private void Button_Home(object sender, RoutedEventArgs e)
-        {
-            Home_Page home = new Home_Page(player);
-            Content = home;
-        }
-
-        private void Button_Loan(object sender, RoutedEventArgs e)
-        {
-            Loan_Page loan = new Loan_Page(player);
-            this.Content = loan;
-        }
-
-        private void Button_Copies(object sender, RoutedEventArgs e)
-        {
-            Copies_Page copies = new Copies_Page(player);
-            this.Content = copies;
-        }
-
-        private void Button_Logout(object sender, RoutedEventArgs e)
-        {
-            Window home_page = Window.GetWindow(this);
-            MainWindow mainWindow = new MainWindow();
-
-            home_page.Close();
-            mainWindow.Show();
-
-        }
-
-
-        private void createLoan(Copy copy)
-        {
-            loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(numberOfWeeks * 7);
-            loan.Ongoing = true;
-            loan.Copy = copy;
-            loan.Lender = copy.Owner;
-            loan.Borrower = player;
-            loan.IdLoan = Loan.createLoan(loan);
-            updateCopyByIdLoan(loan);
-        }
-
-       
-        private void updateCopyByIdLoan(Loan loan)
-        {
-            loan.Copy.Loan = loan;
-            Copy.updateLoanerCopy(loan.Copy);
-        }
-
         private bool isAvailable(Copy copy)
         {
-            if(copy.Available)
+            if (copy.Available)
             {
                 return true;
             }
@@ -174,6 +149,30 @@ namespace ProjetVideoGameV2.View
             player.Credit -= totalCreditCost;
             Player.updatePlayer(player);
             lb_credit.Content = player.Credit;
+        }
+
+        private void createLoan(Copy copy)
+        {
+            loan.StartDate = DateTime.Now;
+            loan.EndDate = loan.StartDate.AddDays(numberOfWeeks * 7);
+            loan.Ongoing = true;
+            loan.Copy = copy;
+            loan.Lender = copy.Owner;
+            loan.Borrower = player;
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+        }
+
+       
+        private void updateCopyByIdLoan(Loan loan)
+        {
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
+        }
+
+        private void dgCopy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -7,16 +7,39 @@ using System.Windows.Controls;
 
 namespace ProjetVideoGameV2.View
 {
-    /// <summary>
-    /// Logique d'interaction pour Admin_Page.xaml
-    /// </summary>
     public partial class Admin_Page : UserControl
     {
         public Admin_Page()
         {
             InitializeComponent();
+        }
+
+        private void initDgVideoGame()
+        {
             List<VideoGames> vg = VideoGames.FindAll();
             dgVideoGames.ItemsSource = vg;
+        }
+
+        private void Button_Logout(object sender, RoutedEventArgs e)
+        {
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+
+            home_page.Close();
+            mainWindow.Show();
+
+        }
+
+        private void Button_ListOfUser(object sender, RoutedEventArgs e)
+        {
+            Admin_ListOfUserPage listOfUserPage = new Admin_ListOfUserPage();
+            this.Content = listOfUserPage;
+        }
+
+        private void Button_ListOfLoan(object sender, RoutedEventArgs e)
+        {
+            Admin_ListOfLoan listOfLoan = new Admin_ListOfLoan();
+            this.Content = listOfLoan;
         }
 
         private void Button_Update(object sender, RoutedEventArgs e)
@@ -40,37 +63,6 @@ namespace ProjetVideoGameV2.View
 
                 MessageBox.Show("Credit cost updated successfully.");
             }
-        }
-
-        private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        private void Button_Logout(object sender, RoutedEventArgs e)
-        {
-            Window home_page = Window.GetWindow(this);
-            MainWindow mainWindow = new MainWindow();
-
-            home_page.Close();
-            mainWindow.Show();
-
-        }
-
-        private void Button_ListOfUser(object sender, RoutedEventArgs e)
-        {
-            Admin_ListOfUserPage listOfUserPage = new Admin_ListOfUserPage();
-            this.Content = listOfUserPage;
-        }
-
-        private void Button_ListOfLoan(object sender, RoutedEventArgs e)
-        {
-            Admin_ListOfLoan listOfLoan = new Admin_ListOfLoan();
-            this.Content = listOfLoan;
         }
 
         private void Button_AddVG(object sender, RoutedEventArgs e)
@@ -111,10 +103,20 @@ namespace ProjetVideoGameV2.View
                 }
                 else
                 {
-                    break; //Pour éviter une boucle infinie si on veut fermer la fenêtre
+                    break;
                 }
                 
             }
+        }
+
+        private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

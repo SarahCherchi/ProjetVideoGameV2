@@ -1,19 +1,8 @@
-﻿using ProjectVideoGameV2.View;
-using ProjetVideoGameV2.POCO;
+﻿using ProjetVideoGameV2.POCO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ProjetVideoGameV2.View
 {
@@ -32,14 +21,7 @@ namespace ProjetVideoGameV2.View
             }
             else
             {
-                Player p = new Player();
-                p.UserName = Username.Text;
-                p.Password = Password.Password;
-                p.DateOfBirth = DateTime.Parse(Birthday.Text);
-                p.Pseudo = Pseudo.Text;
-                p.Credit = 10;
-                bool ok = Player.createPlayer(p);
-
+                bool ok = createNewPlayer();
                 if (ok)
                 {
                     MessageBox.Show("Your account has been created. You may now log in ", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -54,9 +36,20 @@ namespace ProjetVideoGameV2.View
                 {
                     MessageBox.Show("Account creation failed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            
+            }  
         }
+
+        private bool createNewPlayer()
+        {
+            Player p = new Player();
+            p.UserName = Username.Text;
+            p.Password = Password.Password;
+            p.DateOfBirth = DateTime.Parse(Birthday.Text);
+            p.Pseudo = Pseudo.Text;
+            p.Credit = 10;
+            return Player.createPlayer(p);
+        }
+
 
         private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
         {

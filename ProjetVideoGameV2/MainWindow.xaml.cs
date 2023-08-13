@@ -1,5 +1,4 @@
 ﻿using ProjectVideoGameV2.View;
-using ProjetVideoGameV2.Model.Dao;
 using ProjetVideoGameV2.Model.DAO;
 using ProjetVideoGameV2.POCO;
 using ProjetVideoGameV2.View;
@@ -7,9 +6,6 @@ using System.Windows;
 
 namespace ProjetVideoGameV2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -33,13 +29,11 @@ namespace ProjetVideoGameV2
             {
                 if (user is Administrator admin)
                 {
-                    // L'utilisateur est un administrateur
                     Admin_Page ap = new Admin_Page();
                     this.Content = ap;
                 }
                 if (user is Player player)
                 {
-                    // L'utilisateur est un joueur
                     Home_Page hp = new Home_Page(player);
                     this.Content = hp;
                 }

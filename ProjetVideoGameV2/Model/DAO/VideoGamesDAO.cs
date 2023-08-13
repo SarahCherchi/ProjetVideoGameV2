@@ -85,8 +85,6 @@ namespace ProjetVideoGameV2.Model.Dao
                                 Name = reader.GetString("name"),
                                 CreditCost = reader.GetInt32("creditCost"),
                                 Console = reader.GetString("console"),
-                                BookingList = new List<Booking>(),
-                                CopyList  = new List<Copy>()
                             };
                         }
                     }

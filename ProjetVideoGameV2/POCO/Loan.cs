@@ -1,5 +1,4 @@
-﻿using ProjetVideoGameV2.Model.Dao;
-using ProjetVideoGameV2.Model.DAO;
+﻿using ProjetVideoGameV2.Model.DAO;
 using System;
 using System.Collections.Generic;
 
@@ -17,43 +16,11 @@ namespace ProjetVideoGameV2.POCO
         private static LoanDAO loanDAO = new LoanDAO();
         private static UserDAO userDAO = new UserDAO();
 
-
         public Loan()
         {
 
         }
 
-        public Loan(int idLoan, DateTime startDate, DateTime endDate, bool ongoing)
-        {
-            this.idLoan = idLoan;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.ongoing = ongoing;
-        }
-
-        public Loan(int idLoan, DateTime startDate, DateTime endDate, bool ongoing, Copy copy, Player lender, Player borrower)
-        {
-            this.idLoan = idLoan;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.ongoing = ongoing;
-            this.copy = copy;
-            this.lender = lender;
-            this.borrower = borrower;
-            
-        }
-
-        public string StartDateString
-        {
-            get { return startDate.ToString("dd-MM-yyyy"); }
-
-        }
-
-        public string EndDateString 
-        {
-            get { return endDate.ToString("dd-MM-yyyy"); }
-                
-        }
         public int IdLoan
         {
             get { return idLoan; }
@@ -96,24 +63,36 @@ namespace ProjetVideoGameV2.POCO
             set { borrower = value; }
         }
 
-        public string BorrowerUsername
+        public string StartDateString
         {
-            get; set;
+            get { return startDate.ToString("dd-MM-yyyy"); }
+
+        }
+
+        public string EndDateString
+        {
+            get { return endDate.ToString("dd-MM-yyyy"); }
+
         }
 
         public string LenderUsername
         {
-             get; set; 
-        }
-
-        public string BorrowerPseudo
-        {
-            get { return Borrower.Pseudo; }
+            get; set;
         }
 
         public string LenderPseudo
         {
             get { return Lender.Pseudo; }
+        }
+
+        public string BorrowerUsername
+        {
+            get; set;
+        }
+
+        public string BorrowerPseudo
+        {
+            get { return Borrower.Pseudo; }
         }
 
         public string VideoGameName

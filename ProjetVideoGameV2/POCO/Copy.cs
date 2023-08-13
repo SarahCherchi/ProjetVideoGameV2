@@ -20,29 +20,6 @@ namespace ProjetVideoGameV2.POCO
 
         }
 
-        public Copy(int idCopy, VideoGames videoGames, Player owner, Loan loan)
-        {
-            this.idCopy = idCopy;
-            this.videoGames = videoGames;
-            this.owner = owner;
-            this.loan = loan;
-        }
-
-        public string OwnerPseudo 
-        { 
-            get { return Owner.Pseudo; } 
-        }
-
-        public string VideoGameName
-        {
-            get { return VideoGames.Name; }
-        }
-
-        public string Console 
-        { 
-            get { return VideoGames.Console; } 
-        }
-
         public int IdCopy
         {
             get { return idCopy; }
@@ -67,6 +44,21 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return available; }
             set { available = value; }
+        }
+
+        public string Console 
+        { 
+            get { return VideoGames.Console; } 
+        }
+
+        public string OwnerPseudo
+        {
+            get { return Owner.Pseudo; }
+        }
+
+        public string VideoGameName
+        {
+            get { return VideoGames.Name; }
         }
 
         public static bool createCopy(Copy copy)

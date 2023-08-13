@@ -154,7 +154,6 @@ namespace ProjetVideoGameV2.Model.DAO
                         owner.IdPlayer = reader.GetInt32("owner");
                         copy.Owner = owner;
                         copies.Add(copy);
-
                     }
                 }
             }
@@ -181,7 +180,6 @@ namespace ProjetVideoGameV2.Model.DAO
                         videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
                         copy.VideoGames = videoGames;
                         copies.Add(copy);
-
                     }
                 }
             }

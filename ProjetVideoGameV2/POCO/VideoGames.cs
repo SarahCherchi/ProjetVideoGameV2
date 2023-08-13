@@ -1,7 +1,5 @@
 ﻿using ProjetVideoGameV2.Model.Dao;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Windows.Controls;
 
 namespace ProjetVideoGameV2.POCO
 
@@ -13,8 +11,6 @@ namespace ProjetVideoGameV2.POCO
         private int creditCost;
         private string console;
         private int numberOfCopy;
-        private List<Booking> bookingList;
-        private List<Copy> copyList;
         private static VideoGamesDAO videoGamesDAO = new VideoGamesDAO(); 
 
         
@@ -22,16 +18,6 @@ namespace ProjetVideoGameV2.POCO
         public VideoGames()
         {
 
-        }
-
-        public VideoGames(int idVideoGames, string name, int creditCost, string console, List<Booking> bookingList, List<Copy> copyList)
-        {
-            this.idVideoGames = idVideoGames;
-            this.name = name;
-            this.creditCost = creditCost;
-            this.console = console;
-            this.bookingList = bookingList;
-            this.copyList = copyList;
         }
 
         public int IdVideoGames
@@ -62,18 +48,6 @@ namespace ProjetVideoGameV2.POCO
         {
             get { return numberOfCopy; }
             set { numberOfCopy = value; }
-        }
-
-        public List<Booking> BookingList
-        {
-            get { return bookingList; }
-            set { bookingList = value; }
-        }
-
-        public List<Copy> CopyList
-        {
-            get { return copyList; }
-            set { copyList = value; }
         }
 
         public static bool CreateVideoGame(VideoGames vg)

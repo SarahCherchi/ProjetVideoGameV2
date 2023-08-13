@@ -1,5 +1,4 @@
-﻿
-namespace ProjetVideoGameV2.POCO
+﻿namespace ProjetVideoGameV2.POCO
 {
     internal class Administrator :User
     {

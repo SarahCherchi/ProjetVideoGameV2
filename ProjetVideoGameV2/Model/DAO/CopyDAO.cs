@@ -3,10 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 
 namespace ProjetVideoGameV2.Model.DAO
 {
@@ -122,19 +118,24 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
-                        copy.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
-                        copy.Owner.IdPlayer = reader.GetInt32("owner");
-                        copy.Loan.IdLoan = reader.GetInt32("idLoan");
+                        VideoGames videoGames = new VideoGames();
+                        videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        copy.VideoGames = videoGames;
+                        Player owner = new Player();
+                        owner.IdPlayer = reader.GetInt32("owner");
+                        copy.Owner = owner;
+                        Loan loan = new Loan();
+                        loan.IdLoan = reader.GetInt32("idLoan");
+                        copy.Loan = loan;
                         copies.Add(copy);
                         
                     }
                 }
             }
             return copies;
-
         }
 
-        public List<Copy> FindAllCopyVideoGame(int id)
+        public List<Copy> FindAllCopyByVideoGame(int id)
         {
             List<Copy> copies = new List<Copy>();
 
@@ -149,9 +150,9 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
-                        copy.Owner = new Player();
-                        copy.Owner.IdPlayer = reader.GetInt32("owner");
-                        
+                        Player owner = new Player();
+                        owner.IdPlayer = reader.GetInt32("owner");
+                        copy.Owner = owner;
                         copies.Add(copy);
 
                     }
@@ -176,9 +177,9 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
-                        copy.VideoGames = new VideoGames();
-                        copy.VideoGames.IdVideoGames = reader.GetInt32("idVideoGame");
-
+                        VideoGames videoGames = new VideoGames();
+                        videoGames.IdVideoGames = reader.GetInt32("idVideoGame");
+                        copy.VideoGames = videoGames;
                         copies.Add(copy);
 
                     }

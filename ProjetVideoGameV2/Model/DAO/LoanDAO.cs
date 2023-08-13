@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 
 namespace ProjetVideoGameV2.Model.DAO
 {
@@ -14,51 +11,40 @@ namespace ProjetVideoGameV2.Model.DAO
     {
         public LoanDAO() { }
         
-            public override bool Create(Loan obj)
-               {
-                   bool success = false;
-                   string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
-                   string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
-                   using (SqlConnection connection = new SqlConnection(this.connectionString))
-                   {
-                       SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection);
-                       connection.Open();
-                       int res = cmd.ExecuteNonQuery();
-                       success = res > 0;
-                   }
-
-                   return success;
-               }
+        public override bool Create(Loan obj)
+        {
+            throw new NotImplementedException();
+        }
         
-            public int CreateLoan(Loan obj)
+        public int CreateLoan(Loan obj)
+        {
+            int idLoan;
+            string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
+            string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                int idLoan;
-                string formattedEndDate = obj.EndDate.ToString("yyyy-MM-dd");
-                string formattedDateNow = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
-                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                connection.Open();
+                using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    connection.Open();
-                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    try
                     {
-                        try
-                        {
-                            SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection, transaction);
-                            cmd.ExecuteNonQuery();
+                        SqlCommand cmd = new SqlCommand($"INSERT INTO dbo.Loan (startDate, endDate, ongoing, idCopy, lender, borrower) VALUES ('{formattedDateNow}', '{formattedEndDate}', '{obj.Ongoing}', '{obj.Copy.IdCopy}', '{obj.Lender.IdPlayer}', '{obj.Borrower.IdPlayer}')", connection, transaction);
+                        cmd.ExecuteNonQuery();
 
-                            cmd = new SqlCommand("SELECT SCOPE_IDENTITY();", connection, transaction);
-                            idLoan = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd = new SqlCommand("SELECT SCOPE_IDENTITY();", connection, transaction);
+                        idLoan = Convert.ToInt32(cmd.ExecuteScalar());
 
-                            transaction.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            throw ex;
-                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw ex;
                     }
                 }
-                return idLoan;
             }
+            return idLoan;
+        }
 
         public override bool Delete(int id)
         {
@@ -119,9 +105,15 @@ namespace ProjetVideoGameV2.Model.DAO
                                 loan.StartDate = reader.GetDateTime("startDate");
                                 loan.EndDate = reader.GetDateTime("endDate");
                                 loan.Ongoing = reader.GetBoolean("ongoing");
-                                loan.Copy.IdCopy = reader.GetInt32("idCopy");
-                                loan.Lender.IdPlayer = reader.GetInt32("lender");
-                                loan.Borrower.IdPlayer = reader.GetInt32("borrower");
+                                Copy copy = new Copy();
+                                copy.IdCopy = reader.GetInt32("idCopy");
+                                loan.Copy = copy;
+                                Player lender = new Player();
+                                lender.IdPlayer = reader.GetInt32("lender");
+                                loan.Lender = lender;
+                                Player borrower = new Player();
+                                borrower.IdPlayer = reader.GetInt32("borrower");
+                                loan.Borrower = borrower;
                             }
                         }
                     }
@@ -186,10 +178,8 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Loan loan = new Loan();
                         loan.IdLoan = reader.GetInt32("idLoan");
-
                         loan.StartDate = reader.GetDateTime("startDate");
                         loan.EndDate = reader.GetDateTime("endDate");
-
                         loan.Ongoing = reader.GetBoolean("ongoing");
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
@@ -218,10 +208,8 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Loan loan = new Loan();
                         loan.IdLoan = reader.GetInt32("idLoan");
-
                         loan.StartDate = reader.GetDateTime("startDate");
                         loan.EndDate = reader.GetDateTime("endDate");
-
                         loan.Ongoing = reader.GetBoolean("ongoing");
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
@@ -250,10 +238,8 @@ namespace ProjetVideoGameV2.Model.DAO
                     {
                         Loan loan = new Loan();
                         loan.IdLoan = reader.GetInt32("idLoan");
-
                         loan.StartDate = reader.GetDateTime("startDate");
                         loan.EndDate = reader.GetDateTime("endDate");
-
                         loan.Ongoing = reader.GetBoolean("ongoing");
                         Copy copy = new Copy();
                         copy.IdCopy = reader.GetInt32("idCopy");
@@ -267,7 +253,6 @@ namespace ProjetVideoGameV2.Model.DAO
             }
             return loans;
         }
-
     }
 }
 

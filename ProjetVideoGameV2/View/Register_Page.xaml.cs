@@ -41,12 +41,28 @@ namespace ProjetVideoGameV2.View
 
         private bool createNewPlayer()
         {
+            if (string.IsNullOrWhiteSpace(Username.Text) ||
+                string.IsNullOrWhiteSpace(Password.Password) ||
+                string.IsNullOrWhiteSpace(Birthday.Text) ||
+                string.IsNullOrWhiteSpace(Pseudo.Text))
+            {
+                MessageBox.Show("Veuillez remplir tous les champs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (DateTime.Parse(Birthday.Text) > DateTime.Now)
+            {
+                MessageBox.Show("Veuillez entrer une date de naissance antérieure à la date actuelle.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             Player p = new Player();
             p.UserName = Username.Text;
             p.Password = Password.Password;
             p.DateOfBirth = DateTime.Parse(Birthday.Text);
             p.Pseudo = Pseudo.Text;
             p.Credit = 10;
+
             return Player.createPlayer(p);
         }
 

@@ -21,7 +21,7 @@
         <Button Content="Update Credit Cost" Foreground="White" HorizontalAlignment="Left" Margin="35,0,0,95" VerticalAlignment="Bottom" Height="25" Width="143" Click="Button_Update" Background="#FF2E65CF"/>
         <Button Content="Add Video Game" HorizontalAlignment="Left" Margin="35,0,0,55" VerticalAlignment="Bottom" Height="25" Width="143" Foreground="White" Background="Green" Click="Button_AddVG"/>
         <Button Content="List of user" HorizontalAlignment="Right" Margin="0,32,109,0" VerticalAlignment="Top" Height="28" Width="68" Background="Orange" Foreground="White" Click="Button_ListOfUser"/>
-        <Button Content="List of loan" HorizontalAlignment="Right" Margin="0,32,192,0" VerticalAlignment="Top" Height="28" Width="68" Background="GreenYellow" Foreground="White" Click="Button_ListOfLoan"/>
+        <Button Content="List of loan" HorizontalAlignment="Right" Margin="0,32,192,0" VerticalAlignment="Top" Height="28" Width="68" Background="LimeGreen" Foreground="White" Click="Button_ListOfLoan"/>
 
     </Grid>
 </UserControl>

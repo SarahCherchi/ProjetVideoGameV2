@@ -10,6 +10,7 @@ namespace ProjetVideoGameV2.POCO
         private DateTime bookingDate;
         private VideoGames videoGames;
         private Player player;
+        private int numberOfWeeks;
         private static BookingDAO bookingDAO = new BookingDAO();
 
         public Booking()
@@ -38,6 +39,12 @@ namespace ProjetVideoGameV2.POCO
         { 
             get { return player; }
             set { player = value; }
+        }
+
+        public int NumberOfWeeks
+        {
+            get { return numberOfWeeks; }
+            set { numberOfWeeks = value; }
         }
 
         public string BookingDateString
@@ -98,6 +105,11 @@ namespace ProjetVideoGameV2.POCO
         public static int CountNumberOfPlayerOnWaitingList(int id)
         {
             return bookingDAO.CountMemberOnWaitingList(id);
+        }
+
+        public static Booking findBookingByVideoGameAndUser(int idUser, int idVideoGame)
+        {
+            return bookingDAO.FindByVideoGameAndUser(idUser, idVideoGame);
         }
     }
 }

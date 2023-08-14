@@ -12,6 +12,7 @@ namespace ProjetVideoGameV2.View
 {
     public partial class Loan_Page : UserControl
     {
+        private Booking booking = new Booking();
         private Player player;
         private Player waitingPlayer;
         private List<Booking> waitingList;
@@ -19,6 +20,7 @@ namespace ProjetVideoGameV2.View
         private ICollectionView collectionView;
         private Loan selectedLoan;
         private int latePenalty;
+        private int numberOfWeeks;
         public Loan_Page(Player player)
         {
             InitializeComponent();
@@ -133,7 +135,7 @@ namespace ProjetVideoGameV2.View
             calculateWaitingPlayer(VideoGame);
             Loan loan = new Loan();
             loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(waitingPlayer.NumberOfWeeks * 7);
+            loan.EndDate = loan.StartDate.AddDays(booking.NumberOfWeeks * 7);
             loan.Ongoing = true;
             loan.Copy = copy;
             loan.Lender = copy.Owner;
@@ -146,15 +148,7 @@ namespace ProjetVideoGameV2.View
         private void calculateWaitingPlayer(VideoGames VideoGame)
         {
             waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
-            foreach (var player in ((App)Application.Current).PlayerList)
-            {
-                if (player.IdPlayer == waitingPlayer.IdPlayer)
-                {
-                    waitingPlayer.NumberOfWeeks = player.NumberOfWeeks;
-                    waitingPlayer.TotalCost = player.TotalCost;
-                    break;
-                }
-            }
+            booking = Booking.findBookingByVideoGameAndUser(waitingPlayer.IdPlayer, VideoGame.IdVideoGames);
         }
 
         private void updateCopyByIdLoan(Loan loan)
@@ -191,15 +185,16 @@ namespace ProjetVideoGameV2.View
         private void deleteBooking()
         {
             Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedLoan.Copy.VideoGames.IdVideoGames);
-            updatePlayer();
+            updatePlayer(selectedLoan.Copy.VideoGames);
         }
 
-        private void updatePlayer()
+        private void updatePlayer(VideoGames videoGames)
         {
             Player playerOwner = (Player)Player.findPlayer(selectedLoan.Copy.Owner.IdPlayer);
-            playerOwner.Credit = playerOwner.Credit + waitingPlayer.TotalCost;
+            int totalCost = booking.NumberOfWeeks * videoGames.CreditCost; 
+            playerOwner.Credit = playerOwner.Credit + totalCost;
             Player.updatePlayer(playerOwner);
-            waitingPlayer.Credit = waitingPlayer.Credit - waitingPlayer.TotalCost;
+            waitingPlayer.Credit = waitingPlayer.Credit - totalCost;
             Player.updatePlayer(waitingPlayer);
         }
 

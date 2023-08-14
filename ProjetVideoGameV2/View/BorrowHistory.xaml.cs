@@ -23,6 +23,7 @@ namespace ProjetVideoGameV2.View
             this.copies = copy;
             lb_pseudo.Content = player.Pseudo;
             lb_credit.Content = player.Credit;
+            initDgBorrowLoan();
         }
 
         private void Button_Home(object sender, RoutedEventArgs e)

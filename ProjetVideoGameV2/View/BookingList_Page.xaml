@@ -60,7 +60,7 @@
                 <DataGridTextColumn Header="Id" Binding="{Binding Idbooking}" Width="Auto"/>
                 <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDateString}" Width="Auto"/>
                 <DataGridTextColumn Header="Video Games" Binding="{Binding VideoGamesString}" Width="*"/>
-                <DataGridTextColumn Header="Pseudo" Binding="{Binding PseudoString}" Width="*"/>
+                <DataGridTextColumn Header="Number of weeks" Binding="{Binding NumberOfWeeks}" Width="*"/>
                 <DataGridTextColumn Header="Number of players in the waiting list" Binding="{Binding NumberOfPlayers}" Width="Auto"/>
                 <DataGridTemplateColumn Header="Cancel Booking" IsReadOnly="False" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>

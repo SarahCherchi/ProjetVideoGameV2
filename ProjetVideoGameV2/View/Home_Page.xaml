@@ -82,7 +82,7 @@
                 <DataGridTemplateColumn Header="Rent out a copy" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Add you copy" Foreground="White" Background="CadetBlue" Click="Button_Renting" Width="Auto"/>
+                            <Button Content="Add your copy" Foreground="White" Background="CadetBlue" Click="Button_Renting" Width="Auto"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

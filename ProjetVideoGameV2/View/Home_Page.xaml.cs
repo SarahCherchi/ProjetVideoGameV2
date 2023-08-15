@@ -256,7 +256,7 @@ namespace ProjectVideoGameV2.View
 
         private void Button_Renting(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {

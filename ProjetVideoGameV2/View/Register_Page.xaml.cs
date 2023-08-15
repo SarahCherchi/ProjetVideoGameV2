@@ -46,13 +46,13 @@ namespace ProjetVideoGameV2.View
                 string.IsNullOrWhiteSpace(Birthday.Text) ||
                 string.IsNullOrWhiteSpace(Pseudo.Text))
             {
-                MessageBox.Show("Veuillez remplir tous les champs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
             if (DateTime.Parse(Birthday.Text) > DateTime.Now)
             {
-                MessageBox.Show("Veuillez entrer une date de naissance antérieure à la date actuelle.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please enter a date of birth before the current date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 

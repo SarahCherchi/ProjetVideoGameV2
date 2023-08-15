@@ -172,7 +172,7 @@ namespace ProjectVideoGameV2.View
                 }
                 else
                 {
-                    MessageBox.Show("You don't have enough credits for book this game. Please lend one of your games first");
+                    MessageBox.Show("You don't have enough credits for book this game. Please lend one of your games first", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             else

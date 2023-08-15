@@ -62,7 +62,7 @@ namespace ProjetVideoGameV2.View
                 List<VideoGames> vg = VideoGames.FindAll();
                 dgVideoGames.ItemsSource = vg;
 
-                MessageBox.Show("Credit cost updated successfully.");
+                MessageBox.Show("Credit cost updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

@@ -97,7 +97,7 @@ namespace ProjetVideoGameV2.View
                             updatePlayer(copy);
                             createLoan(copy);
                             RefreshData();
-                            MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console} for {numberOfWeeks} weeks.");
+                            MessageBox.Show($"Congratulations, you've just booked {copy.VideoGames.Name} on {copy.VideoGames.Console} for {numberOfWeeks} weeks.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {
@@ -106,12 +106,12 @@ namespace ProjetVideoGameV2.View
                     }
                     else
                     {
-                        MessageBox.Show("This copy is already booked.");
+                        MessageBox.Show("This copy is already booked.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("You can't book your own copy!");
+                    MessageBox.Show("You can't book your own copy!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

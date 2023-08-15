@@ -60,7 +60,6 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="N° Copy" Binding="{Binding IdCopy}" Width="Auto"/>
                 <DataGridTextColumn Header="Owner" Binding="{Binding OwnerPseudo}" Width="*"/>
-                <DataGridTextColumn Header="Available" Binding="{Binding Available}" Width="Auto"/>
                 <DataGridTemplateColumn Header="Booking" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

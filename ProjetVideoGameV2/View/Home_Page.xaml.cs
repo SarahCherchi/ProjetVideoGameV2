@@ -15,6 +15,7 @@ namespace ProjectVideoGameV2.View
     public partial class Home_Page : UserControl
     {
         private Booking booking = new Booking();
+        private Copy copy = new Copy();
         private Player player;
         private Player waitingPlayer;
         private VideoGames selectedVg;
@@ -27,22 +28,35 @@ namespace ProjectVideoGameV2.View
         {
             InitializeComponent();
             this.player = player;
+            verificationDateOfBirth();
+            verificationUserIdWithNewCopy();
+            lb_pseudo.Content = player.Pseudo;
+            lb_credit.Content = player.Credit;
+            initDgVideoGames();
+          
+        }
 
-
+        private void verificationDateOfBirth()
+        {
             ok = player.addBirthdayBonus();
             if (ok)
             {
                 Loaded += Home_Page_Loaded;
             }
-            // Récupérer l'ID de l'utilisateur qui a obtenu la copie de la liste d'attente depuis App
+        }
+
+        private void verificationUserIdWithNewCopy()
+        {
             userIdWithNewCopy = ((App)Application.Current).UserIdWithNewCopy;
 
             if (userIdWithNewCopy == player.IdPlayer)
             {
                 Loaded += Home_Page_Loaded;
             }
-            lb_pseudo.Content = player.Pseudo;
-            lb_credit.Content = player.Credit;
+        }
+
+        private void initDgVideoGames()
+        {
             List<VideoGames> vg = VideoGames.FindAll();
 
             foreach (var game in vg)
@@ -53,7 +67,6 @@ namespace ProjectVideoGameV2.View
             dgVideoGames.ItemsSource = vg;
 
             dgVideoGames.SelectionChanged += dgVideoGames_SelectionChanged;
-          
         }
 
         private void Home_Page_Loaded(object sender, RoutedEventArgs e)
@@ -89,27 +102,9 @@ namespace ProjectVideoGameV2.View
         private void showBookingMessage()
         {
             MessageBox.Show("Congratulations! You have received a new loan for a game from the waiting list.", "New Loan", MessageBoxButton.OK, MessageBoxImage.Information);
-            // Réinitialiser l'ID après avoir affiché le message
             ((App)Application.Current).UserIdWithNewCopy = -1;
         }
 
-        private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (dgVideoGames.SelectedItem is VideoGames selectedGame)
-            {
-                selectedVg = selectedGame;
-            }
-        }
-
-        private void Button_Search(object sender, RoutedEventArgs e)
-        {
-            List<VideoGames> vg = VideoGames.FindVideoGamesByName(nameSearch.Text);
-            dgVideoGames.ItemsSource = vg;
-            foreach (var game in vg)
-            {
-                game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
-            }
-        }
         private void Button_Home(object sender, RoutedEventArgs e)
         {
             Home_Page home = new Home_Page(player);
@@ -128,87 +123,47 @@ namespace ProjectVideoGameV2.View
             this.Content = copies;
         }
 
+        private void Button_BookingList(object sender, RoutedEventArgs e)
+        {
+            BookingList_Page bookingList = new BookingList_Page(player);
+            this.Content = bookingList;
+        }
+
+        private void Button_History(object sender, RoutedEventArgs e)
+        {
+            History_Page history = new History_Page(player);
+            this.Content = history;
+        }
+
         private void Button_Account(object sender, RoutedEventArgs e)
         {
             AccountInfo account = new AccountInfo(player);
             this.Content = account;
         }
 
-        private void Button_Renting(object sender, RoutedEventArgs e)
+        private void Button_Logout(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo);
+            Window home_page = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
 
-            if (result == MessageBoxResult.Yes)
+            home_page.Close();
+            mainWindow.Show();
+
+        }
+
+        private void Button_Search(object sender, RoutedEventArgs e)
+        {
+            List<VideoGames> vg = VideoGames.FindVideoGamesByName(nameSearch.Text);
+            dgVideoGames.ItemsSource = vg;
+            foreach (var game in vg)
             {
-                Copy copy = new Copy();
-
-                copy.VideoGames = selectedVg;
-                copy.Owner = player;
-
-                bool success = Copy.createCopy(copy);
-
-                if (success)
-                {
-                    MessageBox.Show("Renting successful!", "Renting", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    selectedVg.NumberOfCopy = VideoGames.nbrCopyAvailable(selectedVg.IdVideoGames);
-                    waitingList = Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames);
-
-
-                    if (selectedVg.NumberOfCopy == 1 && waitingList.Count > 0)
-                    {
-                        copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
-                        AllocateCopyToWaitingPlayer(selectedVg, copy);
-                        bool successDelete = Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedVg.IdVideoGames);
-                        int totalCost = booking.NumberOfWeeks * selectedVg.CreditCost; 
-                        player.Credit = player.Credit + totalCost;
-                        Player.updatePlayer(player);
-                        waitingPlayer.Credit = waitingPlayer.Credit - totalCost;
-                        Player.updatePlayer(waitingPlayer);
-                        if (successDelete)
-                        {
-                            MessageBox.Show("Your copy has just been assigned to a player on the waiting list", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    Home_Page home_Page = new Home_Page(player);
-                    Content = home_Page;
-                }
-                else
-                {
-                    MessageBox.Show("Renting failed!", "Renting", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                game.NumberOfCopy = VideoGames.nbrCopyAvailable(game.IdVideoGames);
             }
-            
         }
 
-        private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
-        {
-            waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
-            booking = Booking.findBookingByVideoGameAndUser(waitingPlayer.IdPlayer, VideoGame.IdVideoGames);
-            Loan loan = new Loan();
-            loan.StartDate = DateTime.Now;
-            loan.EndDate = loan.StartDate.AddDays(booking.NumberOfWeeks * 7);
-            loan.Ongoing = true;
-            loan.Copy = copy;
-            loan.Lender = copy.Owner;
-            loan.Borrower = waitingPlayer;
-            loan.IdLoan = Loan.createLoan(loan);
-            updateCopyByIdLoan(loan);
-            ((App)Application.Current).UserIdWithNewCopy = waitingPlayer.IdPlayer;
-        }
-
-        private void updateCopyByIdLoan(Loan loan)
-        {
-            loan.Copy.Loan = loan;
-            Copy.updateLoanerCopy(loan.Copy);
-        }
         private void Button_Booking(object sender, RoutedEventArgs e)
         {
-            if(selectedVg.NumberOfCopy > 0)
+            if (isNumberOfCopies())
             {
                 if (isEnoughCredit(player, selectedVg))
                 {
@@ -222,7 +177,7 @@ namespace ProjectVideoGameV2.View
             }
             else
             {
-                if(isEnoughCredit(player, selectedVg)) 
+                if (isEnoughCredit(player, selectedVg))
                 {
                     if (isAllowedToWaitingList(selectedVg))
                     {
@@ -250,16 +205,9 @@ namespace ProjectVideoGameV2.View
             }
         }
 
-        private void calculationRentalCost()
+        private bool isNumberOfCopies()
         {
-            CreateLoanDialog createLoanDialog = new CreateLoanDialog(player, selectedVg);
-            createLoanDialog.ShowDialog();
-            if (createLoanDialog.DialogResult == true)
-            {
-                 numberOfWeeks = createLoanDialog.numberOfWeeks;
-                //player.TotalCost = player.NumberOfWeeks * selectedVg.CreditCost;
-            }
-
+            return selectedVg.NumberOfCopy > 0;
         }
 
         private bool isEnoughCredit(Player player, VideoGames videoGames)
@@ -278,10 +226,102 @@ namespace ProjectVideoGameV2.View
             return playerBookings.Count == 0;
         }
 
+        private void calculationRentalCost()
+        {
+            CreateLoanDialog createLoanDialog = new CreateLoanDialog(player, selectedVg);
+            createLoanDialog.ShowDialog();
+            if (createLoanDialog.DialogResult == true)
+            {
+                numberOfWeeks = createLoanDialog.numberOfWeeks;
+            }
+
+        }
+
+        private void createNewBooking(VideoGames videoGames)
+        {
+            booking.BookingDate = DateTime.Now;
+            booking.VideoGames = videoGames;
+            booking.Player = player;
+            booking.NumberOfWeeks = numberOfWeeks;
+            bool success = Booking.createBooking(booking);
+            if (success)
+            {
+                waitingList.AddRange(Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames));
+            }
+            else
+            {
+                MessageBox.Show("Error at the creation of the booking", "Error Booking", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Renting(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Would you like to add your copy?", "Add a copy", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                if (isCreateCopy())
+                {
+                    MessageBox.Show("Renting successful!", "Renting", MessageBoxButton.OK, MessageBoxImage.Information);
+                    selectedVg.NumberOfCopy = VideoGames.nbrCopyAvailable(selectedVg.IdVideoGames);
+                    waitingList = Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames);
+                    if (isNumberOfWeek())
+                    {
+                        copy.IdCopy = Copy.findAllCopyByIdVG(selectedVg.IdVideoGames).Last().IdCopy;
+                        AllocateCopyToWaitingPlayer(selectedVg, copy);
+                        if (isDeleteBooking())
+                        {
+                            updatePlayer();
+                            MessageBox.Show("Your copy has just been assigned to a player on the waiting list", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    Home_Page home_Page = new Home_Page(player);
+                    Content = home_Page;
+                }
+                else
+                {
+                    MessageBox.Show("Renting failed!", "Renting", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
+        }
+
+        private bool isCreateCopy()
+        {
+            copy.VideoGames = selectedVg;
+            copy.Owner = player;
+            return Copy.createCopy(copy);
+        }
+
+        private bool isNumberOfWeek()
+        {
+            return selectedVg.NumberOfCopy == 1 && waitingList.Count > 0;
+        }
+
+        private void AllocateCopyToWaitingPlayer(VideoGames VideoGame, Copy copy)
+        {
+            waitingPlayer = generatePlayerHaveCopy(VideoGame.IdVideoGames);
+            booking = Booking.findBookingByVideoGameAndUser(waitingPlayer.IdPlayer, VideoGame.IdVideoGames);
+            Loan loan = new Loan();
+            loan.StartDate = DateTime.Now;
+            loan.EndDate = loan.StartDate.AddDays(booking.NumberOfWeeks * 7);
+            loan.Ongoing = true;
+            loan.Copy = copy;
+            loan.Lender = copy.Owner;
+            loan.Borrower = waitingPlayer;
+            loan.IdLoan = Loan.createLoan(loan);
+            updateCopyByIdLoan(loan);
+            ((App)Application.Current).UserIdWithNewCopy = waitingPlayer.IdPlayer;
+        }
+
         private Player generatePlayerHaveCopy(int id)
         {
             waitingList = Booking.findAllBookingByIdVideoGame(id);
-            foreach(Booking b in waitingList)
+            foreach (Booking b in waitingList)
             {
                 b.Player = (Player)Player.findPlayer(b.Player.IdPlayer);
             }
@@ -303,43 +343,32 @@ namespace ProjectVideoGameV2.View
             return sortedList.First().Player;
         }
 
-        private void createNewBooking(VideoGames videoGames)
+        private void updateCopyByIdLoan(Loan loan)
         {
-            booking.BookingDate = DateTime.Now;
-            booking.VideoGames = videoGames;
-            booking.Player = player;
-            booking.NumberOfWeeks = numberOfWeeks;
-            bool success = Booking.createBooking(booking);
-            if (success)
+            loan.Copy.Loan = loan;
+            Copy.updateLoanerCopy(loan.Copy);
+        }
+
+        private bool isDeleteBooking()
+        {
+            return Booking.deleteBookingByIdUserAndIdVideoGame(waitingPlayer.IdPlayer, selectedVg.IdVideoGames);
+        }
+
+        private void updatePlayer()
+        {
+            int totalCost = booking.NumberOfWeeks * selectedVg.CreditCost;
+            player.Credit = player.Credit + totalCost;
+            Player.updatePlayer(player);
+            waitingPlayer.Credit = waitingPlayer.Credit - totalCost;
+            Player.updatePlayer(waitingPlayer);
+        }
+
+        private void dgVideoGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgVideoGames.SelectedItem is VideoGames selectedGame)
             {
-                waitingList.AddRange(Booking.findAllBookingByIdVideoGame(selectedVg.IdVideoGames));
+                selectedVg = selectedGame;
             }
-            else
-            {
-                MessageBox.Show("Error at the creation of the booking", "Error Booking", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void Button_Logout(object sender, RoutedEventArgs e)
-        {
-            Window home_page = Window.GetWindow(this);
-            MainWindow mainWindow = new MainWindow();
-
-            home_page.Close();
-            mainWindow.Show();
-
-        }
-
-        private void Button_BookingList(object sender, RoutedEventArgs e)
-        {
-            BookingList_Page bookingList = new BookingList_Page(player);
-            this.Content = bookingList; 
-        }
-
-        private void Button_History(object sender, RoutedEventArgs e)
-        {
-            History_Page history = new History_Page(player);
-            this.Content = history;
         }
     }
 }

@@ -149,6 +149,8 @@ namespace ProjetVideoGameV2.View
             player.Credit -= totalCreditCost;
             Player.updatePlayer(player);
             lb_credit.Content = player.Credit;
+            copy.Owner.Credit += totalCreditCost;
+            Player.updatePlayer(copy.Owner);
         }
 
         private void createLoan(Copy copy)

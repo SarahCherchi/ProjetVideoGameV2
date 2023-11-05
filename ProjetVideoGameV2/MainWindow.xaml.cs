@@ -8,6 +8,7 @@ namespace ProjetVideoGameV2
 {
     public partial class MainWindow : Window
     {
+        private string test = "Test";
         public MainWindow()
         {
             InitializeComponent();
